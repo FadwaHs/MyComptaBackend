@@ -1,19 +1,30 @@
 package com.codingart.mycompta;
 
-import com.codingart.mycompta.model.*;
-import com.codingart.mycompta.repository.*;
+import com.codingart.mycompta.model.client.Client;
+import com.codingart.mycompta.model.config.CompteBanc;
+import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.environment.Environment;
+import com.codingart.mycompta.model.facture.FactureSimple;
+import com.codingart.mycompta.model.general_infos.Address;
+import com.codingart.mycompta.model.general_infos.Note;
+import com.codingart.mycompta.model.general_infos.Phone;
+import com.codingart.mycompta.repository.client.ClientRepository;
+import com.codingart.mycompta.repository.config.CompteBancRepository;
+import com.codingart.mycompta.repository.devis.DevisRepository;
+import com.codingart.mycompta.repository.environment.EnvironmentRepository;
+import com.codingart.mycompta.repository.facture.FactureSimpleRepository;
+import com.codingart.mycompta.repository.general_infos.AddressRepository;
+import com.codingart.mycompta.repository.general_infos.NoteRepository;
+import com.codingart.mycompta.repository.general_infos.PhoneRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 public class MyComptaApplication implements CommandLineRunner {
