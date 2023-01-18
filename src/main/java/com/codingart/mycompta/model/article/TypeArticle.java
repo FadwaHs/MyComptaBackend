@@ -18,6 +18,7 @@ public class TypeArticle {
     @NotBlank(message = "TypeName may not be blank")
     private String typeName;
 
+    public record Person (String name, String address) {}
 
     //    Relation between TypeArticle and Article
     @OneToMany(mappedBy = "typeArticle",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
