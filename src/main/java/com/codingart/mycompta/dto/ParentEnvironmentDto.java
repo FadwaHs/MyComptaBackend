@@ -2,7 +2,7 @@ package com.codingart.mycompta.dto;
 
 import com.codingart.mycompta.model.environment.Environment;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +10,8 @@ import java.util.List;
 /**
  * A DTO for the {@link Environment} entity
  */
-@Data
+@Getter
+@Setter
 public class ParentEnvironmentDto implements Serializable {
     private  Long id;
     @NotBlank(message = "Name may not be blank")

@@ -3,7 +3,7 @@ package com.codingart.mycompta.dto;
 import com.codingart.mycompta.model.client.Client;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +11,8 @@ import java.util.List;
 /**
  * A DTO for the {@link Client} entity
  */
-@Data
+@Getter
+@Setter
 public class ClientDto implements Serializable {
     private  Long id;
     @Email(message = "Invalid Email")

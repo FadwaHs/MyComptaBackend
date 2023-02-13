@@ -7,7 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Article {

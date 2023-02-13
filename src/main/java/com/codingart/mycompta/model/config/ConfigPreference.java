@@ -6,7 +6,8 @@ import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class ConfigPreference {

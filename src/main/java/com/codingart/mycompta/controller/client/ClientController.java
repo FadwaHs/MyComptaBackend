@@ -44,4 +44,13 @@ public class ClientController {
     }
 
 
+    @GetMapping("par")
+    public ResponseEntity<List<Client>> getAllClientPar(){
+        return new ResponseEntity<>(clientService.getAllClientPar(), HttpStatus.OK);
+    }
+    @GetMapping("pro")
+    public ResponseEntity<List<Client>> getAllClientPro(){
+        return new ResponseEntity<>(clientService.getAllClientPro(), HttpStatus.OK);
+    }
+
 }

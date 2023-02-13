@@ -4,14 +4,16 @@ import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.Facture;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MotCle {
@@ -20,14 +22,16 @@ public class MotCle {
     private Long id ;
 
     @NotBlank(message = "Mot may not be blank")
-    private Long mot;
+    private String mot;
 
     //    Relation between MotCle and Societe
+    @JsonBackReference("societe_motCle")
     @ManyToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
 
     //    Relation between MotCle and Client
+    @JsonBackReference("client_motCle")
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

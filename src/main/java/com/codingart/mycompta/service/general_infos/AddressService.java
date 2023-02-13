@@ -2,6 +2,7 @@ package com.codingart.mycompta.service.general_infos;
 
 import com.codingart.mycompta.model.general_infos.Address;
 import java.util.List;
+import java.util.Map;
 
 public interface AddressService {
 

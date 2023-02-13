@@ -4,10 +4,13 @@ import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.general_infos.Address;
 import com.codingart.mycompta.repository.general_infos.AddressRepository;
 import com.codingart.mycompta.service.general_infos.AddressService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +19,7 @@ public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     private final String message = "Address not found for this id :: ";
 
-
+    private static Address currentAddress;
     @Override
     public Address addAddress(Address address) {
         return addressRepository.save(address);
@@ -33,9 +36,10 @@ public class AddressServiceImpl implements AddressService {
         return addressRepository.findAll();
     }
 
+
     @Override
     public Address updateAddress( Long id, Address address) {
-        addressRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException(message+id));
+        currentAddress = addressRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException(message+id));
         address.setId(id);
         return addressRepository.save(address);
     }

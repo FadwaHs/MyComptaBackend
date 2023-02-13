@@ -5,6 +5,8 @@ import com.codingart.mycompta.model.auth.User;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.config.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -12,7 +14,8 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Environment {
@@ -42,10 +45,12 @@ public class Environment {
     private List<Membre> membreList;
 
 //     Relation between Environment and Client
+    @JsonManagedReference("environment_client")
     @OneToMany(mappedBy = "environment",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Client> clientList;
 
 //     Relation between Environment and Societe
+    @JsonManagedReference("environment_societe")
     @OneToMany(mappedBy = "environment",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Societe> societeList;
 

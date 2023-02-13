@@ -1,20 +1,20 @@
 package com.codingart.mycompta;
 
 import com.codingart.mycompta.model.client.Client;
+import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.config.CompteBanc;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.environment.Environment;
 import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.general_infos.Address;
-import com.codingart.mycompta.model.general_infos.Note;
 import com.codingart.mycompta.model.general_infos.Phone;
 import com.codingart.mycompta.repository.client.ClientRepository;
+import com.codingart.mycompta.repository.client.SocieteRepository;
 import com.codingart.mycompta.repository.config.CompteBancRepository;
 import com.codingart.mycompta.repository.devis.DevisRepository;
 import com.codingart.mycompta.repository.environment.EnvironmentRepository;
 import com.codingart.mycompta.repository.facture.FactureSimpleRepository;
 import com.codingart.mycompta.repository.general_infos.AddressRepository;
-import com.codingart.mycompta.repository.general_infos.NoteRepository;
 import com.codingart.mycompta.repository.general_infos.PhoneRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,33 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.*;
 
+
 @SpringBootApplication
-public class MyComptaApplication implements CommandLineRunner {
+public class MyComptaApplication  implements CommandLineRunner{
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                        .allowedOrigins("http://localhost:4200")
+                        .allowedMethods("GET", "POST", "DELETE", "PUT")
+                        .maxAge(3600);
+            }
+        };
+    }
 
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
 
     @Autowired
     ClientRepository clientRepository;
@@ -50,8 +67,11 @@ public class MyComptaApplication implements CommandLineRunner {
     @Autowired
     FactureSimpleRepository factureSimpleRepository;
 
+
+
     @Autowired
-    NoteRepository noteRepository;
+    SocieteRepository societeRepository;
+
 
      static Client c = new Client();
 
@@ -60,12 +80,28 @@ public class MyComptaApplication implements CommandLineRunner {
     }
 
 
-    @Override
     @Transactional
+    @Override
     public void run(String... args) throws Exception {
 
+//        List<Client> cpar= clientRepository.SelectAllClientPar();
+//        List<Client> cpro= clientRepository.SelectAllClientPro();
+//        System.out.println(cpar);
+//        System.out.println(cpro);
 
+        //add Societe
+        Societe s = new Societe();
+        s.setName("Coding Art");
+        s.setLanguage("Français");
 
+        Client c = new Client();
+        List<Client> listClient = new ArrayList<>();
+        c.setFirstName("Marwane");
+        c.setLastName("Bella");
+        c.setLanguage("Français");
+        listClient.add(c);
+        s.setClientList(listClient);
+        societeRepository.save(s);
         // add enviroment
 
         Environment parent = new Environment();
@@ -109,26 +145,26 @@ public class MyComptaApplication implements CommandLineRunner {
         c.setEmail("bella@gmail.com");
         c.setLanguage("English");
 
-         c = clientRepository.save(c);
+        c = clientRepository.save(c);
+
+        c = new Client();
+        c.setFirstName("Hamza");
+        c.setLastName("Ezzaki");
+        c.setEmail("Hamza@gmail.com");
+        c.setLanguage("Français");
+
+        c = clientRepository.save(c);
+
 
         // add Note
 
 
-        Note n = Note.builder().noteName("my note").client(c).build();
 
-        noteRepository.save(n);
 
         // add phone
 
         Phone p1 = new Phone();
-        p1.setPhoneNumber("076678758");
-        p1.setClient(c);
-        phoneRepository.save(p1);
 
-        Phone p2 = new Phone();
-        p2.setPhoneNumber("067879898");
-        p2.setClient(c);
-        phoneRepository.save(p2);
 
 
 
@@ -136,9 +172,15 @@ public class MyComptaApplication implements CommandLineRunner {
         // add Address
 
         Address a = new Address();
-//        a.setCity("Agadir");
+        List<String> ca = new ArrayList<String>();
+        ca.add("Hay chninate");
+        ca.add("Hay Takadom");
+        ca.add("Hay rtaym");
+        a.setCity("houwara");
+        a.setComplementAddress(ca);
 
         addressRepository.save(a);
+
 
         // add Devis
 
@@ -181,7 +223,7 @@ public class MyComptaApplication implements CommandLineRunner {
 //
 //        });
 
-
-
     }
+
+
 }

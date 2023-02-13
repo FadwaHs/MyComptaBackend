@@ -6,7 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompteBanc {

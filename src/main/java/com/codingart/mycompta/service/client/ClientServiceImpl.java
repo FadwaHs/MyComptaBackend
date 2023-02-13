@@ -46,4 +46,14 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.deleteById(id);
     }
 
+    @Override
+    public List<Client> getAllClientPar() {
+        return clientRepository.selectAllClientPar();
+    }
+
+    @Override
+    public List<Client> getAllClientPro() {
+        return clientRepository.selectAllClientPro();
+    }
+
 }

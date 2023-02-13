@@ -5,6 +5,8 @@ import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.facture.Facture;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -13,7 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Devis {
@@ -58,11 +61,13 @@ public class Devis {
     private List<Facture> factureList;
 
     //    Relation between Devis and Societe
+    @JsonBackReference("societe_devis")
     @ManyToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
 
     //    Relation between Devis and Client
+    @JsonBackReference("client_devis")
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
