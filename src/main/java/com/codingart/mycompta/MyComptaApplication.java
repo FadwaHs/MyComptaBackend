@@ -90,18 +90,18 @@ public class MyComptaApplication  implements CommandLineRunner{
 //        System.out.println(cpro);
 
         //add Societe
-        Societe s = new Societe();
-        s.setName("Coding Art");
-        s.setLanguage("Français");
-
-        Client c = new Client();
-        List<Client> listClient = new ArrayList<>();
-        c.setFirstName("Marwane");
-        c.setLastName("Bella");
-        c.setLanguage("Français");
-        listClient.add(c);
-        s.setClientList(listClient);
-        societeRepository.save(s);
+//        Societe s = new Societe();
+//        s.setName("Coding Art");
+//        s.setLanguage("Français");
+//
+//        Client c = new Client();
+//        List<Client> listClient = new ArrayList<>();
+//        c.setFirstName("Marwane");
+//        c.setLastName("Bella");
+//        c.setLanguage("Français");
+//        listClient.add(c);
+//        s.setClientList(listClient);
+//        societeRepository.save(s);
         // add enviroment
 
         Environment parent = new Environment();

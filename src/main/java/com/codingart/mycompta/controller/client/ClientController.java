@@ -1,9 +1,11 @@
 package com.codingart.mycompta.controller.client;
 
+import com.codingart.mycompta.dto.ClientDto;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.service.client.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +18,18 @@ import java.util.List;
 public class ClientController {
 
     private final ClientService clientService;
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @GetMapping("{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable Long id){
-        return new ResponseEntity<>(clientService.getClient(id), HttpStatus.OK);
+    public ResponseEntity<ClientDto> getClientById(@PathVariable Long id){
+        ClientDto clientDto = modelMapper.map(clientService.getClient(id),ClientDto.class);
+        return new ResponseEntity<>(clientDto, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> getAllClient(){
-        return new ResponseEntity<>(clientService.getAllClient(), HttpStatus.OK);
+    public ResponseEntity<List<ClientDto>> getAllClient(){
+        List<ClientDto> clientDtoList = clientService.getAllClient().stream().map(p -> modelMapper.map(p,ClientDto.class)).toList();
+        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
     }
 
     @PostMapping

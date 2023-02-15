@@ -52,7 +52,7 @@ public class Client {
 
 //    Relation Between Client and Address
     @JsonManagedReference("client_address")
-    @OneToOne
+    @OneToOne(mappedBy = "client",cascade = CascadeType.REMOVE)
     private Address address;
 
 
