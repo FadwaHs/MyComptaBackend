@@ -1,18 +1,20 @@
 package com.codingart.mycompta.model.devis;
 
+import com.codingart.mycompta.model.enums.DevisStatus;
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.facture.Facture;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Date;
 import java.util.List;
+
 
 @Entity
 @Getter
@@ -23,8 +25,9 @@ public class Devis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String codeD;
+    @Column(unique = true)
+    private String slug;
+    private String code;
     @Basic
     @Temporal(TemporalType.DATE)
     private Date validationDuration;
@@ -35,17 +38,9 @@ public class Devis {
     private String textCond;
     private String piedPage;
     private String condVente;
-    @ColumnDefault("false")
-    private boolean isDestined;
-    @ColumnDefault("false")
-    private boolean isFinalized;
-    @ColumnDefault("false")
-    private boolean isSigned;
-    @ColumnDefault("false")
-    private boolean isRefused;
-
-//    @ElementCollection
-//    private List<Character> Status;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private DevisStatus status = DevisStatus.PROVISIONAL;
 
 
     //    Relation between Devis and MotCle
@@ -87,6 +82,8 @@ public class Devis {
     @JoinColumn(name = "interet_id")
     private Interet interet;
 
-    
-
+    @PrePersist
+    public void setSlugPrePersist(){
+        this.slug = RandomStringUtils.randomAlphanumeric(10).toLowerCase();
+    }
 }

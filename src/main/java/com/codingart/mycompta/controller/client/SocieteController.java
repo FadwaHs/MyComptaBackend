@@ -1,9 +1,13 @@
 package com.codingart.mycompta.controller.client;
 
 import com.codingart.mycompta.model.client.Societe;
+import com.codingart.mycompta.repository.client.SocieteRepository;
 import com.codingart.mycompta.service.client.SocieteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +21,10 @@ import java.util.Map;
 @RequestMapping("/api/societes")
 @RequiredArgsConstructor
 public class SocieteController {
-
     private final SocieteService societeService;
+    private final SocieteRepository societeRepository;
+    
+    
 
     @GetMapping("{id}")
     public ResponseEntity<Societe> getSocieteById(@PathVariable Long id){
@@ -28,6 +34,14 @@ public class SocieteController {
     @GetMapping
     public ResponseEntity<List<Societe>> getAllSociete(){
         return new ResponseEntity<>(societeService.getAllSociete(), HttpStatus.OK);
+    }
+    @GetMapping("pagination")
+    public ResponseEntity<Map<String, Object>> getListSocietes(
+            @RequestParam(required = false) String data,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        return new ResponseEntity<>(societeService.getListSociete(data,page,size), HttpStatus.OK);
     }
 
     @PostMapping
@@ -45,6 +59,7 @@ public class SocieteController {
         societeService.deleteSociete(id);
         return new ResponseEntity<>( "Deleted" ,HttpStatus.OK);
     }
+
 
 
 }

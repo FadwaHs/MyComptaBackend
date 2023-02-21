@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -22,14 +23,23 @@ public class ClientController {
 
     @GetMapping("{id}")
     public ResponseEntity<ClientDto> getClientById(@PathVariable Long id){
-        ClientDto clientDto = modelMapper.map(clientService.getClient(id),ClientDto.class);
-        return new ResponseEntity<>(clientDto, HttpStatus.OK);
+        return new ResponseEntity<>(clientService.getClient(id), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<ClientDto>> getAllClient(){
         List<ClientDto> clientDtoList = clientService.getAllClient().stream().map(p -> modelMapper.map(p,ClientDto.class)).toList();
         return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("pagination")
+    public ResponseEntity<Map<String, Object>> getListClients(
+            @RequestParam(required = false) String data,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+
+        return new ResponseEntity<>(clientService.getListClients(data,page,size), HttpStatus.OK);
     }
 
     @PostMapping

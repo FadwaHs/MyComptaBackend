@@ -10,6 +10,8 @@ public interface SocieteService {
     Societe addSociete(Societe societe);
     Societe getSociete(Long id);
     List<Societe> getAllSociete();
+    Map<String,Object> getListSociete(String data,int page,int size);
     Societe updateSociete(Long id, Societe societe);
     void deleteSociete(Long id);
+
 }
