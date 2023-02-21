@@ -20,12 +20,12 @@ public abstract class Facture {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_facture")
     private Long id;
-    private String CodeF;
-    private String Devise;
-    private String TextIntro;
-    private String TextCond;
+    private String code;
+    private String devise;
+    private String textIntro;
+    private String textCond;
     private String piedPage;
-    private String CondVente;
+    private String condVente;
 
     @ColumnDefault("false")
     private boolean isFinalized;
