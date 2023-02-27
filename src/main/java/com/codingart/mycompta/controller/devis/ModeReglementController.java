@@ -19,7 +19,7 @@ public class ModeReglementController {
     private final ModeReglementService modeReglementService;
 
     @PostConstruct
-    public void iniatConditionReglement(){
+    public void defaultModesReglement(){
         modeReglementService.initModesReglement();
     }
 

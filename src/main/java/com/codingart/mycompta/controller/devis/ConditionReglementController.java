@@ -19,7 +19,7 @@ public class ConditionReglementController {
     private final ConditionReglementService conditionReglementService;
 
     @PostConstruct
-    public void iniatConditionReglement(){
+    public void defaultConditionsReglement(){
         conditionReglementService.initConditionsReglement();
     }
 

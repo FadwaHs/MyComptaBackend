@@ -17,7 +17,7 @@ public class Interet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "Interet may not be blank")
-    private String interet;
+    private String name;
 
 
 //    Relation between Interet and Devis

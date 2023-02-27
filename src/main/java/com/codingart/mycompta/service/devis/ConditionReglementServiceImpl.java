@@ -2,11 +2,13 @@ package com.codingart.mycompta.service.devis;
 
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.devis.ConditionReglement;
+import com.codingart.mycompta.model.devis.Interet;
 import com.codingart.mycompta.repository.devis.ConditionReglementRepository;
 import com.codingart.mycompta.service.devis.ConditionReglementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +21,15 @@ public class ConditionReglementServiceImpl implements ConditionReglementService 
 
     @Override
     public void initConditionsReglement() {
+        List<ConditionReglement> conditionReglementList = new ArrayList<>();
+        String[] defaultconditionsReglement= {"Voir détail ci après", "À réception", "Fin de mois"
+                ,"10 jours", "30 jours", "30 jours fin de mois", "45 jours", "45 jours fin de mois",
+                "60 jours", "60 jours fin de mois", "90 jours", "90 jours fin de mois" ,"120 jours"};
 
+        for (int i=0 ; i < defaultconditionsReglement.length; i++) {
+            conditionReglementList.add(ConditionReglement.builder().id((long) (i+1)).name(defaultconditionsReglement[i]).build() );
+        }
+        conditionReglementRepository.saveAll(conditionReglementList);
     }
 
     @Override

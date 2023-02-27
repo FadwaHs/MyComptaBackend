@@ -26,16 +26,10 @@ public class ModeReglementServiceImpl implements ModeReglementService {
         String[] defaultModes = {"Non spécifié", "Espèces", "Chèque" ,"Virement bancaire",
                 "Carte bancaire","PayPal","Prélèvement","Lettre de change","Lettre de change relevé",
                 "Lettre de change sans acceptation", "Billet à ordre"};
-
-//        for (int i=0 ; i < 2; i++) {
-//            System.out.println(defaultModes[i]);
-//            listModeReglement.add(ModeReglement.builder().id((long) (i+1)).mode(defaultModes[i]).build() );
-//            modeReglementRepository.save(ModeReglement.builder().id((long) (i+1)).mode(defaultModes[i]).build());
-//        }
-        listModeReglement.add(ModeReglement.builder().id(1L).mode("Non spécifié").build() );
-        listModeReglement.add(ModeReglement.builder().id(2L).mode("Espèces").build() );
-        System.out.println(listModeReglement);
-//        modeReglementRepository.saveAll(listModeReglement);
+        for (int i=0 ; i < defaultModes.length; i++) {
+            listModeReglement.add(ModeReglement.builder().id((long) (i+1)).name(defaultModes[i]).build() );
+        }
+        modeReglementRepository.saveAll(listModeReglement);
     }
 
     @Override

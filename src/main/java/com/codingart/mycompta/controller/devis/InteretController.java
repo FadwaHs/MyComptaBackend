@@ -19,7 +19,7 @@ public class InteretController {
     private final InteretService interetService;
 
     @PostConstruct
-    public void defaultConditionReglement(){
+    public void defaultInterets(){
         interetService.initInterets();
     }
 

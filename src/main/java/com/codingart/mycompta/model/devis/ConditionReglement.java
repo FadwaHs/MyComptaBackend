@@ -17,7 +17,7 @@ public class ConditionReglement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "ConditionName may not be blank")
-    private String conditionName;
+    private String name;
 
 
 //    Relation between ConditionReglement and Devis
