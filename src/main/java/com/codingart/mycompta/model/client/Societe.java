@@ -19,13 +19,16 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Societe {
+
+    @NonNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
-
     @Column(unique = true)
     private String slug;
+    @NonNull
     @NotBlank(message = "Name may not be blank")
     private String name;
     private String ntva;

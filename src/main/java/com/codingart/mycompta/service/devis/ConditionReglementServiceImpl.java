@@ -18,6 +18,11 @@ public class ConditionReglementServiceImpl implements ConditionReglementService 
 
 
     @Override
+    public void initConditionsReglement() {
+
+    }
+
+    @Override
     public ConditionReglement addConditionReglement(ConditionReglement conditionReglement) {
         return conditionReglementRepository.save(conditionReglement);
 

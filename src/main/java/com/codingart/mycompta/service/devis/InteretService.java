@@ -5,6 +5,8 @@ import com.codingart.mycompta.model.devis.Interet;
 import java.util.List;
 
 public interface InteretService {
+
+    void initInterets();
     Interet addInteret(Interet interet);
     Interet getInteret(Long id);
     List<Interet> getAllInteret();

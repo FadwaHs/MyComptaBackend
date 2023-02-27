@@ -2,6 +2,7 @@ package com.codingart.mycompta.controller.devis;
 
 import com.codingart.mycompta.model.devis.Interet;
 import com.codingart.mycompta.service.devis.InteretService;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,11 @@ import java.util.List;
 public class InteretController {
 
     private final InteretService interetService;
+
+    @PostConstruct
+    public void defaultConditionReglement(){
+        interetService.initInterets();
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<Interet> getInteretById(@PathVariable Long id){

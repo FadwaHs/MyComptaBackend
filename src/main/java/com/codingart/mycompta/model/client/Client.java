@@ -17,21 +17,25 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+@Builder
 @Entity
 @Getter
 @Setter
 @Validated
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Client {
+    @NonNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
     @Column(unique = true)
     private String slug;
-
+    @NonNull
     @NotBlank(message = "firstName may not be blank")
     private String firstName;
+    @NonNull
     @NotBlank(message = "lastName may not be blank")
     private String lastName;
 

@@ -2,6 +2,7 @@ package com.codingart.mycompta.controller.article;
 
 import com.codingart.mycompta.model.article.TypeArticle;
 import com.codingart.mycompta.service.article.TypeArticleService;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,11 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/typeArticles")
+@RequestMapping("/api/types-article")
 @RequiredArgsConstructor
 public class TypeArticleController {
 
     private final TypeArticleService typeArticleService;
+
+    @PostConstruct
+    public void defaultTypeArticle(){
+        typeArticleService.initTypesArticle();
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<TypeArticle> getTypeArticleById(@PathVariable Long id){

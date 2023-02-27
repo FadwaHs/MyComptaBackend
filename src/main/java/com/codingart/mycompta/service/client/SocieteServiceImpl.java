@@ -1,6 +1,7 @@
 package com.codingart.mycompta.service.client;
 
 import com.codingart.mycompta.exception.ResourceNotFoundException;
+import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.repository.client.SocieteRepository;
 import lombok.RequiredArgsConstructor;
@@ -70,6 +71,9 @@ public class SocieteServiceImpl implements SocieteService {
         societeRepository.deleteById(id);
     }
 
-
+    @Override
+    public List<Societe> getAllByIdAndName() {
+        return societeRepository.selectAllByIdAndName();
+    }
 
 }

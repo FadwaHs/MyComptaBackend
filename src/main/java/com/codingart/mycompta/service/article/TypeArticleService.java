@@ -5,6 +5,8 @@ import com.codingart.mycompta.model.article.TypeArticle;
 import java.util.List;
 
 public interface TypeArticleService {
+
+    void initTypesArticle();
     TypeArticle addTypeArticle(TypeArticle typeArticle);
     TypeArticle getTypeArticle(Long id);
     List<TypeArticle> getAllTypeArticle();
