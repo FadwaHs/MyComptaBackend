@@ -2,6 +2,7 @@ package com.codingart.mycompta.controller.devis;
 
 import com.codingart.mycompta.model.devis.ModeReglement;
 import com.codingart.mycompta.service.devis.ModeReglementService;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,11 @@ import java.util.List;
 public class ModeReglementController {
 
     private final ModeReglementService modeReglementService;
+
+    @PostConstruct
+    public void defaultModesReglement(){
+        modeReglementService.initModesReglement();
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<ModeReglement> getModeReglementById(@PathVariable Long id){

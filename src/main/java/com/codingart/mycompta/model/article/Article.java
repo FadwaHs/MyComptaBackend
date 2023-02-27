@@ -2,6 +2,8 @@ package com.codingart.mycompta.model.article;
 
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.Facture;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -20,12 +22,13 @@ public class Article {
     @NotNull(message = "PrixHT may not be null")
     private double prixHT;
     private double reduction;
-    private char reductionType;
+    private boolean redIsPercentage;
     private double tva;
-    private double TotalHT;
-    private double totalTTC;
+
     private String description;
 
+//    private double TotalHT;
+//    private double totalTTC;
 
 //    Relation between Article and Devis
     @ManyToOne
@@ -38,6 +41,7 @@ public class Article {
     private Facture facture;
 
 //    Relation between Article and TypeArticle
+    @JsonBackReference("article_type")
     @ManyToOne
     @JoinColumn(name = "type_article_id")
     private TypeArticle typeArticle;

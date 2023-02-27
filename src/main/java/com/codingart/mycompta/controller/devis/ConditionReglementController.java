@@ -2,6 +2,7 @@ package com.codingart.mycompta.controller.devis;
 
 import com.codingart.mycompta.model.devis.ConditionReglement;
 import com.codingart.mycompta.service.devis.ConditionReglementService;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,11 @@ import java.util.List;
 public class ConditionReglementController {
 
     private final ConditionReglementService conditionReglementService;
+
+    @PostConstruct
+    public void defaultConditionsReglement(){
+        conditionReglementService.initConditionsReglement();
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<ConditionReglement> getConditionReglementById(@PathVariable Long id){

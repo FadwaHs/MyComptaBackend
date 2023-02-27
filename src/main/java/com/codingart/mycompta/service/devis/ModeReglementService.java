@@ -5,6 +5,7 @@ import com.codingart.mycompta.model.devis.ModeReglement;
 import java.util.List;
 
 public interface ModeReglementService {
+    void initModesReglement();
     ModeReglement addModeReglement(ModeReglement modeReglement);
     ModeReglement getModeReglement(Long id);
     List<ModeReglement> getAllModeReglement();

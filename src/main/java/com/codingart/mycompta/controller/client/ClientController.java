@@ -67,5 +67,8 @@ public class ClientController {
     public ResponseEntity<List<Client>> getAllClientPro(){
         return new ResponseEntity<>(clientService.getAllClientPro(), HttpStatus.OK);
     }
-
+    @GetMapping("recipient")
+    public ResponseEntity<List<Client>> getAllbyIdAndFirstNameAndLastName(){
+        return new ResponseEntity<>(clientService.getAllByIdAndFirstNameAndLastName(), HttpStatus.OK);
+    }
 }

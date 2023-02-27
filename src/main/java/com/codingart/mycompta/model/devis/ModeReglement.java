@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.List;
 
+@Builder
 @Entity
 @Getter
 @Setter
@@ -16,7 +17,7 @@ public class ModeReglement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "Mode may not be blank")
-    private String mode;
+    private String name;
 
 //    Relation between ModeReglement and Devis
     @OneToMany(mappedBy = "modeReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)

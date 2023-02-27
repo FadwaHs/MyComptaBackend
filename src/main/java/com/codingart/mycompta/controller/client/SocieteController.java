@@ -1,5 +1,6 @@
 package com.codingart.mycompta.controller.client;
 
+import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.repository.client.SocieteRepository;
 import com.codingart.mycompta.service.client.SocieteService;
@@ -60,6 +61,8 @@ public class SocieteController {
         return new ResponseEntity<>( "Deleted" ,HttpStatus.OK);
     }
 
-
-
+    @GetMapping("recipient")
+    public ResponseEntity<List<Societe>> getAllbyIdAndFirstNameAndLastName(){
+        return new ResponseEntity<>(societeService.getAllByIdAndName(), HttpStatus.OK);
+    }
 }

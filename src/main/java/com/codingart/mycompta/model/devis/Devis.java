@@ -48,6 +48,7 @@ public class Devis {
     private List<MotCle> motCleList;
 
     //    Relation between Devis and Article
+
     @OneToMany(mappedBy = "devis",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Article> articleList;
 

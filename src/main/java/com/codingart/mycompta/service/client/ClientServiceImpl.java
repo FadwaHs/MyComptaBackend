@@ -87,4 +87,9 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.selectAllClientPro();
     }
 
+    @Override
+    public List<Client> getAllByIdAndFirstNameAndLastName() {
+        return clientRepository.selectAllByIdAndFirstNameAndLastName();
+    }
+
 }

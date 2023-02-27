@@ -1,5 +1,6 @@
 package com.codingart.mycompta.service.client;
 
+import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 
 import java.util.HashMap;
@@ -13,5 +14,7 @@ public interface SocieteService {
     Map<String,Object> getListSociete(String data,int page,int size);
     Societe updateSociete(Long id, Societe societe);
     void deleteSociete(Long id);
+    List<Societe> getAllByIdAndName();
+
 
 }

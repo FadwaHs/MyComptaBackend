@@ -19,4 +19,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     List<Client> selectAllClientPar();
     @Query(value = "select c from Client c where c.societe is not null ")
     List<Client> selectAllClientPro();
+
+    @Query(value = "select new com.codingart.mycompta.model.client.Client(c.id,c.firstName,c.lastName) from Client c")
+    List<Client> selectAllByIdAndFirstNameAndLastName();
 }

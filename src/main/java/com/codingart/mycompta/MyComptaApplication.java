@@ -82,7 +82,6 @@ public class MyComptaApplication implements CommandLineRunner {
 
     public void test(){
         // Add Devis
-
         Devis d1 = new Devis();
         Devis d2 = new Devis();
         Devis d3 = new Devis();

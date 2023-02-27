@@ -5,6 +5,7 @@ import com.codingart.mycompta.model.devis.ConditionReglement;
 import java.util.List;
 
 public interface ConditionReglementService {
+    void initConditionsReglement();
     ConditionReglement addConditionReglement(ConditionReglement conditionReglement);
     ConditionReglement getConditionReglement(Long id);
     List<ConditionReglement> getAllConditionReglement();
