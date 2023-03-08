@@ -1,14 +1,18 @@
 package com.codingart.mycompta.model.general_infos;
 
+import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.config.Profile;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+//@JsonIdentityInfo(scope = Phone.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Getter
 @Setter
@@ -23,7 +27,6 @@ public class Phone {
 
 
 //     relation between Phone and Profile
-    @JsonBackReference("profile_phone")
     @ManyToOne
     @JoinColumn(name = "profile_id")
     private Profile profile;
@@ -36,7 +39,7 @@ public class Phone {
 
 //    Relation between Societe and Phone
     @JsonBackReference("societe_phone")
-    @ManyToOne/*(cascade = CascadeType.PERSIST)*/
+    @ManyToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
 

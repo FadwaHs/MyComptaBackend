@@ -6,7 +6,7 @@ import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.facture.Facture;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -15,6 +15,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.Date;
 import java.util.List;
 
+
+//@JsonIdentityInfo(scope = Devis.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 @Entity
 @Getter
@@ -28,27 +30,31 @@ public class Devis {
     @Column(unique = true)
     private String slug;
     private String code;
-    @Basic
-    @Temporal(TemporalType.DATE)
-    private Date validationDuration;
+    private int validationDuration;
     private String devise;
     private double remise;
-    private char typeRemise;
+    private boolean remIsPercentage;
     private String textIntro;
     private String textCond;
     private String piedPage;
     private String condVente;
+    private double totalHT;
+    private double totalTTC;
     @Enumerated(EnumType.STRING)
     @NotNull
     private DevisStatus status = DevisStatus.PROVISIONAL;
 
+    @Basic
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     //    Relation between Devis and MotCle
+    @JsonManagedReference("devis_motCle")
     @OneToMany(mappedBy = "devis",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MotCle> motCleList;
 
     //    Relation between Devis and Article
-
+    @JsonManagedReference("devis_article")
     @OneToMany(mappedBy = "devis",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Article> articleList;
 
@@ -57,13 +63,12 @@ public class Devis {
     private List<Facture> factureList;
 
     //    Relation between Devis and Societe
-    @JsonBackReference("societe_devis")
     @ManyToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
 
     //    Relation between Devis and Client
-    @JsonBackReference("client_devis")
+//    @JsonManagedReference("client_devis")
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
@@ -84,7 +89,8 @@ public class Devis {
     private Interet interet;
 
     @PrePersist
-    public void setSlugPrePersist(){
+    public void setDataPrePersist(){
         this.slug = RandomStringUtils.randomAlphanumeric(10).toLowerCase();
+        this.date = new Date();
     }
 }

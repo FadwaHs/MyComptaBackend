@@ -34,7 +34,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto getClient(Long id) {
-        currentClient = clientRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException(message+id));
+        currentClient =  clientRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException(message+id));
         return modelMapper.map(currentClient,ClientDto.class);
     }
 

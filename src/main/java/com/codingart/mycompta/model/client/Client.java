@@ -6,8 +6,7 @@ import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.general_infos.Address;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.general_infos.Phone;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
-@Builder
+//    //@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Getter
 @Setter
@@ -25,6 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Builder
 public class Client {
     @NonNull
     @Id
@@ -66,18 +66,20 @@ public class Client {
     private List<MotCle> motCleList;
 
     //    Relation between Client and Devis
-    @JsonManagedReference("client_devis")
+//    @JsonSerialize(using = CustomListSerializer.class)
+//    //@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonBackReference
     @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Devis> devisList;
 
 //    Relation between Client and Societe
+//    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonBackReference("societe_client")
     @ManyToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
 
 //    Relation between Client and Environment
-    @JsonBackReference("environment_client")
     @ManyToOne
     @JoinColumn(name = "environment_id")
     private Environment environment;

@@ -62,7 +62,6 @@ public class DevisServiceImpl implements DevisService {
         devis = pageTuts.getContent();
         List<DevisDto> devisDtoList = devis.stream().map(p -> modelMapper.map(p,DevisDto.class)).toList();
         Map<String, Object> response = new HashMap<>();
-
         response.put("devis", devisDtoList);
         response.put("currentPage", pageTuts.getNumber());
         response.put("totalItems", pageTuts.getTotalElements());

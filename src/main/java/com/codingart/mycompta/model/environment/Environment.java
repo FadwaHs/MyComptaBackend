@@ -5,14 +5,18 @@ import com.codingart.mycompta.model.auth.User;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.config.*;
+import com.codingart.mycompta.model.facture.FactureSimple;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.List;
 
+//@JsonIdentityInfo(scope = Environment.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Getter
 @Setter
@@ -45,12 +49,10 @@ public class Environment {
     private List<Membre> membreList;
 
 //     Relation between Environment and Client
-    @JsonManagedReference("environment_client")
     @OneToMany(mappedBy = "environment",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Client> clientList;
 
 //     Relation between Environment and Societe
-    @JsonManagedReference("environment_societe")
     @OneToMany(mappedBy = "environment",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Societe> societeList;
 

@@ -1,8 +1,13 @@
 package com.codingart.mycompta;
 
+import com.codingart.mycompta.exception.ResourceNotFoundException;
+import com.codingart.mycompta.model.article.Article;
+import com.codingart.mycompta.model.article.TypeArticle;
 import com.codingart.mycompta.model.enums.DevisStatus;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.repository.article.ArticleRepository;
+import com.codingart.mycompta.repository.article.TypeArticleRepository;
 import com.codingart.mycompta.repository.client.ClientRepository;
 import com.codingart.mycompta.repository.client.SocieteRepository;
 import com.codingart.mycompta.repository.config.CompteBancRepository;
@@ -67,6 +72,10 @@ public class MyComptaApplication implements CommandLineRunner {
 
 
      static Client c = new Client();
+    @Autowired
+    private TypeArticleRepository typeArticleRepository;
+    @Autowired
+    private ArticleRepository articleRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(MyComptaApplication.class, args);
@@ -81,7 +90,18 @@ public class MyComptaApplication implements CommandLineRunner {
     }
 
     public void test(){
-        // Add Devis
+
+        // add Article
+//        Article a = new Article();
+//        TypeArticle t = new TypeArticle();
+//        a.setDescription("dell");
+//
+//         t = typeArticleRepository.findById(1L).orElseThrow();
+//        a.setTypeArticle(t);
+//        a.setQuantity(3);
+//        a.setPrixHT(10);
+//        articleRepository.save(a);
+//         Add Devis
         Devis d1 = new Devis();
         Devis d2 = new Devis();
         Devis d3 = new Devis();

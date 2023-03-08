@@ -52,6 +52,7 @@ public class SocieteController {
 
     @PutMapping("{id}")
     public ResponseEntity<Societe> updateSociete(@PathVariable Long id, @Valid @RequestBody Societe societe){
+        System.out.println(societe.toString());
         return new ResponseEntity<>(societeService.updateSociete(id,societe), HttpStatus.OK);
     }
 

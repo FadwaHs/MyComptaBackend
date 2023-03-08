@@ -1,9 +1,13 @@
 package com.codingart.mycompta.model.general_infos;
 
+import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.config.Profile;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
@@ -11,6 +15,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.List;
 
+//@JsonIdentityInfo(scope = Address.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Getter
 @Setter
@@ -31,7 +36,6 @@ public class Address {
 
 
 //    Relation Between Address and Profile
-    @JsonBackReference("profile_address")
     @OneToOne
     @JoinColumn(name = "profile_id")
     private Profile profile;

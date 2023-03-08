@@ -1,9 +1,13 @@
 package com.codingart.mycompta.model.config;
 import com.codingart.mycompta.model.environment.Environment;
+import com.codingart.mycompta.model.facture.FactureSimple;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
+//@JsonIdentityInfo(scope = ConfigPreference.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter

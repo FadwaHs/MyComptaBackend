@@ -27,9 +27,9 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClientDto>> getAllClient(){
+    public ResponseEntity<List<Client>> getAllClient(){
         List<ClientDto> clientDtoList = clientService.getAllClient().stream().map(p -> modelMapper.map(p,ClientDto.class)).toList();
-        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
+        return new ResponseEntity<>(clientService.getAllClient(), HttpStatus.OK);
     }
 
     @GetMapping("pagination")

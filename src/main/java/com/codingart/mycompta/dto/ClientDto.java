@@ -34,6 +34,7 @@ public class ClientDto implements Serializable {
     private List<Phone> phoneList;
     private Address address;
     private List<MotCle> motCleList;
-    private List<Devis> devisList;
+
+//    private List<Devis> devisList;
     private SocieteDto societe;
 }

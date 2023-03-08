@@ -29,6 +29,7 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<Article> createArticle(@Valid @RequestBody Article article){
+        System.out.println(article.getDescription());
         return new ResponseEntity<>(articleService.addArticle(article), HttpStatus.CREATED);
     }
 

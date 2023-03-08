@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/modeReglements")
+@RequestMapping("/api/modes-reglement")
 @RequiredArgsConstructor
 public class ModeReglementController {
 

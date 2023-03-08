@@ -3,12 +3,17 @@ package com.codingart.mycompta.model.facture;
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.general_infos.MotCle;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
+//@JsonIdentityInfo(scope = Facture.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type_facture")

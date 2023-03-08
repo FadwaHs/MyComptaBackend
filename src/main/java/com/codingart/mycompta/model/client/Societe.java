@@ -7,6 +7,8 @@ import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.general_infos.Phone;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -14,6 +16,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.List;
 
+////@JsonIdentityInfo(scope = Societe.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Setter
 @Getter
@@ -55,17 +58,17 @@ public class Societe {
     private List<MotCle> motCleList;
 
 //    Relation Between Societe and Client
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonManagedReference("societe_client")
     @OneToMany(mappedBy = "societe",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Client> clientList;
 
     //    Relation Between Societe and Devis
-    @JsonManagedReference("societe_devis")
+    @JsonBackReference
     @OneToMany(mappedBy = "societe",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Devis> devisList;
 
 //    Relation between Societe and Environment
-    @JsonBackReference("environment_societe")
     @ManyToOne
     @JoinColumn(name = "environment_id")
     private Environment environment;

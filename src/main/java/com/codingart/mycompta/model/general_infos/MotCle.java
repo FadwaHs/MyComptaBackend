@@ -1,16 +1,21 @@
 package com.codingart.mycompta.model.general_infos;
 
+import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.Facture;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.*;
 import lombok.NoArgsConstructor;
 
+//@JsonIdentityInfo(scope = MotCle.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Getter
 @Setter
@@ -37,6 +42,7 @@ public class MotCle {
     private Client client;
 
     //    Relation between MotCle and Devis
+    @JsonBackReference("devis_motCle")
     @ManyToOne
     @JoinColumn(name = "devis_id")
     private Devis devis;
