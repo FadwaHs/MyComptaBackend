@@ -2,6 +2,7 @@ package com.codingart.mycompta.controller.config;
 
 import com.codingart.mycompta.model.config.Numerotation;
 import com.codingart.mycompta.service.config.NumerotationService;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,11 @@ import java.util.List;
 public class NumerotationController {
 
     private final NumerotationService numerotationService;
+
+    @PostConstruct
+    public void defaultNumerotation(){
+        numerotationService.initNumerotation();
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<Numerotation> getNumerotationById(@PathVariable Long id){

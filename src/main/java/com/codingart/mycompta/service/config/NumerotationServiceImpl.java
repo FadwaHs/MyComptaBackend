@@ -7,6 +7,7 @@ import com.codingart.mycompta.service.config.NumerotationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +17,15 @@ public class NumerotationServiceImpl implements NumerotationService {
     private final NumerotationRepository numerotationRepository;
     private final String message = "Numerotation not found for this id :: ";
 
+
+    @Override
+    public void initNumerotation() {
+        Numerotation numerotation = Numerotation.builder()
+                .id(1L).format("<doc><aa><cmp>").minCounterSize(3).resertCounter("Tous les mois")
+                .startCounterDevis(1).startCounterFacture(1).startCounterAvoir(1).startCounterAcompte(1)
+                .build();
+        numerotationRepository.save(numerotation);
+    }
 
     @Override
     public Numerotation addNumerotation(Numerotation numerotation) {

@@ -5,6 +5,7 @@ import com.codingart.mycompta.model.config.Numerotation;
 import java.util.List;
 
 public interface NumerotationService {
+    void initNumerotation();
     Numerotation addNumerotation(Numerotation numerotation);
     Numerotation getNumerotation(Long id);
     List<Numerotation> getAllNumerotation();
