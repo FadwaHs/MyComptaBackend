@@ -1,5 +1,6 @@
 package com.codingart.mycompta.service.config;
 
+import com.codingart.mycompta.enums.ResetCounter;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.config.Numerotation;
 import com.codingart.mycompta.repository.config.NumerotationRepository;
@@ -21,7 +22,7 @@ public class NumerotationServiceImpl implements NumerotationService {
     @Override
     public void initNumerotation() {
         Numerotation numerotation = Numerotation.builder()
-                .id(1L).format("<doc><aa><cmp>").minCounterSize(3).resertCounter("Tous les mois")
+                .id(1L).format("<doc><aa><cmp>").minCounterSize(3).resetCounter(ResetCounter.YEAR)
                 .startCounterDevis(1).startCounterFacture(1).startCounterAvoir(1).startCounterAcompte(1)
                 .build();
         numerotationRepository.save(numerotation);

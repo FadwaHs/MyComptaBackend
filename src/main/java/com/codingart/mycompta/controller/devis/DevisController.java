@@ -2,7 +2,7 @@ package com.codingart.mycompta.controller.devis;
 
 import com.codingart.mycompta.dto.DevisDto;
 import com.codingart.mycompta.model.devis.Devis;
-import com.codingart.mycompta.model.enums.DevisStatus;
+import com.codingart.mycompta.enums.DevisStatus;
 import com.codingart.mycompta.service.devis.DevisService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

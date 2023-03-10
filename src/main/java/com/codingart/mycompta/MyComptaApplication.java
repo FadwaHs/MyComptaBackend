@@ -1,9 +1,6 @@
 package com.codingart.mycompta;
 
-import com.codingart.mycompta.exception.ResourceNotFoundException;
-import com.codingart.mycompta.model.article.Article;
-import com.codingart.mycompta.model.article.TypeArticle;
-import com.codingart.mycompta.model.enums.DevisStatus;
+import com.codingart.mycompta.enums.DevisStatus;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.repository.article.ArticleRepository;
@@ -16,6 +13,7 @@ import com.codingart.mycompta.repository.environment.EnvironmentRepository;
 import com.codingart.mycompta.repository.facture.FactureSimpleRepository;
 import com.codingart.mycompta.repository.general_infos.AddressRepository;
 import com.codingart.mycompta.repository.general_infos.PhoneRepository;
+import com.codingart.mycompta.util.FormatService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,6 +23,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Date;
 
 
 @SpringBootApplication
@@ -76,6 +76,8 @@ public class MyComptaApplication implements CommandLineRunner {
     private TypeArticleRepository typeArticleRepository;
     @Autowired
     private ArticleRepository articleRepository;
+    @Autowired
+    private FormatService formatService;
 
     public static void main(String[] args) {
         SpringApplication.run(MyComptaApplication.class, args);
@@ -85,8 +87,8 @@ public class MyComptaApplication implements CommandLineRunner {
     @Transactional
     @Override
     public void run(String... args) throws Exception {
+        this.formatService.createFormat(new Date(),"D");
 //        this.test();
-
     }
 
     public void test(){

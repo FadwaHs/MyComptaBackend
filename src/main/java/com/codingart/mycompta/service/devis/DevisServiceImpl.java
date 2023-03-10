@@ -3,7 +3,7 @@ package com.codingart.mycompta.service.devis;
 import com.codingart.mycompta.dto.DevisDto;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.devis.Devis;
-import com.codingart.mycompta.model.enums.DevisStatus;
+import com.codingart.mycompta.enums.DevisStatus;
 import com.codingart.mycompta.repository.devis.DevisRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
