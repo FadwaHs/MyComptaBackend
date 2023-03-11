@@ -15,6 +15,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 //@JsonIdentityInfo(scope = Devis.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -31,6 +32,7 @@ public class Devis {
     @Column(unique = true)
     private String slug;
     private String code;
+    private Long cmp;
     private int validationDuration;
     private String devise;
     private double remise;
@@ -92,8 +94,7 @@ public class Devis {
     @PrePersist
     public void setDataPrePersist(){
         this.slug = RandomStringUtils.randomAlphanumeric(10).toLowerCase();
-        this.date = new Date();
-//        FormatService formatService = new FormatService();
-//        this.code = formatService.createFormat(this.date,"D");
+//        this.date = new Date();
+
     }
 }

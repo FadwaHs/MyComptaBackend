@@ -22,7 +22,7 @@ public class NumerotationServiceImpl implements NumerotationService {
     @Override
     public void initNumerotation() {
         Numerotation numerotation = Numerotation.builder()
-                .id(1L).format("<doc><aa><cmp>").minCounterSize(3).resetCounter(ResetCounter.YEAR)
+                .id(1L).format("<doc><aa>-<mm>-<cmp>").minCounterSize(3).resetCounter(ResetCounter.YEAR)
                 .startCounterDevis(1).startCounterFacture(1).startCounterAvoir(1).startCounterAcompte(1)
                 .build();
         numerotationRepository.save(numerotation);

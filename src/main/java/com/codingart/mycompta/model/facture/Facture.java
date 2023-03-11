@@ -26,6 +26,7 @@ public abstract class Facture {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_facture")
     private Long id;
     private String code;
+    private Long cmp;
     private String devise;
     private String textIntro;
     private String textCond;

@@ -5,6 +5,8 @@ import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.enums.DevisStatus;
 import com.codingart.mycompta.repository.devis.DevisRepository;
+import com.codingart.mycompta.util.FormatService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -12,9 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -23,10 +23,16 @@ public class DevisServiceImpl implements DevisService {
     private final DevisRepository devisRepository;
     private final ModelMapper modelMapper;
     private final String message = "Devis not found for this id :: ";
+
+    private final FormatService formatService;
     private static Devis currentDevis;
 
     @Override
     public Devis addDevis(Devis devis) {
+        devis.setDate(new Date());
+        Map<String,Object> mapData = formatService.createFormat(new Date(),"D");
+        devis.setCode((String) mapData.get("format"));
+        devis.setCmp((Long) mapData.get("cmp"));
         return devisRepository.save(devis);
 
     }

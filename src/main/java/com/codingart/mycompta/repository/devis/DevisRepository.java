@@ -22,10 +22,10 @@ public interface DevisRepository extends JpaRepository<Devis, Long> {
 
     Page<Devis> findDevisByStatus(DevisStatus status,Pageable pageable);
 
-    @Query("select d1.id from Devis d1 where d1.id =( select max(d2.id) from Devis d2 )")
-    Long selectLastIdDevis(Date date);
-    @Query("select d1.id from Devis d1 where d1.id =( select max(d2.id) from Devis d2 where year(d2.date) = year(?1) ) ")
-    Long selectLastIdDevisInYear(Date date);
-    @Query("select d1.id from Devis d1 where d1.id =( select max(d2.id) from Devis d2 where month(d2.date) = month(?1) ) ")
-    Long selectLastIdDevisInMonth(Date date);
+    @Query("select d1.cmp from Devis d1 where d1.cmp =( select max(d2.cmp) from Devis d2 )")
+    Long selectLastCmpDevis(Date date);
+    @Query("select d1.cmp from Devis d1 where d1.cmp =( select max(d2.cmp) from Devis d2 where year(d2.date) = year(?1) ) ")
+    Long selectLastCmpDevisInYear(Date date);
+    @Query("select d1.cmp from Devis d1 where d1.cmp =( select max(d2.cmp) from Devis d2 where year(d2.date) = year(?1) and month(d2.date) = month(?1) ) ")
+    Long selectLastCmpDevisInMonth(Date date);
 }

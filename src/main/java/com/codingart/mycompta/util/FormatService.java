@@ -1,5 +1,6 @@
 package com.codingart.mycompta.util;
 
+import com.codingart.mycompta.enums.ResetCounter;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.config.Numerotation;
 import com.codingart.mycompta.repository.config.NumerotationRepository;
@@ -14,36 +15,34 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class FormatService {
-    @Autowired
-    NumerotationRepository numerotationRepository;
-    @Autowired
-    DevisRepository devisRepository;
+    private final NumerotationRepository numerotationRepository;
+    private final DevisRepository devisRepository;
 
-    public String createFormat(Date date, String from){
+    public Map<String,Object> createFormat(Date date, String from){
         Numerotation numerotation = this.numerotationRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException("Numerotation not exist by this id : "+1));
-//        String format = numerotation.getFormat();
-
-        System.out.println(devisRepository.selectLastIdDevisInYear(date));
-
-        String format = "<doc>-<aaaa>/<mm>/<jj>-<cmp>   <fac|dev|avo|aco>-<aa>/<m>/<j>-<cmp><fac|dev|avo|aco>";
+        String format = numerotation.getFormat();
         int minCounterSize = numerotation.getMinCounterSize();
-        String cmp = String.format("%014d" , 1 );
+        Long nextCmp = getNextCmp(from,numerotation.getResetCounter(),date);
+        String cmpStr = String.format("%0"+minCounterSize+"d" , nextCmp );
 
+        format = getNextFormat(format , date, from,cmpStr);
+        Map<String,Object> mapData = new HashMap<>();
+        mapData.put("format",format);
+        mapData.put("cmp",nextCmp);
 
-        System.out.println(cmp);
+        return mapData;
+    }
 
+    private String getNextFormat(String format , Date date, String from,String cmpStr){
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-        format = format.replaceAll("<cmp>",cmp);
+        format = format.replaceAll("<cmp>",cmpStr);
         format = format.replaceAll("<doc>", from);
         format = format.replaceAll("<aaaa>",localDate.format(DateTimeFormatter.ofPattern("yyyy")));
         format = format.replaceAll("<aa>",localDate.format(DateTimeFormatter.ofPattern("yy")));
@@ -67,8 +66,39 @@ public class FormatService {
             format = format.replace(matcher.group(),specifyDoc);
         }
 
-
-        System.out.println(format);
-        return "";
+        return format;
     }
+    
+    
+    private Long getNextCmp(String from,ResetCounter resetCounter,Date date){
+        Long lastCmp = null;
+        if(resetCounter == ResetCounter.YEAR) {
+            switch (from) {
+                case "D" -> lastCmp = this.devisRepository.selectLastCmpDevisInYear(date);
+                case "F" -> lastCmp = this.devisRepository.selectLastCmpDevisInYear(date);
+                case "A" -> lastCmp = this.devisRepository.selectLastCmpDevisInYear(date);
+                case "FA" -> lastCmp = this.devisRepository.selectLastCmpDevisInYear(date);
+            }
+        } else if(resetCounter == ResetCounter.MONTH) {
+            switch (from) {
+                case "D" -> lastCmp = this.devisRepository.selectLastCmpDevisInMonth(date);
+                case "F" -> lastCmp = this.devisRepository.selectLastCmpDevisInMonth(date);
+                case "A" -> lastCmp = this.devisRepository.selectLastCmpDevisInMonth(date);
+                case "FA" -> lastCmp = this.devisRepository.selectLastCmpDevisInMonth(date);
+            }
+        }else{
+            switch (from) {
+                case "D" -> lastCmp = this.devisRepository.selectLastCmpDevis(date);
+                case "F" -> lastCmp = this.devisRepository.selectLastCmpDevis(date);
+                case "A" -> lastCmp = this.devisRepository.selectLastCmpDevis(date);
+                case "FA" -> lastCmp = this.devisRepository.selectLastCmpDevis(date);
+            }
+        }
+        
+        if(lastCmp != null ) return lastCmp + 1;
+        else return 1L;
+
+    }
+    
+    
 }
