@@ -3,6 +3,8 @@ package com.codingart.mycompta.model.client;
 
 import com.codingart.mycompta.model.environment.Environment;
 import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.facture.FactureAvoir;
+import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.general_infos.Address;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.general_infos.Phone;
@@ -68,9 +70,19 @@ public class Client {
     //    Relation between Client and Devis
 //    @JsonSerialize(using = CustomListSerializer.class)
 //    //@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonBackReference
+    @JsonBackReference("client_devis")
     @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Devis> devisList;
+
+    //    Relation between Client and FactureSimple
+    @JsonBackReference("client_factureSimple")
+    @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<FactureSimple> factureSimpleList;
+
+    //    Relation between Client and FactureAvoir
+    @JsonBackReference("client_factureAvoir")
+    @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<FactureAvoir> factureAvoirList;
 
 //    Relation between Client and Societe
 //    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")

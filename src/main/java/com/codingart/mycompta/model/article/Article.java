@@ -2,6 +2,8 @@ package com.codingart.mycompta.model.article;
 
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.facture.FactureAvoir;
+import com.codingart.mycompta.model.facture.FactureSimple;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -39,10 +41,15 @@ public class Article {
     @JoinColumn(name = "devis_id")
     private Devis devis;
 
-//    Relation between Article and Facture
+//    Relation between Article and FactureSimple
     @ManyToOne
-    @JoinColumn(name = "facture_id")
-    private Facture facture;
+    @JoinColumn(name = "factureSimple_id")
+    private FactureSimple factureSimple;
+
+//    Relation between Article and FactureAvoir
+    @ManyToOne
+    @JoinColumn(name = "factureAvoir_id")
+    private FactureAvoir factureAvoir;
 
 //    Relation between Article and TypeArticle
     @ManyToOne

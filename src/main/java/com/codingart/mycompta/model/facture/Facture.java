@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.Date;
 import java.util.List;
 
 //@JsonIdentityInfo(scope = Facture.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -25,6 +27,8 @@ public abstract class Facture {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "seq_facture")
     private Long id;
+    @Column(unique = true)
+    private String slug;
     private String code;
     private Long cmp;
     private String devise;
@@ -32,32 +36,13 @@ public abstract class Facture {
     private String textCond;
     private String piedPage;
     private String condVente;
-
-    @ColumnDefault("false")
-    private boolean isFinalized;
-    @ColumnDefault("false")
-    private boolean isPayed;
-
-//    @ElementCollection
-//    private List<Character> Status;
-
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
 //    Relation between Facture and MotCle
     @OneToMany(mappedBy = "facture",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MotCle> motCleList;
-
-//    Relation between Facture and Article
-    @OneToMany(mappedBy = "facture",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Article> articleList;
-
-//    Relation between Facture and Debours
-    @OneToMany(mappedBy = "facture",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Debours> debours;
-
-//    Relation between Facture and Devis
-    @ManyToOne
-    @JoinColumn(name = "devis_id")
-    private Devis devis;
 
 //    Self join Relation
     @ManyToOne(fetch = FetchType.LAZY)
@@ -66,5 +51,10 @@ public abstract class Facture {
 
     @OneToMany(mappedBy = "parent",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<Facture> children;
+
+    @PrePersist
+    public void setDataPrePersist(){
+        this.slug = RandomStringUtils.randomAlphanumeric(10).toLowerCase();
+    }
 
 }

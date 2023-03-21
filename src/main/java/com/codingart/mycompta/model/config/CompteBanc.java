@@ -1,7 +1,10 @@
 package com.codingart.mycompta.model.config;
 
+import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.environment.Environment;
+import com.codingart.mycompta.model.facture.FactureAcompte;
 import com.codingart.mycompta.model.facture.FactureSimple;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -32,5 +35,10 @@ public class CompteBanc {
     @ManyToOne
     @JoinColumn(name = "environment_id")
     private Environment environment;
+
+    //    Relation between compteBanc and FactureAcompte
+    @OneToOne
+    @JoinColumn(name = "factureAcompte_id")
+    private FactureAcompte factureAcompte;
 
 }

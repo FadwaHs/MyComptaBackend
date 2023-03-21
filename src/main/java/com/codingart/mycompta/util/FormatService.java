@@ -5,6 +5,10 @@ import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.config.Numerotation;
 import com.codingart.mycompta.repository.config.NumerotationRepository;
 import com.codingart.mycompta.repository.devis.DevisRepository;
+import com.codingart.mycompta.repository.facture.FactureAcompteRepository;
+import com.codingart.mycompta.repository.facture.FactureAvoirRepository;
+import com.codingart.mycompta.repository.facture.FactureSimpleRepository;
+import com.codingart.mycompta.service.facture.FactureSimpleService;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +28,10 @@ import java.util.regex.Pattern;
 public class FormatService {
     private final NumerotationRepository numerotationRepository;
     private final DevisRepository devisRepository;
+    private final FactureSimpleRepository factureSimpleRepository;
+    private final FactureAvoirRepository factureAvoirRepository;
+    private final FactureAcompteRepository factureAcompteRepository;
+
 
     public Map<String,Object> createFormat(Date date, String from){
         Numerotation numerotation = this.numerotationRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException("Numerotation not exist by this id : "+1));
@@ -74,24 +82,24 @@ public class FormatService {
         Long lastCmp = null;
         if(resetCounter == ResetCounter.YEAR) {
             switch (from) {
-                case "D" -> lastCmp = this.devisRepository.selectLastCmpDevisInYear(date);
-                case "F" -> lastCmp = this.devisRepository.selectLastCmpDevisInYear(date);
-                case "A" -> lastCmp = this.devisRepository.selectLastCmpDevisInYear(date);
-                case "FA" -> lastCmp = this.devisRepository.selectLastCmpDevisInYear(date);
+                case "D" -> lastCmp = this.devisRepository.selectLastCmpInYear(date);
+                case "F" -> lastCmp = this.factureSimpleRepository.selectLastCmpInYear(date);
+                case "A" -> lastCmp = this.factureAvoirRepository.selectLastCmpInYear(date);
+                case "FA" -> lastCmp = this.factureAcompteRepository.selectLastCmpInYear(date);
             }
         } else if(resetCounter == ResetCounter.MONTH) {
             switch (from) {
-                case "D" -> lastCmp = this.devisRepository.selectLastCmpDevisInMonth(date);
-                case "F" -> lastCmp = this.devisRepository.selectLastCmpDevisInMonth(date);
-                case "A" -> lastCmp = this.devisRepository.selectLastCmpDevisInMonth(date);
-                case "FA" -> lastCmp = this.devisRepository.selectLastCmpDevisInMonth(date);
+                case "D" -> lastCmp = this.devisRepository.selectLastCmpInMonth(date);
+                case "F" -> lastCmp = this.factureSimpleRepository.selectLastCmpInMonth(date);
+                case "A" -> lastCmp = this.factureAvoirRepository.selectLastCmpInMonth(date);
+                case "FA" -> lastCmp = this.factureAcompteRepository.selectLastCmpInMonth(date);
             }
         }else{
             switch (from) {
-                case "D" -> lastCmp = this.devisRepository.selectLastCmpDevis(date);
-                case "F" -> lastCmp = this.devisRepository.selectLastCmpDevis(date);
-                case "A" -> lastCmp = this.devisRepository.selectLastCmpDevis(date);
-                case "FA" -> lastCmp = this.devisRepository.selectLastCmpDevis(date);
+                case "D" -> lastCmp = this.devisRepository.selectLastCmp(date);
+                case "F" -> lastCmp = this.factureSimpleRepository.selectLastCmp(date);
+                case "A" -> lastCmp = this.factureAvoirRepository.selectLastCmp(date);
+                case "FA" -> lastCmp = this.factureAcompteRepository.selectLastCmp(date);
             }
         }
         

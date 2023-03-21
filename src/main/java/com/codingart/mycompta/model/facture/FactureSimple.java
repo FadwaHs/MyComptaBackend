@@ -1,19 +1,49 @@
 package com.codingart.mycompta.model.facture;
 
+import com.codingart.mycompta.enums.FactureSimpleStatus;
+import com.codingart.mycompta.model.article.Article;
+import com.codingart.mycompta.model.client.Client;
+import com.codingart.mycompta.model.client.Societe;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 //@JsonIdentityInfo(scope = FactureSimple.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Builder
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class FactureSimple extends Facture{
+
     private double remise;
-    private char TypeRemise;
-    private boolean isDestined;
+    private boolean remIsPercentage;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private FactureSimpleStatus status = FactureSimpleStatus.PROVISIONAL;
+
+    //    Relation between FactureSimple and Societe
+    @ManyToOne
+    @JoinColumn(name = "societe_id")
+    private Societe societe;
+
+    //    Relation between FactureSimple and Client
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    //    Relation between FacturSimple and Article
+    @OneToMany(mappedBy = "factureSimple",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Article> articleList;
+
+
+    //    Relation between FactureSimple and Debours
+    @OneToMany(mappedBy = "factureSimple",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Debours> debours;
 
 }
