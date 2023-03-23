@@ -6,6 +6,7 @@ import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.config.*;
 import com.codingart.mycompta.model.facture.FactureSimple;
+import com.codingart.mycompta.model.general_infos.Address;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -70,13 +71,20 @@ public class Environment {
     @OneToMany(mappedBy = "environment",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<ConfigTypeArticle> configTypeArticleList;
 
+//    Relation between Environment and Numerotation
+    @JsonManagedReference("environment_numerotation")
+    @OneToOne(mappedBy = "environment",cascade = CascadeType.REMOVE)
+    private Numerotation numerotation;
+
 //    Self join Relation
+
+
+    @OneToMany(mappedBy = "parent",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private List<Environment> children;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "environment_id")
     private Environment parent;
 
-    @OneToMany(mappedBy = "parent",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
-
-    private List<Environment> children;
 
 }

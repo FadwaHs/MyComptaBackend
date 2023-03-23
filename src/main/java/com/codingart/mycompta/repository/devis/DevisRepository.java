@@ -1,11 +1,13 @@
 package com.codingart.mycompta.repository.devis;
 
 import com.codingart.mycompta.model.devis.Devis;
-import com.codingart.mycompta.model.enums.DevisStatus;
+import com.codingart.mycompta.enums.DevisStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.Date;
 
 public interface DevisRepository extends JpaRepository<Devis, Long> {
 
@@ -17,5 +19,13 @@ public interface DevisRepository extends JpaRepository<Devis, Long> {
             " where  concat_ws('-',d.code,s.name,concat(c.firstName,' ',c.lastName ),m.mot) like %?1%  " +
             "and d.status = ?2")
     Page<Devis> findByDataContainingWithStatus(String data ,DevisStatus status, Pageable pageable);
+
     Page<Devis> findDevisByStatus(DevisStatus status,Pageable pageable);
+
+    @Query("select d1.cmp from Devis d1 where d1.cmp =( select max(d2.cmp) from Devis d2 )")
+    Long selectLastCmp(Date date);
+    @Query("select d1.cmp from Devis d1 where d1.cmp =( select max(d2.cmp) from Devis d2 where year(d2.date) = year(?1) ) ")
+    Long selectLastCmpInYear(Date date);
+    @Query("select d1.cmp from Devis d1 where d1.cmp =( select max(d2.cmp) from Devis d2 where year(d2.date) = year(?1) and month(d2.date) = month(?1) ) ")
+    Long selectLastCmpInMonth(Date date);
 }

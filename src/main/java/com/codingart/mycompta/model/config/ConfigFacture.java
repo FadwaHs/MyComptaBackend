@@ -14,7 +14,6 @@ import lombok.*;
 @NoArgsConstructor
 public class ConfigFacture extends ConfigPreference{
 
-    @OneToOne
-    private Numerotation numerotation;
+    String test;
 
 }

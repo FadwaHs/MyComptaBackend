@@ -23,8 +23,13 @@ public class Debours {
     private String description;
 
 
-//    Relation between Debours and Facture
+//    Relation between Debours and FactureSimple
     @ManyToOne
-    @JoinColumn(name = "facture_id")
-    private Facture facture;
+    @JoinColumn(name = "factureSimple_id")
+    private FactureSimple factureSimple;
+
+    //    Relation between Debours and FactureAvoir
+    @ManyToOne
+    @JoinColumn(name = "factureAvoir_id")
+    private FactureAvoir factureAvoir;
 }

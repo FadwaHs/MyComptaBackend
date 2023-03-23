@@ -1,11 +1,13 @@
 package com.codingart.mycompta.model.devis;
 
-import com.codingart.mycompta.model.enums.DevisStatus;
+import com.codingart.mycompta.enums.DevisStatus;
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
+import com.codingart.mycompta.model.facture.FactureAcompte;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.util.FormatService;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -14,10 +16,11 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 //@JsonIdentityInfo(scope = Devis.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
+@Builder
 @Entity
 @Getter
 @Setter
@@ -30,6 +33,7 @@ public class Devis {
     @Column(unique = true)
     private String slug;
     private String code;
+    private Long cmp;
     private int validationDuration;
     private String devise;
     private double remise;
@@ -45,7 +49,7 @@ public class Devis {
     private DevisStatus status = DevisStatus.PROVISIONAL;
 
     @Basic
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     //    Relation between Devis and MotCle
@@ -59,8 +63,9 @@ public class Devis {
     private List<Article> articleList;
 
     //    Relation between Devis and Facture
+    @JsonBackReference("devis_factureAcompte")
     @OneToMany(mappedBy = "devis",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Facture> factureList;
+    private List<FactureAcompte> factureAcompteList;
 
     //    Relation between Devis and Societe
     @ManyToOne
@@ -91,6 +96,5 @@ public class Devis {
     @PrePersist
     public void setDataPrePersist(){
         this.slug = RandomStringUtils.randomAlphanumeric(10).toLowerCase();
-        this.date = new Date();
     }
 }

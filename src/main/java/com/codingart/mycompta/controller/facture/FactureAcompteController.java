@@ -1,5 +1,7 @@
 package com.codingart.mycompta.controller.facture;
 
+import com.codingart.mycompta.enums.DevisStatus;
+import com.codingart.mycompta.enums.FactureAcompteStatus;
 import com.codingart.mycompta.model.facture.FactureAcompte;
 import com.codingart.mycompta.service.facture.FactureAcompteService;
 import jakarta.validation.Valid;
@@ -9,9 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/factureAcomptes")
+@RequestMapping("/api/factures-acompte")
 @RequiredArgsConstructor
 public class FactureAcompteController {
 
@@ -25,6 +28,16 @@ public class FactureAcompteController {
     @GetMapping
     public ResponseEntity<List<FactureAcompte>> getAllFactureAcompte(){
         return new ResponseEntity<>(factureAcompteService.getAllFactureAcompte(), HttpStatus.OK);
+    }
+
+    @GetMapping("pagination")
+    public ResponseEntity<Map<String, Object>> getListFactureAcompte(
+            @RequestParam(required = false) String data,
+            @RequestParam(required = false) FactureAcompteStatus status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        return new ResponseEntity<>(factureAcompteService.getListFactureAcompte(data,status,page,size), HttpStatus.OK);
     }
 
     @PostMapping

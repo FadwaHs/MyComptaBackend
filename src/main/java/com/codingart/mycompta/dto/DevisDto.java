@@ -4,11 +4,8 @@ import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.devis.ConditionReglement;
 import com.codingart.mycompta.model.devis.Interet;
 import com.codingart.mycompta.model.devis.ModeReglement;
-import com.codingart.mycompta.model.enums.DevisStatus;
-import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.enums.DevisStatus;
 import com.codingart.mycompta.model.general_infos.MotCle;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;

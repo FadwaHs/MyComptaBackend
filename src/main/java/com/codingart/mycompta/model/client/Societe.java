@@ -2,6 +2,8 @@ package com.codingart.mycompta.model.client;
 
 import com.codingart.mycompta.model.environment.Environment;
 import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.facture.FactureAvoir;
+import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.general_infos.Address;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.general_infos.Phone;
@@ -64,9 +66,19 @@ public class Societe {
     private List<Client> clientList;
 
     //    Relation Between Societe and Devis
-    @JsonBackReference
+    @JsonBackReference("societe_Devis")
     @OneToMany(mappedBy = "societe",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Devis> devisList;
+
+    //    Relation Between Societe and FactureSimple
+    @JsonBackReference("societe_factureSimple")
+    @OneToMany(mappedBy = "societe",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<FactureSimple> factureSimpleList;
+
+    //    Relation Between Societe and FactureAvoir
+    @JsonBackReference("societe_factureAvoir")
+    @OneToMany(mappedBy = "societe",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<FactureAvoir> factureAvoirList;
 
 //    Relation between Societe and Environment
     @ManyToOne

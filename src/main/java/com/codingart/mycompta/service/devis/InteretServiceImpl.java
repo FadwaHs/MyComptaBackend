@@ -18,7 +18,6 @@ public class InteretServiceImpl implements InteretService {
     private final InteretRepository interetRepository;
     private final String message = "Interet not found for this id :: ";
 
-
     @Override
     public void initInterets() {
         List<Interet> interetList = new ArrayList<>();

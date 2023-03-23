@@ -1,5 +1,6 @@
 package com.codingart.mycompta.service.config;
 
+import com.codingart.mycompta.enums.ResetCounter;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.config.Numerotation;
 import com.codingart.mycompta.repository.config.NumerotationRepository;
@@ -7,6 +8,7 @@ import com.codingart.mycompta.service.config.NumerotationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +18,15 @@ public class NumerotationServiceImpl implements NumerotationService {
     private final NumerotationRepository numerotationRepository;
     private final String message = "Numerotation not found for this id :: ";
 
+
+    @Override
+    public void initNumerotation() {
+        Numerotation numerotation = Numerotation.builder()
+                .id(1L).format("<doc><aa>-<mm>-<cmp>").minCounterSize(3).resetCounter(ResetCounter.YEAR)
+                .startCounterDevis(1).startCounterFacture(1).startCounterAvoir(1).startCounterAcompte(1)
+                .build();
+        numerotationRepository.save(numerotation);
+    }
 
     @Override
     public Numerotation addNumerotation(Numerotation numerotation) {
