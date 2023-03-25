@@ -1,6 +1,7 @@
 package com.codingart.mycompta.model.devis;
 
 import com.codingart.mycompta.model.article.Article;
+import com.codingart.mycompta.model.facture.Facture;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -26,7 +27,12 @@ public class Interet {
 
 
 //    Relation between Interet and Devis
-    @JsonBackReference
+    @JsonBackReference("devis_interet")
     @OneToMany(mappedBy = "interet",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Devis> devisList;
+
+    //    Relation between Interet and facture
+    @JsonBackReference("facture_interet")
+    @OneToMany(mappedBy = "interet",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Facture> factureList;
 }

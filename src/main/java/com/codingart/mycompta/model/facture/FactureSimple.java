@@ -4,7 +4,9 @@ import com.codingart.mycompta.enums.FactureSimpleStatus;
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -38,6 +40,7 @@ public class FactureSimple extends Facture{
     private Client client;
 
     //    Relation between FacturSimple and Article
+    @JsonManagedReference("factureSimple_article")
     @OneToMany(mappedBy = "factureSimple",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Article> articleList;
 
