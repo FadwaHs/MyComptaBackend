@@ -1,6 +1,7 @@
 package com.codingart.mycompta.model.devis;
 
 import com.codingart.mycompta.model.article.Article;
+import com.codingart.mycompta.model.facture.Facture;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -25,7 +26,12 @@ public class ModeReglement {
     private String name;
 
 //    Relation between ModeReglement and Devis
-    @JsonBackReference
+    @JsonBackReference("devis_modeReglement")
     @OneToMany(mappedBy = "modeReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Devis> devisList;
+
+    //    Relation between ModeReglement and Devis
+    @JsonBackReference("facture_modeReglement")
+    @OneToMany(mappedBy = "modeReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Facture> factureList;
 }

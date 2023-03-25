@@ -42,11 +42,13 @@ public class Article {
     private Devis devis;
 
 //    Relation between Article and FactureSimple
+    @JsonBackReference("factureSimple_article")
     @ManyToOne
     @JoinColumn(name = "factureSimple_id")
     private FactureSimple factureSimple;
 
 //    Relation between Article and FactureAvoir
+    @JsonBackReference("factureAvoir_article")
     @ManyToOne
     @JoinColumn(name = "factureAvoir_id")
     private FactureAvoir factureAvoir;

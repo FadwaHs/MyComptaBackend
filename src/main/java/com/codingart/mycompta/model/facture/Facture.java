@@ -1,7 +1,10 @@
 package com.codingart.mycompta.model.facture;
 
 import com.codingart.mycompta.model.article.Article;
+import com.codingart.mycompta.model.devis.ConditionReglement;
 import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.devis.Interet;
+import com.codingart.mycompta.model.devis.ModeReglement;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -36,13 +39,32 @@ public abstract class Facture {
     private String textCond;
     private String piedPage;
     private String condVente;
+    private double totalHT;
+    private double totalTTC;
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
+    //    Relation between Facture and ConditionReglement
+    @ManyToOne
+    @JoinColumn(name = "condition_reglement_id")
+    private ConditionReglement conditionReglement;
+
+    //    Relation between Facture and ModeReglement
+    @ManyToOne
+    @JoinColumn(name = "mode_reglement_id")
+    private ModeReglement modeReglement;
+
+    //    Relation between Facture and Interet
+    @ManyToOne
+    @JoinColumn(name = "interet_id")
+    private Interet interet;
+
 //    Relation between Facture and MotCle
     @OneToMany(mappedBy = "facture",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MotCle> motCleList;
+
+
 
 //    Self join Relation
     @ManyToOne(fetch = FetchType.LAZY)
