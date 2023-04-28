@@ -2,6 +2,8 @@ package com.codingart.mycompta;
 
 import com.codingart.mycompta.enums.DevisStatus;
 import com.codingart.mycompta.enums.FactureAcompteStatus;
+import com.codingart.mycompta.model.article.Article;
+import com.codingart.mycompta.model.article.TypeArticle;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.FactureAcompte;
@@ -100,7 +102,7 @@ public class MyComptaApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        this.formatService.createFormat(new Date(),"D");
-//        this.test();
+        this.test();
         testFacture();
     }
 
@@ -122,16 +124,16 @@ public class MyComptaApplication implements CommandLineRunner {
 
     public void test(){
 
-        // add Article
-//        Article a = new Article();
-//        TypeArticle t = new TypeArticle();
-//        a.setDescription("dell");
-//
-//         t = typeArticleRepository.findById(1L).orElseThrow();
-//        a.setTypeArticle(t);
-//        a.setQuantity(3);
-//        a.setPrixHT(10);
-//        articleRepository.save(a);
+         //add Article
+        Article a = new Article();
+        TypeArticle t = new TypeArticle();
+        a.setDescription("dell");
+
+         t = typeArticleRepository.findById(1L).orElseThrow();
+        a.setTypeArticle(t);
+        a.setQuantity(3);
+        a.setPrixHT(10);
+        articleRepository.save(a);
 //         Add Devis
         Devis d1 = new Devis();
         Devis d2 = new Devis();
