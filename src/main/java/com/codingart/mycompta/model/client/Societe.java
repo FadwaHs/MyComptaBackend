@@ -7,6 +7,7 @@ import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.general_infos.Address;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.general_infos.Phone;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -84,6 +85,12 @@ public class Societe {
     @ManyToOne
     @JoinColumn(name = "environment_id")
     private Environment environment;
+
+
+    //    Relation between Societe and OPP
+    //@JsonBackReference("societe_opp")
+    @OneToMany(mappedBy = "societe",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Opportunite> opportuniteList;
 
 
     @PrePersist

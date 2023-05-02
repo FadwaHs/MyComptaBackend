@@ -34,7 +34,6 @@ public class DevisDto implements Serializable {
     private Date date;
     private List<MotCle> motCleList;
     private List<Article> articleList;
-//    private List<Facture> factureList;
     private SocieteDto societe;
     private ClientDto client;
     private ConditionReglement conditionReglement;

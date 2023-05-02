@@ -73,7 +73,7 @@ public class Devis {
     private Societe societe;
 
     //    Relation between Devis and Client
-//    @JsonManagedReference("client_devis")
+    //    @JsonManagedReference("client_devis")
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

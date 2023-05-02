@@ -37,7 +37,7 @@ import java.util.Date;
 
 @SpringBootApplication
 public class MyComptaApplication implements CommandLineRunner {
-//
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -115,11 +115,7 @@ public class MyComptaApplication implements CommandLineRunner {
 
         Devis d  = Devis.builder().id(1L).code("D23-0001").status(DevisStatus.FINALIZED).cmp(1L).client(c).build();
         d = devisRepository.save(d);
-        FactureAcompte fa = FactureAcompte.builder().montantPayed(500).status(FactureAcompteStatus.PAYED).build();
-        fa.setCode("FA23-0003");
-        fa.setId(1L);
-        fa.setDevis(d);
-        factureAcompteService.addFactureAcompte(fa);
+
     }
 
     public void test(){
@@ -129,27 +125,13 @@ public class MyComptaApplication implements CommandLineRunner {
         TypeArticle t = new TypeArticle();
         a.setDescription("dell");
 
-         t = typeArticleRepository.findById(1L).orElseThrow();
+        t = typeArticleRepository.findById(1L).orElseThrow();
         a.setTypeArticle(t);
         a.setQuantity(3);
         a.setPrixHT(10);
         articleRepository.save(a);
-//         Add Devis
-        Devis d1 = new Devis();
-        Devis d2 = new Devis();
-        Devis d3 = new Devis();
-        Devis d4 = new Devis();
-        d1.setCode("D1111");
-        d2.setCode("D2222");
-        d3.setCode("D3333");
-        d4.setCode("D4444");
-        d2.setStatus(DevisStatus.FINALIZED);
-        d3.setStatus(DevisStatus.SIGNED);
-        d4.setStatus(DevisStatus.REFUSED);
-        devisRepository.save(d1);
-        devisRepository.save(d2);
-        devisRepository.save(d3);
-        devisRepository.save(d4);
+
+
     }
 
 
