@@ -23,9 +23,10 @@ public class OpportuniteServiceImpl  implements OpportuniteService {
 
     @Override
     public Opportunite addOpportunite(Opportunite opportunite) {
-
-        int count = getAllOpportunites().size();
-        String code = String.format("OPP-%05d", ++count);
+        // get the largest code value from the database
+        String largestCode = opportuniteRepository.findLargestCode();
+        int count = Integer.parseInt(largestCode.substring(4)) + 1;
+        String code = String.format("OPP-%05d", count);
         opportunite.setCode(code);
         return opportuniteRepository.save(opportunite);
     }

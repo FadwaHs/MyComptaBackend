@@ -22,4 +22,6 @@ public class FactureController {
     public ResponseEntity<List<Facture>> getAllFactures(){
         return new ResponseEntity<>(factureService.getAllFactures(), HttpStatus.OK);
     }
+
+
 }

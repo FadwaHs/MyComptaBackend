@@ -4,6 +4,8 @@ import com.codingart.mycompta.dto.ClientDto;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Client;
+import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.repository.client.ClientRepository;
 import com.codingart.mycompta.service.client.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -90,6 +90,35 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Client> getAllByIdAndFirstNameAndLastName() {
         return clientRepository.selectAllByIdAndFirstNameAndLastName();
+    }
+
+   @Override
+    public List<Opportunite> getOpportunitesForClient(Long id) {
+
+        Optional<Client> clientOptional = clientRepository.findById(id);
+
+        if (clientOptional.isPresent()  ){
+
+            Client client = clientOptional.get();
+
+            client.initializeCollections();
+            return client.getOpportuniteList();
+        }
+        return Collections.emptyList();
+    }
+
+  @Override
+    public List<Devis> getDevisForClient(Long id) {
+
+        Optional<Client> clientOptional = clientRepository.findById(id);
+        if (clientOptional.isPresent()  ){
+
+            Client client = clientOptional.get();
+
+            client.initializeCollections();
+            return client.getDevisList();
+        }
+        return Collections.emptyList();
     }
 
 }

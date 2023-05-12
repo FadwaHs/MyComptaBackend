@@ -4,6 +4,7 @@ import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.config.Profile;
+import com.codingart.mycompta.model.fournisseur.Fournisseur;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -42,6 +43,16 @@ public class Phone {
     @ManyToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
+
+    //+
+
+    //      Relation between fournisseur and Phone
+    @JsonBackReference("fournisseur_phone")
+    @ManyToOne
+    @JoinColumn(name = "fournisseur_id")
+    private Fournisseur fournisseur;
+
+    //+
 
 
 }

@@ -6,6 +6,7 @@ import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.config.CompteBanc;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.general_infos.Address;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -38,6 +39,5 @@ public class FactureAcompte extends Facture{
     @ManyToOne
     @JoinColumn(name = "devis_id")
     private Devis devis;
-
 
 }

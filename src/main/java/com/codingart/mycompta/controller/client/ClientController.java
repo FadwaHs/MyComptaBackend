@@ -2,6 +2,8 @@ package com.codingart.mycompta.controller.client;
 
 import com.codingart.mycompta.dto.ClientDto;
 import com.codingart.mycompta.model.client.Client;
+import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.service.client.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -58,6 +60,15 @@ public class ClientController {
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
 
+    @GetMapping("opp/{id}")
+    public ResponseEntity<List<Opportunite>> getAllOpportuniteForClient( @PathVariable Long id ){
+        return new ResponseEntity<>(clientService.getOpportunitesForClient(id), HttpStatus.OK);
+    }
+
+    @GetMapping("devis/{id}")
+    public ResponseEntity<List<Devis>> getAllDevisForClient(@PathVariable Long id ){
+        return new ResponseEntity<>(clientService.getDevisForClient(id), HttpStatus.OK);
+    }
 
     @GetMapping("par")
     public ResponseEntity<List<Client>> getAllClientPar(){

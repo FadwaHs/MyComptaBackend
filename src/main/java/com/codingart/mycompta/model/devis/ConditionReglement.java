@@ -1,7 +1,9 @@
 package com.codingart.mycompta.model.devis;
 
 import com.codingart.mycompta.model.article.Article;
+import com.codingart.mycompta.model.bon.BonsCommande;
 import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.facturefournisseur.FactureFournisseur;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -19,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConditionReglement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +29,7 @@ public class ConditionReglement {
     private String name;
 
 
-//    Relation between ConditionReglement and Devis
+    //    Relation between ConditionReglement and Devis
     @JsonBackReference("devis_conditionReglement")
     @OneToMany(mappedBy = "conditionReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Devis> devisList;
@@ -35,4 +38,19 @@ public class ConditionReglement {
     @JsonBackReference("facture_conditionReglement")
     @OneToMany(mappedBy = "conditionReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Facture> factureList;
+
+    //+
+
+    //    Relation between ConditionReglement and facturefounisseur
+    @JsonBackReference("facturefournisseur_conditionReglement")
+    @OneToMany(mappedBy = "conditionReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<FactureFournisseur> factureFournisseurList;
+
+    //    Relation between ConditionReglement and BonsCommande
+    @JsonBackReference("bonscommande_conditionReglement")
+    @OneToMany(mappedBy = "conditionReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<BonsCommande> bonsCommandeList;
+
+
+    //+
 }

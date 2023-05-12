@@ -7,6 +7,7 @@ import com.codingart.mycompta.model.facture.FactureAcompte;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.util.FormatService;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
@@ -73,10 +74,14 @@ public class Devis {
     private Societe societe;
 
     //    Relation between Devis and Client
-    //    @JsonManagedReference("client_devis")
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    //    Relation between Devis and opportunite
+    @ManyToOne
+    @JoinColumn(name = "opportunite_id")
+    private Opportunite opportunite;
 
     //    Relation between Devis and ConditionReglement
     @ManyToOne

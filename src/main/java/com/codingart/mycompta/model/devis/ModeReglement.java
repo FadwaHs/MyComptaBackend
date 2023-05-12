@@ -1,7 +1,9 @@
 package com.codingart.mycompta.model.devis;
 
 import com.codingart.mycompta.model.article.Article;
+import com.codingart.mycompta.model.bon.BonsCommande;
 import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.facturefournisseur.FactureFournisseur;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -34,4 +36,20 @@ public class ModeReglement {
     @JsonBackReference("facture_modeReglement")
     @OneToMany(mappedBy = "modeReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Facture> factureList;
+
+    //+
+
+    //    Relation between ModeReglement and facturefounisseur
+    @JsonBackReference("facturefournisseur_modeReglement")
+    @OneToMany(mappedBy = "modeReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<FactureFournisseur> factureFournisseurList;
+
+
+    //    Relation between ModeReglement and BonsCommande
+    @JsonBackReference("bonscommande_modeReglement")
+    @OneToMany(mappedBy = "modeReglement",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<BonsCommande> bonsCommandeList;
+
+
+    //+
 }

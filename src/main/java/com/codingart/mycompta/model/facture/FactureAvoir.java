@@ -5,6 +5,7 @@ import com.codingart.mycompta.enums.FactureAvoirStatus;
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -39,6 +40,7 @@ public class FactureAvoir extends Facture{
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
 
     //    Relation between FacturAvoir and Article
     @JsonManagedReference("factureAvoir_article")

@@ -6,6 +6,7 @@ import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.devis.Interet;
 import com.codingart.mycompta.model.devis.ModeReglement;
 import com.codingart.mycompta.model.general_infos.MotCle;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -65,7 +66,6 @@ public abstract class Facture {
     private List<MotCle> motCleList;
 
 
-
 //    Self join Relation
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "facture_id")
@@ -73,6 +73,12 @@ public abstract class Facture {
 
     @OneToMany(mappedBy = "parent",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<Facture> children;
+
+
+    //    Relation between Facture and Opportunite
+    @ManyToOne
+    @JoinColumn(name = "opportunite_id")
+    private Opportunite opportunite;
 
     @PrePersist
     public void setDataPrePersist(){

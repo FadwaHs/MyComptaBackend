@@ -4,6 +4,8 @@ import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.config.Profile;
+import com.codingart.mycompta.model.fournisseur.Fournisseur;
+import com.codingart.mycompta.model.livraison.Livraison;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -25,7 +27,6 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
-
     private String address;
     @ElementCollection()
     @CollectionTable(name = "complementAddresses",joinColumns = @JoinColumn(name = "address_id"))
@@ -51,5 +52,22 @@ public class Address {
     @OneToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
+
+    //+
+
+    //    Relation Between Address and Client
+    @JsonBackReference("fournisseur_address")
+    @OneToOne
+    @JoinColumn(name = "fournisseur_id")
+    private Fournisseur fournisseur;
+
+    // Relation Between Address and Livraison
+    @JsonBackReference("livraison_address")
+    @OneToMany(mappedBy = "adresseLivraison",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Livraison> livraisonList;
+
+
+    //+
+
 
 }

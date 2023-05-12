@@ -1,9 +1,12 @@
 package com.codingart.mycompta.model.article;
 
+import com.codingart.mycompta.model.bon.Bons;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.Facture;
 import com.codingart.mycompta.model.facture.FactureAvoir;
 import com.codingart.mycompta.model.facture.FactureSimple;
+import com.codingart.mycompta.model.facturefournisseur.AvoireFournisseur;
+import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -31,9 +34,7 @@ public class Article {
     private boolean redIsPercentage;
     private double tva;
     private String description;
-
-//    private double TotalHT;
-//    private double totalTTC;
+    private String reference;
 
 //    Relation between Article and Devis
     @JsonBackReference("devis_article")
@@ -57,5 +58,29 @@ public class Article {
     @ManyToOne
     @JoinColumn(name = "type_article_id")
     private TypeArticle typeArticle;
+
+
+    //+
+
+    //    Relation between Article and FactureAvoirFournisseur
+    @JsonBackReference("avoirefournisseur_article")
+    @ManyToOne
+    @JoinColumn(name = "avoireFournisseur_id")
+    private AvoireFournisseur avoireFournisseur;
+
+    //    Relation between Article and SimpleFournisseur
+    @JsonBackReference("simplefournisseur_article")
+    @ManyToOne
+    @JoinColumn(name = "simpleFournisseur_id")
+    private SimpleFournisseur simpleFournisseur;
+
+    //    Relation between Article and Bon
+    @JsonBackReference("bon_article")
+    @ManyToOne
+    @JoinColumn(name = "bon_id")
+    private Bons bons;
+
+
+    //+
 
 }
