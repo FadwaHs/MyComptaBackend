@@ -5,6 +5,7 @@ import com.codingart.mycompta.model.devis.ConditionReglement;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.devis.Interet;
 import com.codingart.mycompta.model.devis.ModeReglement;
+import com.codingart.mycompta.model.facturefournisseur.Paiement;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -45,6 +46,9 @@ public abstract class Facture {
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date_finalisation;
 
     //    Relation between Facture and ConditionReglement
     @ManyToOne
@@ -64,6 +68,14 @@ public abstract class Facture {
 //    Relation between Facture and MotCle
     @OneToMany(mappedBy = "facture",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MotCle> motCleList;
+
+    //++
+    //Relation between Facture and Paiement
+
+    //@JsonManagedReference("facture_paiement")
+   // @OneToMany(mappedBy = "facture", cascade = CascadeType.ALL, orphanRemoval = true)
+   // private List<Paiement>  paiementList ;
+    //++
 
 
 //    Self join Relation

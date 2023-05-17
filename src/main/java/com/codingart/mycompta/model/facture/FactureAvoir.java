@@ -14,6 +14,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 //@JsonIdentityInfo(scope = FactureAvoir.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -30,7 +31,10 @@ public class FactureAvoir extends Facture{
     @Enumerated(EnumType.STRING)
     @NotNull
     private FactureAvoirStatus status = FactureAvoirStatus.PROVISIONAL;
-
+    //++
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date_remboursement;
+    //++
     //    Relation between FactureAvoir and Societe
     @ManyToOne
     @JoinColumn(name = "societe_id")

@@ -14,6 +14,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 //@JsonIdentityInfo(scope = FactureAcompte.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -30,6 +31,10 @@ public class FactureAcompte extends Facture{
     @Enumerated(EnumType.STRING)
     @NotNull
     private FactureAcompteStatus status = FactureAcompteStatus.PROVISIONAL;
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date_paiement;
+
 
     //    Relation between FactureAcompte and CompteBanc
     @OneToOne(mappedBy = "factureAcompte",cascade = CascadeType.REMOVE)

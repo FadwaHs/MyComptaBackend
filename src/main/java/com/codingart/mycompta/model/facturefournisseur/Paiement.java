@@ -2,6 +2,7 @@ package com.codingart.mycompta.model.facturefournisseur;
 
 
 import com.codingart.mycompta.model.config.CompteBanc;
+import com.codingart.mycompta.model.facture.Facture;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -36,6 +37,14 @@ public class Paiement {
     @ManyToOne
     @JoinColumn(name = "facture_fournisseur_id")
     private FactureFournisseur factureFournisseur;
+
+    //++
+    //@JsonBackReference("facture_paiement")
+    //@ManyToOne
+    //@JoinColumn(name = "facture_id")
+    // private Facture facture;
+
+    // ++
 
     @ManyToOne
     @JoinColumn(name = "compteDebit_bancaire_id")
