@@ -140,7 +140,27 @@ public class Client {
             this.devisList.addAll(uniqueDevis);
         }
 
-        // Factures
+        //++
+        // Factures Simples:
+        if (this.factureSimpleList == null) {
+            this.factureSimpleList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<FactureSimple> uniqueSimple = new HashSet<>(this.factureSimpleList);
+            this.factureSimpleList.clear();
+            this.factureSimpleList.addAll(uniqueSimple);
+        }
+
+        // Factures Avoirs:
+        if (this.factureAvoirList == null) {
+            this.factureAvoirList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<FactureAvoir> uniqueAvoir = new HashSet<>(this.factureAvoirList);
+            this.factureAvoirList.clear();
+            this.factureAvoirList.addAll(uniqueAvoir);
+        }
+
     }
 
 

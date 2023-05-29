@@ -5,7 +5,12 @@ import com.codingart.mycompta.model.devis.ConditionReglement;
 import com.codingart.mycompta.model.devis.Interet;
 import com.codingart.mycompta.model.devis.ModeReglement;
 import com.codingart.mycompta.enums.DevisStatus;
+import com.codingart.mycompta.model.facture.FactureAcompte;
 import com.codingart.mycompta.model.general_infos.MotCle;
+import com.codingart.mycompta.model.opportunite.Opportunite;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -39,4 +44,12 @@ public class DevisDto implements Serializable {
     private ConditionReglement conditionReglement;
     private ModeReglement modeReglement;
     private Interet interet;
+
+    //++
+    private Date date_finalisation;
+    private Date date_signature;
+    private Opportunite opportunite;
+    private List<FactureAcompte> factureAcompteList;
+
+    //++
 }

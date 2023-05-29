@@ -6,8 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
@@ -22,4 +24,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @Query(value = "select new com.codingart.mycompta.model.client.Client(c.id,c.firstName,c.lastName) from Client c")
     List<Client> selectAllByIdAndFirstNameAndLastName();
+
+    //++
+    @Query("SELECT c.societe FROM Client c WHERE c.id = :clientId")
+    Optional<Societe> findSocieteByClientId(@Param("clientId") Long clientId);
 }

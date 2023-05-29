@@ -53,6 +53,15 @@ public class Devis {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
+    //++
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date_finalisation;
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date_signature;
+
+    //++
     //    Relation between Devis and MotCle
     @JsonManagedReference("devis_motCle")
     @OneToMany(mappedBy = "devis",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)

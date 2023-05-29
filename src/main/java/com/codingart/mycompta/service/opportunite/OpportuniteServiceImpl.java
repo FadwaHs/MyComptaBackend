@@ -1,6 +1,8 @@
 package com.codingart.mycompta.service.opportunite;
 
 import com.codingart.mycompta.exception.ResourceNotFoundException;
+import com.codingart.mycompta.model.client.Client;
+import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.repository.devis.DevisRepository;
 import com.codingart.mycompta.repository.opportunite.OpportuniteRepository;
@@ -8,9 +10,7 @@ import com.codingart.mycompta.util.FormatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +53,18 @@ public class OpportuniteServiceImpl  implements OpportuniteService {
     public void deleteOpportunite(Long id) {
         opportuniteRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException(message+id));
         opportuniteRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Devis> getDevisForOpportunite(Long id) {
+
+        Optional<Opportunite> optionalOpportunite = opportuniteRepository.findById(id);
+        if (optionalOpportunite.isPresent()  ){
+
+            Opportunite opportunite = optionalOpportunite.get();
+            opportunite.initializeCollections();
+            return opportunite.getDevis();
+        }
+        return Collections.emptyList();
     }
 }

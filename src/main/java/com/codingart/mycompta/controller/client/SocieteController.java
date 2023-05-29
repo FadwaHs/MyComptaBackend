@@ -2,6 +2,9 @@ package com.codingart.mycompta.controller.client;
 
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
+import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.repository.client.SocieteRepository;
 import com.codingart.mycompta.service.client.SocieteService;
 import jakarta.validation.Valid;
@@ -24,8 +27,8 @@ import java.util.Map;
 public class SocieteController {
     private final SocieteService societeService;
     private final SocieteRepository societeRepository;
-    
-    
+
+
 
     @GetMapping("{id}")
     public ResponseEntity<Societe> getSocieteById(@PathVariable Long id){
@@ -66,4 +69,22 @@ public class SocieteController {
     public ResponseEntity<List<Societe>> getAllbyIdAndFirstNameAndLastName(){
         return new ResponseEntity<>(societeService.getAllByIdAndName(), HttpStatus.OK);
     }
+
+    //++
+    @GetMapping("opp/{id}")
+    public ResponseEntity<List<Opportunite>> getAllOpportuniteForSociete(@PathVariable Long id ){
+        return new ResponseEntity<>(societeService.getOpportunitesForSociete(id), HttpStatus.OK);
+    }
+
+    @GetMapping("devis/{id}")
+    public ResponseEntity<List<Devis>> getAllDevisForSociete(@PathVariable Long id ){
+        return new ResponseEntity<>(societeService.getDevisForSociete(id), HttpStatus.OK);
+    }
+
+    //++
+    @GetMapping("factures/{id}")
+    public ResponseEntity<List<Facture>> getAllFactureForSociete(@PathVariable Long id ){
+        return new ResponseEntity<>(societeService.getAllFacturesForSociete(id), HttpStatus.OK);
+    }
+
 }

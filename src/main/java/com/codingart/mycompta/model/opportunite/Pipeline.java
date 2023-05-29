@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
@@ -30,8 +31,10 @@ public class Pipeline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
-
+    //+
+    @Column(unique = true)
+    private String slug;
+    //+
     @JsonBackReference("pipeline_etape")
     //@JsonManagedReference
     @OneToMany(mappedBy = "pipeline",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
@@ -49,5 +52,11 @@ public class Pipeline {
             this.etapeList.addAll(uniqueEtape);
         }
     }
+
+    @PrePersist
+    public void setDataPrePersist(){
+        this.slug = RandomStringUtils.randomAlphanumeric(10).toLowerCase();
+    }
+
 
 }

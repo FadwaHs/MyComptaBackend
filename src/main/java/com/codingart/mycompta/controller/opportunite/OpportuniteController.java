@@ -1,6 +1,7 @@
 package com.codingart.mycompta.controller.opportunite;
 
 
+import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.service.opportunite.OpportuniteService;
 import jakarta.validation.Valid;
@@ -25,6 +26,11 @@ public class OpportuniteController {
     @GetMapping("{id}")
     public ResponseEntity<Opportunite> getOpportuniteById(@PathVariable Long id){
         return new ResponseEntity<>(opportuniteService.getOpportunite(id), HttpStatus.OK);
+    }
+
+    @GetMapping("devis/{id}")
+    public ResponseEntity<List<Devis>> getAllDevisForOpportunite(@PathVariable Long id ){
+        return new ResponseEntity<>(opportuniteService.getDevisForOpportunite(id), HttpStatus.OK);
     }
 
     /* @RestController : Notice that we have only defined our REST APIs here,

@@ -16,4 +16,6 @@ public interface OpportuniteService {
     Opportunite updateOpportunite(Long id, Opportunite opportunite);
     void deleteOpportunite(Long id);
 
+    List<Devis> getDevisForOpportunite(Long id);
+
 }

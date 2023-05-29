@@ -21,12 +21,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.processing.Generated;
-import java.util.Date;
-import java.util.List;
-
-
-
-
+import java.util.*;
 
 
 @Entity
@@ -94,6 +89,26 @@ public class Opportunite {
     @JsonBackReference("opp_facture")
     @OneToMany(mappedBy = "opportunite",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Facture> factureList;
+
+
+    //+
+
+    @PostLoad
+    public void initializeCollections() {
+
+        // Load Devis List Of Opportunite
+        if (this.devis == null) {
+            this.devis = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<Devis> uniqueDevis = new HashSet<>(this.devis);
+            this.devis.clear();
+            this.devis.addAll(uniqueDevis);
+        }
+
+        // Load Fcature List Of Opportunite
+    }
+    //+
 
     @PrePersist
     public void setDataPrePersist(){

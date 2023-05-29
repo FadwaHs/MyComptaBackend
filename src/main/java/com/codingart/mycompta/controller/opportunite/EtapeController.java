@@ -1,7 +1,9 @@
 package com.codingart.mycompta.controller.opportunite;
 
 
+import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.opportunite.Etape;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.model.opportunite.Pipeline;
 import com.codingart.mycompta.service.opportunite.EtapeService;
 import com.codingart.mycompta.service.opportunite.EtapeServiceImpl;
@@ -31,6 +33,11 @@ public class EtapeController {
     @GetMapping
     public ResponseEntity<List<Etape>> getAllEtape(){
         return new ResponseEntity<>(etapeService.getAllEtape(), HttpStatus.OK);
+    }
+
+    @GetMapping("opp/{id}")
+    public ResponseEntity<List<Opportunite>> getAllOpportuniteForEtape(@PathVariable Long id ){
+        return new ResponseEntity<>(etapeService.getOpportuniteForEtape(id), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

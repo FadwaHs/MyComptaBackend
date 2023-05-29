@@ -1,10 +1,15 @@
 package com.codingart.mycompta.service.client;
 
+
 import com.codingart.mycompta.dto.ClientDto;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Client;
+import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.facture.FactureAvoir;
+import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.repository.client.ClientRepository;
 import com.codingart.mycompta.service.client.ClientService;
@@ -120,5 +125,27 @@ public class ClientServiceImpl implements ClientService {
         }
         return Collections.emptyList();
     }
+
+    //++
+    @Override
+    public Optional<Societe> getSocieteByClientId(Long clientId) {
+        return clientRepository.findSocieteByClientId(clientId);
+    }
+
+    @Override
+    public List<Facture> getAllFactureForClient(Long id) {
+        List<Facture> allFactures = new ArrayList<>();
+
+        Optional<Client> clientOptional = clientRepository.findById(id);
+        if (clientOptional.isPresent()) {
+            Client client = clientOptional.get();
+            client.initializeCollections();
+            allFactures.addAll(client.getFactureSimpleList());
+            allFactures.addAll(client.getFactureAvoirList());
+        }
+
+        return allFactures;
+    }
+
 
 }

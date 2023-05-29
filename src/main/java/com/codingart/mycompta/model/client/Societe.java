@@ -20,7 +20,10 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 ////@JsonIdentityInfo(scope = Societe.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -46,6 +49,7 @@ public class Societe {
     private String website;
     @NotBlank(message = "Language may not be blank")
     private String Language;
+    private String note;
 
     //+
     private boolean prospect;
@@ -64,12 +68,12 @@ public class Societe {
     //+
 
 
-//    Relation Between Societe and Address
+    //    Relation Between Societe and Address
     @JsonManagedReference("societe_address")
     @OneToOne(mappedBy = "societe",cascade = CascadeType.REMOVE)
     private Address address;
 
-//    Relation between Societe and phone
+    //    Relation between Societe and phone
     @JsonManagedReference("societe_phone")
     @OneToMany(mappedBy = "societe",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Phone> phoneList;
@@ -120,6 +124,50 @@ public class Societe {
     private List<Fournisseur> fournisseurList;
 
     //+
+
+    //++
+    public void initializeCollections() {
+
+        if(this.opportuniteList == null) {
+            this.opportuniteList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<Opportunite> uniqueOpportunites = new HashSet<>(this.opportuniteList);
+            this.opportuniteList.clear();
+            this.opportuniteList.addAll(uniqueOpportunites);
+        }
+
+        if (this.devisList == null) {
+            this.devisList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<Devis> uniqueDevis = new HashSet<>(this.devisList);
+            this.devisList.clear();
+            this.devisList.addAll(uniqueDevis);
+        }
+        //++
+        // Factures Simples:
+        if (this.factureSimpleList == null) {
+            this.factureSimpleList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<FactureSimple> uniqueSimple = new HashSet<>(this.factureSimpleList);
+            this.factureSimpleList.clear();
+            this.factureSimpleList.addAll(uniqueSimple);
+        }
+
+        // Factures Avoirs:
+        if (this.factureAvoirList == null) {
+            this.factureAvoirList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<FactureAvoir> uniqueAvoir = new HashSet<>(this.factureAvoirList);
+            this.factureAvoirList.clear();
+            this.factureAvoirList.addAll(uniqueAvoir);
+        }
+
+    }
+
 
 
     @PrePersist

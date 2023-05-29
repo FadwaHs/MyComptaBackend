@@ -36,18 +36,15 @@ public class CompteBanc {
     //+
     private String cleRib;
 
-
-
     //    Relation between CompteBanc and Environment
     @ManyToOne
     @JoinColumn(name = "environment_id")
     private Environment environment;
 
     //    Relation between compteBanc and FactureAcompte
-    @OneToOne
-    @JoinColumn(name = "factureAcompte_id")
-    private FactureAcompte factureAcompte;
-
+    @JsonBackReference("compteBanc_factureAcompte")
+    @OneToMany(mappedBy = "compteBanc")
+    private List<FactureAcompte> factureAcompte;
 
     //+
 

@@ -1,5 +1,6 @@
 package com.codingart.mycompta.service.opportunite;
 
+import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.opportunite.Etape;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 
@@ -12,4 +13,6 @@ public interface EtapeService {
     List<Etape> getAllEtape();
     Etape updateEtape(Long id, Etape etape);
     void deleteEtape(Long id);
+
+    List<Opportunite> getOpportuniteForEtape(Long id);
 }

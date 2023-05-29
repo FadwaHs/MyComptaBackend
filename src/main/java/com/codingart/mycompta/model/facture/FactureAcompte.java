@@ -5,6 +5,7 @@ import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.config.CompteBanc;
 import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.environment.Environment;
 import com.codingart.mycompta.model.general_infos.Address;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -37,7 +38,8 @@ public class FactureAcompte extends Facture{
 
 
     //    Relation between FactureAcompte and CompteBanc
-    @OneToOne(mappedBy = "factureAcompte",cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @JoinColumn(name = "compteBanc_id")
     private CompteBanc compteBanc;
 
     //    Relation between FactureAcompte and Devis

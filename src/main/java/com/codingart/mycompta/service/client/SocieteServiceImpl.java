@@ -3,6 +3,9 @@ package com.codingart.mycompta.service.client;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
+import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.repository.client.SocieteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -75,5 +78,51 @@ public class SocieteServiceImpl implements SocieteService {
     public List<Societe> getAllByIdAndName() {
         return societeRepository.selectAllByIdAndName();
     }
+
+
+    //++
+    @Override
+    public List<Opportunite> getOpportunitesForSociete(Long id) {
+        Optional<Societe> societeOptional = societeRepository.findById(id);
+
+        if (societeOptional.isPresent()  ){
+
+            Societe societe = societeOptional.get();
+
+            societe.initializeCollections();
+            return societe.getOpportuniteList();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Devis> getDevisForSociete(Long id) {
+        Optional<Societe> societeOptional = societeRepository.findById(id);
+
+        if (societeOptional.isPresent()  ){
+
+            Societe societe = societeOptional.get();
+
+            societe.initializeCollections();
+            return societe.getDevisList();
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Facture> getAllFacturesForSociete(Long id) {
+        List<Facture> allFactures = new ArrayList<>();
+
+        Optional<Societe> societeOptional = societeRepository.findById(id);
+        if (societeOptional.isPresent()) {
+            Societe societe = societeOptional.get();
+            societe.initializeCollections();
+            allFactures.addAll(societe.getFactureSimpleList());
+            allFactures.addAll(societe.getFactureAvoirList());
+        }
+
+        return allFactures;
+    }
+
 
 }

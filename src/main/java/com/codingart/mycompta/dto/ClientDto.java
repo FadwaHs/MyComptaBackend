@@ -1,9 +1,12 @@
 package com.codingart.mycompta.dto;
 
+import com.codingart.mycompta.enums.ClientType;
+import com.codingart.mycompta.model.comptabilite.CompteTiers;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.general_infos.Address;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.general_infos.Phone;
+import com.codingart.mycompta.model.general_infos.Social;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -35,6 +38,13 @@ public class ClientDto implements Serializable {
     private Address address;
     private List<MotCle> motCleList;
 
-//    private List<Devis> devisList;
+    //    private List<Devis> devisList;
     private SocieteDto societe;
+    //++
+    private boolean prospect;
+    private ClientType clientType ;
+    private List<Social> socialList;
+    private CompteTiers compte_tiers;
+
+
 }

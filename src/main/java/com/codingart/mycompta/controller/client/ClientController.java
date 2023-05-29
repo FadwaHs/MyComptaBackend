@@ -2,7 +2,9 @@ package com.codingart.mycompta.controller.client;
 
 import com.codingart.mycompta.dto.ClientDto;
 import com.codingart.mycompta.model.client.Client;
+import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.facture.Facture;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.service.client.ClientService;
 import jakarta.validation.Valid;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -70,6 +73,12 @@ public class ClientController {
         return new ResponseEntity<>(clientService.getDevisForClient(id), HttpStatus.OK);
     }
 
+    //++
+    @GetMapping("factures/{id}")
+    public ResponseEntity<List<Facture>> getAllFactureForClient(@PathVariable Long id ){
+        return new ResponseEntity<>(clientService.getAllFactureForClient(id), HttpStatus.OK);
+    }
+
     @GetMapping("par")
     public ResponseEntity<List<Client>> getAllClientPar(){
         return new ResponseEntity<>(clientService.getAllClientPar(), HttpStatus.OK);
@@ -81,5 +90,12 @@ public class ClientController {
     @GetMapping("recipient")
     public ResponseEntity<List<Client>> getAllbyIdAndFirstNameAndLastName(){
         return new ResponseEntity<>(clientService.getAllByIdAndFirstNameAndLastName(), HttpStatus.OK);
+    }
+
+    //++
+    @GetMapping("/societe/{clientId}")
+    public ResponseEntity<Societe> getSocieteByClientId(@PathVariable Long clientId) {
+        Optional<Societe> societe = clientService.getSocieteByClientId(clientId);
+        return societe.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 }
