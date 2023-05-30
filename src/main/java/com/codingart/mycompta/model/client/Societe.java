@@ -60,7 +60,6 @@ public class Societe {
     @OneToMany(mappedBy = "societe",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Social> socialList;
 
-    @JsonBackReference("secteur_societe")
     @ManyToOne
     @JoinColumn(name = "secteur_id")
     private Secteur secteur;
