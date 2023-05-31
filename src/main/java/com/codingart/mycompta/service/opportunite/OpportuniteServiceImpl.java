@@ -1,5 +1,7 @@
 package com.codingart.mycompta.service.opportunite;
 
+import com.codingart.mycompta.dto.DevisDto;
+import com.codingart.mycompta.enums.OppStatus;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.devis.Devis;
@@ -8,6 +10,9 @@ import com.codingart.mycompta.repository.devis.DevisRepository;
 import com.codingart.mycompta.repository.opportunite.OpportuniteRepository;
 import com.codingart.mycompta.util.FormatService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -66,5 +71,31 @@ public class OpportuniteServiceImpl  implements OpportuniteService {
             return opportunite.getDevis();
         }
         return Collections.emptyList();
+    }
+    //++
+    @Override
+    public Map<String, Object> getListOpportunites(String data, OppStatus status, int page, int size) {
+        List<Opportunite> opportunites ;
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<Opportunite> pageTuts;
+        if (data == null && status == null) {
+            pageTuts = opportuniteRepository.findAll(paging);
+        }
+        else if(data != null && status !=null){
+            pageTuts = opportuniteRepository.findByDataContainingWithStatus(data, status, paging);
+        } else if (data != null) {
+            pageTuts = opportuniteRepository.findByDataContaining(data, paging);
+        } else {
+            pageTuts = opportuniteRepository.findOpportuniteByOppStatus(status, paging);
+        }
+
+        opportunites= pageTuts.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("opportunites", opportunites);
+        response.put("currentPage", pageTuts.getNumber());
+        response.put("totalItems", pageTuts.getTotalElements());
+        response.put("totalPages", pageTuts.getTotalPages());
+        return response;
     }
 }

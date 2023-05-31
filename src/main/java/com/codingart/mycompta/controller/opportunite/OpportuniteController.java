@@ -1,6 +1,8 @@
 package com.codingart.mycompta.controller.opportunite;
 
 
+import com.codingart.mycompta.enums.DevisStatus;
+import com.codingart.mycompta.enums.OppStatus;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.service.opportunite.OpportuniteService;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 //The annotation specifies that all requests to the /api/opportunites path should be handled by this controller.
@@ -58,5 +61,16 @@ public class OpportuniteController {
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
 
+
+    //++
+    @GetMapping("pagination")
+    public ResponseEntity<Map<String, Object>> getListOpportunites(
+            @RequestParam(required = false) String data,
+            @RequestParam(required = false) OppStatus status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        return new ResponseEntity<>(opportuniteService.getListOpportunites(data,status,page,size), HttpStatus.OK);
+    }
 
 }

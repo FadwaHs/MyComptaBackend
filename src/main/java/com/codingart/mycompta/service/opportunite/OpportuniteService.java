@@ -2,6 +2,7 @@ package com.codingart.mycompta.service.opportunite;
 
 import com.codingart.mycompta.dto.DevisDto;
 import com.codingart.mycompta.enums.DevisStatus;
+import com.codingart.mycompta.enums.OppStatus;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 
@@ -17,5 +18,9 @@ public interface OpportuniteService {
     void deleteOpportunite(Long id);
 
     List<Devis> getDevisForOpportunite(Long id);
+
+    //++
+    Map<String,Object> getListOpportunites(String data, OppStatus status, int page, int size);
+
 
 }
