@@ -69,14 +69,6 @@ public abstract class Facture {
     @OneToMany(mappedBy = "facture",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MotCle> motCleList;
 
-    //++
-    //Relation between Facture and Paiement
-
-    //@JsonManagedReference("facture_paiement")
-   // @OneToMany(mappedBy = "facture", cascade = CascadeType.ALL, orphanRemoval = true)
-   // private List<Paiement>  paiementList ;
-    //++
-
 
 //    Self join Relation
     @ManyToOne(fetch = FetchType.LAZY)

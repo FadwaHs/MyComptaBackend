@@ -1,6 +1,7 @@
 package com.codingart.mycompta.model.fournisseur;
 
 
+import com.codingart.mycompta.dto.SocieteDto;
 import com.codingart.mycompta.model.bon.BonLivraison;
 import com.codingart.mycompta.model.bon.Bons;
 import com.codingart.mycompta.model.bon.BonsCommande;
@@ -79,7 +80,7 @@ public class Fournisseur {
     private CompteTiers compte_tiers;
 
     //    Relation between fournisseur and Societe
-    @JsonBackReference("societe_fournisseur")
+
     @ManyToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
@@ -88,7 +89,7 @@ public class Fournisseur {
     //  Relation between fournisseur and FactureFournisseur
     @JsonManagedReference("fournisseur_facturefournisseur")
     @OneToMany(mappedBy = "fournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<FactureFournisseur> factureFournisseurList;
+    private List<FactureFournisseur> factureFournisseurList = new ArrayList<>();
 
 
 
@@ -111,7 +112,7 @@ public class Fournisseur {
     //  Relation between fournisseur and Bons
     @JsonManagedReference("fournisseur_bons")
     @OneToMany(mappedBy = "fournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Bons> bonsList;
+    private List<Bons> bonsList = new ArrayList<>();
 
 
     // To load List For Different Type Of Bons Fournisseur

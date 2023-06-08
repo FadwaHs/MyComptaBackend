@@ -4,6 +4,7 @@ import com.codingart.mycompta.enums.FactureSimpleStatus;
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
+import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -54,5 +55,6 @@ public class FactureSimple extends Facture{
     //    Relation between FactureSimple and Debours
     @OneToMany(mappedBy = "factureSimple",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Debours> debours;
+
 
 }
