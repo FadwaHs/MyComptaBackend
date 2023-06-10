@@ -1,6 +1,8 @@
 package com.codingart.mycompta.controller.facturefournisseur;
 
 
+import com.codingart.mycompta.enums.FactureSimpleStatus;
+import com.codingart.mycompta.enums.SimpleFournisseurStatus;
 import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
 import com.codingart.mycompta.service.facturefournisseur.SimpleFournisseurService;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/facturesfournisseur-simple")
@@ -46,5 +49,14 @@ public class SimpleFournisseurController {
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
     }
 
+    @GetMapping("pagination")
+    public ResponseEntity<Map<String, Object>> getListSimpleFournisseur(
+            @RequestParam(required = false) String data,
+            @RequestParam(required = false) SimpleFournisseurStatus status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        return new ResponseEntity<>(simpleFournisseurService.getListSimpleFournsseur(data,status,page,size), HttpStatus.OK);
+    }
 
 }

@@ -15,9 +15,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 //@JsonIdentityInfo(scope = Devis.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -106,6 +104,25 @@ public class Devis {
     @ManyToOne
     @JoinColumn(name = "interet_id")
     private Interet interet;
+
+    @PostLoad
+    public void initializeCollections() {
+
+        // Load Facture acompte List Of Devis
+        if (this.factureAcompteList == null) {
+            this.factureAcompteList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<FactureAcompte> uniqueFactue = new HashSet<>(this.factureAcompteList);
+            this.factureAcompteList.clear();
+            this.factureAcompteList.addAll(uniqueFactue);
+        }
+
+
+    }
+    //+
+
+
 
     @PrePersist
     public void setDataPrePersist(){

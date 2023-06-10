@@ -32,7 +32,7 @@ public class FactureSimpleController {
     }
 
     @GetMapping("pagination")
-    public ResponseEntity<Map<String, Object>> getListFactureAcompte(
+    public ResponseEntity<Map<String, Object>> getListFactureSimple(
             @RequestParam(required = false) String data,
             @RequestParam(required = false) FactureSimpleStatus status,
             @RequestParam(defaultValue = "0") int page,

@@ -22,7 +22,7 @@ public class AvoireFournisseur  extends  FactureFournisseur{
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    private AvoireFournisseurStatus status = AvoireFournisseurStatus.Brouillon;
+    private AvoireFournisseurStatus status = AvoireFournisseurStatus.Draft;
 
     //    Relation between avoirefournisseur and Article
 

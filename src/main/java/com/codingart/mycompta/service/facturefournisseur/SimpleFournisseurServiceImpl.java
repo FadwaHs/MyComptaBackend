@@ -1,15 +1,23 @@
 package com.codingart.mycompta.service.facturefournisseur;
 
+import com.codingart.mycompta.enums.SimpleFournisseurStatus;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
+import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
 import com.codingart.mycompta.repository.facture.FactureSimpleRepository;
 import com.codingart.mycompta.repository.facturefournisseur.SimpleFournisseurRepository;
 import com.codingart.mycompta.util.FormatService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class SimpleFournisseurServiceImpl implements SimpleFournisseurService{
@@ -54,4 +62,31 @@ public class SimpleFournisseurServiceImpl implements SimpleFournisseurService{
         simpleFournisseurRepository.deleteById(id);
 
     }
+
+    @Override
+    public Map<String, Object> getListSimpleFournsseur(String data, SimpleFournisseurStatus status, int page, int size) {
+        List<SimpleFournisseur> simpleFournisseurList ;
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<SimpleFournisseur> pageTuts;
+        if (data == null && status == null) {
+            pageTuts = simpleFournisseurRepository.findAll(paging);
+        }
+        else if(data != null && status !=null){
+            pageTuts = simpleFournisseurRepository.findByDataContainingWithStatus(data, status, paging);
+        } else if (data != null) {
+            pageTuts = simpleFournisseurRepository.findByDataContaining(data, paging);
+        } else {
+            pageTuts = simpleFournisseurRepository.findSimpleFounisseurByStatus(status, paging);
+        }
+
+        simpleFournisseurList = pageTuts.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("facturesfournisseur", simpleFournisseurList);
+        response.put("currentPage", pageTuts.getNumber());
+        response.put("totalItems", pageTuts.getTotalElements());
+        response.put("totalPages", pageTuts.getTotalPages());
+        return response;
+    }
 }
+

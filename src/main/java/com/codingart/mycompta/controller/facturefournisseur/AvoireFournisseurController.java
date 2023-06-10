@@ -1,6 +1,8 @@
 package com.codingart.mycompta.controller.facturefournisseur;
 
 
+import com.codingart.mycompta.enums.AvoireFournisseurStatus;
+import com.codingart.mycompta.enums.SimpleFournisseurStatus;
 import com.codingart.mycompta.model.facture.FactureAvoir;
 import com.codingart.mycompta.model.facturefournisseur.AvoireFournisseur;
 import com.codingart.mycompta.service.facturefournisseur.AvoirFournisseurService;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/facturesfournisseur-avoir")
@@ -44,6 +47,16 @@ public class AvoireFournisseurController {
     public ResponseEntity<String> deleteAvoireFournisseur(@PathVariable Long id){
         avoirFournisseurService.deleteAvoireFournisseur(id);
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
+    }
+
+    @GetMapping("pagination")
+    public ResponseEntity<Map<String, Object>> getListAvoirFournisseur(
+            @RequestParam(required = false) String data,
+            @RequestParam(required = false) AvoireFournisseurStatus status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        return new ResponseEntity<>(avoirFournisseurService.getListAvoirFournsseur(data,status,page,size), HttpStatus.OK);
     }
 
 }

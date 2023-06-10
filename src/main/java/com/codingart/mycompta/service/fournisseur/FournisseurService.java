@@ -3,6 +3,7 @@ package com.codingart.mycompta.service.fournisseur;
 import com.codingart.mycompta.dto.ClientDto;
 import com.codingart.mycompta.model.bon.BonLivraison;
 import com.codingart.mycompta.model.bon.BonsCommande;
+import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.facturefournisseur.AvoireFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
 import com.codingart.mycompta.model.fournisseur.Fournisseur;
@@ -23,5 +24,8 @@ public interface FournisseurService {
 
     List<BonsCommande> getAllBonsCommande(Long id);
     List<BonLivraison> getAllBonLivraison(Long id);
+
+    Map<String,Object> getListFournisseurs(String data, int page, int size);
+    List<Fournisseur> getAllByIdAndFirstNameAndLastName();
 
 }

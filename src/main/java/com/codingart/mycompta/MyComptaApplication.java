@@ -256,7 +256,7 @@ public class MyComptaApplication implements CommandLineRunner {
        AvoireFournisseur avoireFournisseur = new AvoireFournisseur();
         avoireFournisseur.setFournisseur(fournisseur);
         avoireFournisseur.setDevise("EUR");
-        avoireFournisseur.setStatus(AvoireFournisseurStatus.Brouillon);
+        avoireFournisseur.setStatus(AvoireFournisseurStatus.Draft);
 
         a2.setAvoireFournisseur(avoireFournisseur);
 

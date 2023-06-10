@@ -1,5 +1,7 @@
 package com.codingart.mycompta.service.facturefournisseur;
 
+import com.codingart.mycompta.enums.FactureSimpleStatus;
+import com.codingart.mycompta.enums.SimpleFournisseurStatus;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
 
 import java.util.List;
@@ -11,6 +13,9 @@ public interface SimpleFournisseurService {
     List<SimpleFournisseur> getAllSimpleFournisseur();
     SimpleFournisseur updateSimpleFournisseur(Long id, SimpleFournisseur simpleFournisseur);
     void deleteSimpleFournisseur(Long id);
+
+    Map<String,Object> getListSimpleFournsseur(String data, SimpleFournisseurStatus status, int page, int size);
+
 
 
 }

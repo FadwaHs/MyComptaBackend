@@ -1,5 +1,6 @@
 package com.codingart.mycompta.service.fournisseur;
 
+import com.codingart.mycompta.dto.ClientDto;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.bon.BonLivraison;
 import com.codingart.mycompta.model.bon.BonsCommande;
@@ -11,11 +12,12 @@ import com.codingart.mycompta.model.fournisseur.Fournisseur;
 import com.codingart.mycompta.repository.facturefournisseur.FactureFournisseurRepository;
 import com.codingart.mycompta.repository.fournisseur.FournisseurRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -99,4 +101,29 @@ public class FournisseurServcieImpl implements FournisseurService{
         }
         return Collections.emptyList();
     }
+
+    @Override
+    public Map<String, Object> getListFournisseurs(String data, int page, int size) {
+        List<Fournisseur> fournisseurs ;
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<Fournisseur> pageTuts;
+        if (data == null)
+            pageTuts = fournisseurRepository.findAll(paging);
+        else {
+            pageTuts = fournisseurRepository.findByDataContaining(data, paging);
+        }
+        fournisseurs = pageTuts.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("fournisseurs", fournisseurs);
+        response.put("currentPage", pageTuts.getNumber());
+        response.put("totalItems", pageTuts.getTotalElements());
+        response.put("totalPages", pageTuts.getTotalPages());
+        return response;
+    }
+
+    @Override
+    public List<Fournisseur> getAllByIdAndFirstNameAndLastName() {
+      return fournisseurRepository.selectAllByIdAndFirstNameAndLastName();
+   }
 }

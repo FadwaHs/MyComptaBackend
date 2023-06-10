@@ -3,6 +3,7 @@ package com.codingart.mycompta.controller.fournisseur;
 
 import com.codingart.mycompta.model.bon.BonLivraison;
 import com.codingart.mycompta.model.bon.BonsCommande;
+import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.facturefournisseur.AvoireFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
 import com.codingart.mycompta.model.fournisseur.Fournisseur;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/fournisseurs")
@@ -71,4 +73,18 @@ public class FournisseurController {
         return new ResponseEntity<>(fournisseurService.getAllBonLivraison(id), HttpStatus.OK);
     }
 
+    @GetMapping("pagination")
+    public ResponseEntity<Map<String, Object>> getListFournisseurs(
+            @RequestParam(required = false) String data,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+
+        return new ResponseEntity<>(fournisseurService.getListFournisseurs(data,page,size), HttpStatus.OK);
+    }
+
+    @GetMapping("recipient")
+    public ResponseEntity<List<Fournisseur>> getAllbyIdAndFirstNameAndLastName(){
+        return new ResponseEntity<>(fournisseurService.getAllByIdAndFirstNameAndLastName(), HttpStatus.OK);
+    }
 }

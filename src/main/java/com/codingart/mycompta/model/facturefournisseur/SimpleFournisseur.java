@@ -22,7 +22,7 @@ public class SimpleFournisseur extends  FactureFournisseur{
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    private SimpleFournisseurStatus status = SimpleFournisseurStatus.Brouillon;
+    private SimpleFournisseurStatus status = SimpleFournisseurStatus.Draft;
     @Enumerated(EnumType.STRING)
     @NotNull
     private LivraisonStatus livraisonStatus = LivraisonStatus.Pending;

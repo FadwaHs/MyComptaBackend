@@ -12,6 +12,7 @@ import com.codingart.mycompta.model.facturefournisseur.AvoireFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.FactureFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
 import com.codingart.mycompta.model.general_infos.Address;
+import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.general_infos.Phone;
 import com.codingart.mycompta.model.general_infos.Social;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -56,6 +57,10 @@ public class Fournisseur {
     private String note;
     private String reference;
 
+    //    Relation between Fournisseur and MotCle
+    @JsonManagedReference("fournisseur_motCle")
+    @OneToMany(mappedBy = "fournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<MotCle> motCleList;
 
     //    Relation between fournisseur and Phone
     @JsonManagedReference("fournisseur_phone")

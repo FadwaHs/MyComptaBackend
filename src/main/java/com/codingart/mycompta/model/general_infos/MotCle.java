@@ -7,6 +7,7 @@ import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.Facture;
 import com.codingart.mycompta.model.facturefournisseur.FactureFournisseur;
+import com.codingart.mycompta.model.fournisseur.Fournisseur;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -43,6 +44,12 @@ public class MotCle {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    //    Relation between MotCle and Fournisseur
+    @JsonBackReference("fournisseur_motCle")
+    @ManyToOne
+    @JoinColumn(name = "fournissuer_id")
+    private Fournisseur fournisseur;
 
     //    Relation between MotCle and Devis
     @JsonBackReference("devis_motCle")
