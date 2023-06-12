@@ -5,6 +5,7 @@ import com.codingart.mycompta.enums.AvoireFournisseurStatus;
 import com.codingart.mycompta.enums.FactureAvoirStatus;
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.fournisseur.Fournisseur;
+import com.codingart.mycompta.model.general_infos.MotCle;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -34,6 +35,11 @@ public class AvoireFournisseur  extends  FactureFournisseur{
     @JsonManagedReference("avoirefournisseur_article")
     @OneToMany(mappedBy = "avoireFournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Article> articleList;
+
+
+    //    Relation between avoirefournisseur and MotCle
+    @OneToMany(mappedBy = "avoireFournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<MotCle> motCleList;
 
     //    Relation between FactureFournisseur and Fournisseur
 

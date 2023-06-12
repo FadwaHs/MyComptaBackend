@@ -55,10 +55,6 @@ public  abstract class  FactureFournisseur {
     private ModeReglement modeReglement;
 
 
-    //    Relation between FactureFournisseur and MotCle
-    @OneToMany(mappedBy = "factureFournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<MotCle> motCleList;
-
     @JsonManagedReference("factureFournisseur_paiement")
     @OneToMany(mappedBy = "factureFournisseur", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Paiement>  paiementList ;

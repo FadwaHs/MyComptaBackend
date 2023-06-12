@@ -21,15 +21,15 @@ public class BonLivraisonServiceImpl implements BonLivraisonService{
 
         bonLivraison.setDate_creation(new Date());
         // get the largest code value from the database
-       /* String largestCode = bonLivraisonRepository.findLargestCode();
+       String largestCode = bonLivraisonRepository.findLargestCode();
         if (largestCode == null) {
             count = 1;
         } else {
-            count = Integer.parseInt(largestCode.substring(4)) + 1;
+            count = Integer.parseInt(largestCode.substring(11)) + 1;
         }
 
         String code = String.format("N°F_DEL-%05d", count);
-        bonLivraison.setNumero_interne(code);*/
+        bonLivraison.setNumero_interne(code);
 
         return bonLivraisonRepository.save(bonLivraison);
     }
