@@ -2,14 +2,18 @@ package com.codingart.mycompta.model.bon;
 import com.codingart.mycompta.enums.BCStatus;
 import com.codingart.mycompta.enums.BLStatus;
 import com.codingart.mycompta.enums.LivraisonStatus;
+import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.devis.ConditionReglement;
 import com.codingart.mycompta.model.devis.ModeReglement;
+import com.codingart.mycompta.model.fournisseur.Fournisseur;
 import com.codingart.mycompta.model.livraison.Livraison;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Builder
 @Entity
@@ -18,6 +22,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BonsCommande extends  Bons{
+
+    private double remise;
+    private boolean remIsPercentage;
+
 
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -46,5 +54,15 @@ public class BonsCommande extends  Bons{
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "livraison_id")
     private Livraison livraison;
+
+
+    @ManyToOne
+    @JoinColumn(name = "fournisseur_id")
+    private Fournisseur fournisseur;
+
+    //    Relation between Bons and Article
+    @JsonManagedReference("bonsCommande_article")
+    @OneToMany(mappedBy = "bonsCommande",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Article> articleList;
 
 }

@@ -42,15 +42,6 @@ public  abstract class  FactureFournisseur {
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
     private Date date_creation;
-    private double remise;
-    private boolean remIsPercentage;
-
-
-    //    Relation between FactureFournisseur and Fournisseur
-    @JsonBackReference("fournisseur_facturefournisseur")
-    @ManyToOne
-    @JoinColumn(name = "fournisseur_id")
-    private Fournisseur fournisseur;
 
 
     //    Relation between FactureFournisseur and ConditionReglement

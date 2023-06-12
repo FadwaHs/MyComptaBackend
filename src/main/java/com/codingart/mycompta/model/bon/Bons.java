@@ -39,26 +39,11 @@ public abstract class Bons {
     @Basic
     @Temporal(TemporalType.DATE)
     private Date date_creation;
-    private double remise;
-    private boolean remIsPercentage;
 
-
-    //    Relation between Bons and Fournisseur
-    @JsonBackReference("fournisseur_bons")
-    @ManyToOne
-    @JoinColumn(name = "fournisseur_id")
-    private Fournisseur fournisseur;
 
     //    Relation between Bons and MotCle
     @OneToMany(mappedBy = "bons",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MotCle> motCleList;
-
-
-    //    Relation between Bons and Article
-    @JsonManagedReference("bon_article")
-    @OneToMany(mappedBy = "bons",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Article> articleList;
-
 
     @PrePersist
     public void setDataPrePersist(){
