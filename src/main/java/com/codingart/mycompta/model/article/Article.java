@@ -1,6 +1,8 @@
 package com.codingart.mycompta.model.article;
 
+import com.codingart.mycompta.model.bon.BonLivraison;
 import com.codingart.mycompta.model.bon.Bons;
+import com.codingart.mycompta.model.bon.BonsCommande;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.Facture;
 import com.codingart.mycompta.model.facture.FactureAvoir;
@@ -74,11 +76,17 @@ public class Article {
     @JoinColumn(name = "simpleFournisseur_id")
     private SimpleFournisseur simpleFournisseur;
 
-    //    Relation between Article and Bon
-    @JsonBackReference("bon_article")
+    //    Relation between Article and BonLivraison
+    @JsonBackReference("bonLivraison_article")
     @ManyToOne
-    @JoinColumn(name = "bon_id")
-    private Bons bons;
+    @JoinColumn(name = "bon_livraison_id")
+    private BonLivraison bonLivraison;
+
+    //    Relation between Article and BonCommandes
+    @JsonBackReference("bonsCommande_article")
+    @ManyToOne
+    @JoinColumn(name = "bon_commande_id")
+    private BonsCommande bonsCommande;
 
 
     //+

@@ -86,48 +86,44 @@ public class Fournisseur {
     private Societe societe;
 
 
-    //  Relation between fournisseur and FactureFournisseur
-    @JsonManagedReference("fournisseur_facturefournisseur")
+    @JsonBackReference("fournisseur_avoirfournisseur")
     @OneToMany(mappedBy = "fournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<FactureFournisseur> factureFournisseurList = new ArrayList<>();
+    private List<AvoireFournisseur> avoireFournisseurList= new ArrayList<>();
+
+    @JsonBackReference("fournisseur_simplefournisseur")
+    @OneToMany(mappedBy = "fournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<SimpleFournisseur> simpleFournisseurList= new ArrayList<>();
 
 
 
     // To load List For Different Type Of Facture Fournisseur
     public List<AvoireFournisseur> getAvoirFournisseurList() {
-        return factureFournisseurList.stream()
-                .filter(facture -> facture instanceof AvoireFournisseur)
-                .map(facture -> (AvoireFournisseur) facture)
-                .collect(Collectors.toList());
+        return null;
     }
 
     public List<SimpleFournisseur> getSimpleFournisseurList() {
-        return factureFournisseurList.stream()
-                .filter(facture -> facture instanceof SimpleFournisseur)
-                .map(facture -> (SimpleFournisseur) facture)
-                .collect(Collectors.toList());
+        return null;
     }
 
 
-    //  Relation between fournisseur and Bons
-    @JsonManagedReference("fournisseur_bons")
+    //  Relation between fournisseur and Bons type
+
+    @JsonBackReference("fournisseur_bonslv")
     @OneToMany(mappedBy = "fournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Bons> bonsList = new ArrayList<>();
+    private List<BonLivraison> bonLivraisonList = new ArrayList<>();
+
+    @JsonBackReference("fournisseur_bonscmd")
+    @OneToMany(mappedBy = "fournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<BonsCommande> bonsCommandes = new ArrayList<>();
 
 
     // To load List For Different Type Of Bons Fournisseur
     public List<BonsCommande> getBonsCommandeFournisseurList() {
-        return bonsList.stream()
-                .filter(bons -> bons instanceof BonsCommande)
-                .map(bons -> (BonsCommande) bons)
-                .collect(Collectors.toList());
+        return null;
     }
 
     public List<BonLivraison> getBonLivraisonFournisseurList() {
-        return bonsList.stream()
-                .filter(bons -> bons instanceof BonLivraison)
-                .map(bons -> (BonLivraison) bons)
-                .collect(Collectors.toList());
+        return null;
     }
 
     @PrePersist
