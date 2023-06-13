@@ -33,7 +33,7 @@ public class BonsCommande extends  Bons{
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    private LivraisonStatus livraisonStatusBc = LivraisonStatus.Pending;
+    private LivraisonStatus livraisonStatusBc = LivraisonStatus.PENDING;
 
     @Basic
     @Temporal(TemporalType.DATE)

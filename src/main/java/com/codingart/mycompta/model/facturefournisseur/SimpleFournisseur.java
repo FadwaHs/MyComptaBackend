@@ -25,10 +25,10 @@ public class SimpleFournisseur extends  FactureFournisseur{
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    private SimpleFournisseurStatus status = SimpleFournisseurStatus.Draft;
+    private SimpleFournisseurStatus status = SimpleFournisseurStatus.PROVISIONAL;
     @Enumerated(EnumType.STRING)
     @NotNull
-    private LivraisonStatus livraisonStatus = LivraisonStatus.Pending;
+    private LivraisonStatus livraisonStatus = LivraisonStatus.PENDING;
 
     private double remise;
     private boolean remIsPercentage;

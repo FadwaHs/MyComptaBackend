@@ -25,7 +25,7 @@ public class AvoireFournisseur  extends  FactureFournisseur{
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    private AvoireFournisseurStatus status = AvoireFournisseurStatus.Draft;
+    private AvoireFournisseurStatus status = AvoireFournisseurStatus.PROVISIONAL;
 
     private double remise;
     private boolean remIsPercentage;

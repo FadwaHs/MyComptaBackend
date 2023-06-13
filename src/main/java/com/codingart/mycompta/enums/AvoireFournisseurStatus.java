@@ -2,5 +2,5 @@ package com.codingart.mycompta.enums;
 
 public enum AvoireFournisseurStatus {
 
-    Draft , ToBePaid  , Partial, Balance ,Cancelled
+    PROVISIONAL , TOBEPAID  , PARTIAL, BALANCE ,CONCELLED
 }

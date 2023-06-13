@@ -1,5 +1,5 @@
 package com.codingart.mycompta.enums;
 
 public enum LivraisonStatus {
-    Pending , Partial_delivery , Delivered
+    PENDING , PARTIAL_DELIVERY , DELIVERED
 }
