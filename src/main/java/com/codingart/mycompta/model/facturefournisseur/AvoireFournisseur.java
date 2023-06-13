@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
-
+import com.codingart.mycompta.model.general_infos.MotCle;
 @Builder
 @Entity
 @Getter
@@ -28,6 +28,10 @@ public class AvoireFournisseur  extends  FactureFournisseur{
 
     private double remise;
     private boolean remIsPercentage;
+
+    //    Relation between avoirefournisseur and MotCle
+    @OneToMany(mappedBy = "avoireFournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<MotCle> motCleList;
 
     //    Relation between avoirefournisseur and Article
 

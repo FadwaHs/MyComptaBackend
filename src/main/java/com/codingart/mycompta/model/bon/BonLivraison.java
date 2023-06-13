@@ -5,6 +5,7 @@ import com.codingart.mycompta.enums.AvoireFournisseurStatus;
 import com.codingart.mycompta.enums.BLStatus;
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.fournisseur.Fournisseur;
+import com.codingart.mycompta.model.general_infos.MotCle;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -35,5 +36,11 @@ public class BonLivraison extends  Bons
     @JsonManagedReference("bonLivraison_article")
     @OneToMany(mappedBy = "bonLivraison",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Article> articleList;
+
+
+    //    Relation between Bons and MotCle
+    @OneToMany(mappedBy = "bonLivraison",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<MotCle> motCleList;
+
 
 }

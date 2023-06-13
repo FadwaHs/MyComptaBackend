@@ -32,7 +32,7 @@ public class AvoirFournisseurServiceImpl implements AvoirFournisseurService{
         avoirFournisseur.setDate_creation(new Date());
         // get the largest code value from the database
         String largestCode = avoirFournisseurRepository.findLargestCode();
-        int count = Integer.parseInt(largestCode.substring(4)) + 1;
+        count = Integer.parseInt(largestCode.substring(4)) + 1;
         String code = String.format("F_AVR-%05d", count);
         avoirFournisseur.setNumero_interne(code);
 

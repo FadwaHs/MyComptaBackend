@@ -40,11 +40,6 @@ public abstract class Bons {
     @Temporal(TemporalType.DATE)
     private Date date_creation;
 
-
-    //    Relation between Bons and MotCle
-    @OneToMany(mappedBy = "bons",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<MotCle> motCleList;
-
     @PrePersist
     public void setDataPrePersist(){
         this.slug = RandomStringUtils.randomAlphanumeric(10).toLowerCase();

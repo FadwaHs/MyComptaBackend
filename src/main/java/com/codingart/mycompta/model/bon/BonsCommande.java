@@ -6,6 +6,7 @@ import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.devis.ConditionReglement;
 import com.codingart.mycompta.model.devis.ModeReglement;
 import com.codingart.mycompta.model.fournisseur.Fournisseur;
+import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.livraison.Livraison;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -25,7 +26,6 @@ public class BonsCommande extends  Bons{
 
     private double remise;
     private boolean remIsPercentage;
-
 
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -64,5 +64,9 @@ public class BonsCommande extends  Bons{
     @JsonManagedReference("bonsCommande_article")
     @OneToMany(mappedBy = "bonsCommande",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Article> articleList;
+
+    //    Relation between Bons Commande and MotCle
+    @OneToMany(mappedBy = "bonsCommande",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<MotCle> motCleList;
 
 }

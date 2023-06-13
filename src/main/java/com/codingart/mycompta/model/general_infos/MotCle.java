@@ -1,12 +1,16 @@
 package com.codingart.mycompta.model.general_infos;
 
 import com.codingart.mycompta.model.article.Article;
+import com.codingart.mycompta.model.bon.BonLivraison;
 import com.codingart.mycompta.model.bon.Bons;
+import com.codingart.mycompta.model.bon.BonsCommande;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.facturefournisseur.AvoireFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.FactureFournisseur;
+import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
 import com.codingart.mycompta.model.fournisseur.Fournisseur;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -70,22 +74,37 @@ public class MotCle {
     @JoinColumn(name = "opportunite_id")
     private Opportunite opportunite;
 
-    //+
-
-    //    Relation between MotCle and facturefounisseur
-
-    @JsonBackReference("facturefournisseur_motCle")
-    @ManyToOne
-    @JoinColumn(name = "facturefournisseur_id")
-    private FactureFournisseur factureFournisseur;
-
-    //    Relation between MotCle and bons
-
-    @JsonBackReference("bons_motCle")
-    @ManyToOne
-    @JoinColumn(name = "bons_id")
-    private Bons bons;
-
 
     //+
+
+    //    Relation between MotCle and facturefounisseur two type
+
+    @JsonBackReference("avoireFournisseur_motCle")
+    @ManyToOne
+    @JoinColumn(name = "avoireFournisseur_id")
+    private AvoireFournisseur avoireFournisseur;
+
+    @JsonBackReference("simpleFournisseur_motCle")
+    @ManyToOne
+    @JoinColumn(name = "simpleFournisseur_id")
+    private SimpleFournisseur simpleFournisseur;
+
+
+    //    Relation between MotCle and bons two type
+
+    @JsonBackReference("bonslv_motCle")
+    @ManyToOne
+    @JoinColumn(name = "bons_livraison_id")
+    private BonLivraison bonLivraison;
+
+    @JsonBackReference("bonscmd_motCle")
+    @ManyToOne
+    @JoinColumn(name = "bons_commande_id")
+    private BonsCommande bonsCommande;
+
+
+
+    //+
+
+
 }
