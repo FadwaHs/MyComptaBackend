@@ -22,7 +22,11 @@ public class BonCommandeServiceImpl implements BonCommandeService {
         bonsCommande.setDate_creation(new Date());
         // get the largest code value from the database
         String largestCode = bonCommandeRepository.findLargestCode();
-        int count = Integer.parseInt(largestCode.substring(4)) + 1;
+        if (largestCode == null) {
+            count = 1;
+        } else {
+            count = Integer.parseInt(largestCode.substring(11)) + 1;
+        }
         String code = String.format("N°F_ORD-%05d", count);
         bonsCommande.setNumero_interne(code);
 

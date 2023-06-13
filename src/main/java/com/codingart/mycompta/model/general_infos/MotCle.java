@@ -11,7 +11,9 @@ import com.codingart.mycompta.model.facture.Facture;
 import com.codingart.mycompta.model.facturefournisseur.AvoireFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.FactureFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
+
 import com.codingart.mycompta.model.fournisseur.Fournisseur;
+
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

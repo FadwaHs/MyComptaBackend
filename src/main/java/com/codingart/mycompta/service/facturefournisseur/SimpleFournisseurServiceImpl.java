@@ -33,12 +33,19 @@ public class SimpleFournisseurServiceImpl implements SimpleFournisseurService{
         simpleFournisseur.setDate_creation(new Date());
         // get the largest code value from the database
         String largestCode = simpleFournisseurRepository.findLargestCode();
-        count = Integer.parseInt(largestCode.substring(4)) + 1;
+        if (largestCode == null) {
+            count = 1;
+        } else {
+            count = Integer.parseInt(largestCode.substring(6)) + 1;
+        }
         String code = String.format("F_INV-%05d", count);
         simpleFournisseur.setNumero_interne(code);
 
         return simpleFournisseurRepository.save(simpleFournisseur);
     }
+
+
+
 
     @Override
     public SimpleFournisseur getSimpleFournisseur(Long id) {

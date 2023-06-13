@@ -41,6 +41,7 @@ public class SimpleFournisseur extends  FactureFournisseur{
     //    Relation between SimpleFournisseur and MotCle
     @OneToMany(mappedBy = "simpleFournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MotCle> motCleList;
+
     //    Relation between FactureFournisseur and Fournisseur
     @ManyToOne
     @JoinColumn(name = "fournisseur_id")

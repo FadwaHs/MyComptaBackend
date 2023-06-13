@@ -69,4 +69,6 @@ public class BonsCommande extends  Bons{
     @OneToMany(mappedBy = "bonsCommande",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<MotCle> motCleList;
 
+
 }
+
