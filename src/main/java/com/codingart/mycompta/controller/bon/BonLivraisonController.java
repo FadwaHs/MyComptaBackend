@@ -1,5 +1,6 @@
 package com.codingart.mycompta.controller.bon;
 
+import com.codingart.mycompta.enums.BLStatus;
 import com.codingart.mycompta.model.bon.BonLivraison;
 import com.codingart.mycompta.model.bon.BonsCommande;
 import com.codingart.mycompta.service.bon.BonCommandeService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/bonLivraison")
@@ -45,6 +47,16 @@ public class BonLivraisonController {
     public ResponseEntity<String> deleteSBonLivraison(@PathVariable Long id){
         bonLivraisonService.deleteBonLivraison(id);
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
+    }
+
+    @GetMapping("pagination")
+    public ResponseEntity<Map<String, Object>> getListBonLivraison(
+            @RequestParam(required = false) String data,
+            @RequestParam(required = false) BLStatus blStatus,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        return new ResponseEntity<>(bonLivraisonService.getListBonLivraison(data,blStatus,page,size), HttpStatus.OK);
     }
 
 }

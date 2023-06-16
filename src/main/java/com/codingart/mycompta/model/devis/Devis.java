@@ -22,6 +22,7 @@ import java.util.Map;
 
 //@JsonIdentityInfo(scope = Devis.class,generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Builder
+
 @Entity
 @Getter
 @Setter
