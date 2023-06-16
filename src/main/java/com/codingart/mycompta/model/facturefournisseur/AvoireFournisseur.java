@@ -25,7 +25,7 @@ public class AvoireFournisseur  extends  FactureFournisseur{
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    private AvoireFournisseurStatus status = AvoireFournisseurStatus.PROVISIONAL;
+    private AvoireFournisseurStatus status = AvoireFournisseurStatus.DRAFT;
 
     private double remise;
     private boolean remIsPercentage;
@@ -39,6 +39,11 @@ public class AvoireFournisseur  extends  FactureFournisseur{
     @JsonManagedReference("avoirefournisseur_article")
     @OneToMany(mappedBy = "avoireFournisseur",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Article> articleList;
+
+    //++
+    @JsonManagedReference("avoirFournisseur_paiement")
+    @OneToMany(mappedBy = "avoirFournisseur", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Paiement>  paiementList ;
 
 
     //    Relation between FactureFournisseur and Fournisseur

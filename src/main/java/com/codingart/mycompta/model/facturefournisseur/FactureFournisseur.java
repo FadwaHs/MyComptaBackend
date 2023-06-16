@@ -55,9 +55,6 @@ public  abstract class  FactureFournisseur {
     private ModeReglement modeReglement;
 
 
-    @JsonManagedReference("factureFournisseur_paiement")
-    @OneToMany(mappedBy = "factureFournisseur", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Paiement>  paiementList ;
 
 
     @PrePersist

@@ -33,11 +33,18 @@ public class Paiement {
     @Temporal(TemporalType.DATE)
     private Date dateRemise; // Date du Remise
 
-    @JsonBackReference("factureFournisseur_paiement")
-    @ManyToOne
-    @JoinColumn(name = "facture_fournisseur_id")
-    private FactureFournisseur factureFournisseur;
 
+    //++
+
+    @JsonBackReference("simpleFournisseur_paiement")
+    @ManyToOne
+    @JoinColumn(name = "simple_fournisseur_id")
+    private SimpleFournisseur simpleFournisseur;
+
+    @JsonBackReference("avoirFournisseur_paiement")
+    @ManyToOne
+    @JoinColumn(name = "avoir_fournisseur_id")
+    private AvoireFournisseur avoirFournisseur;
     //++
     //@JsonBackReference("facture_paiement")
     //@ManyToOne

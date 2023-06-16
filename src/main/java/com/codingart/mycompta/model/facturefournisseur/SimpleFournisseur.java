@@ -25,7 +25,7 @@ public class SimpleFournisseur extends  FactureFournisseur{
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    private SimpleFournisseurStatus status = SimpleFournisseurStatus.PROVISIONAL;
+    private SimpleFournisseurStatus status = SimpleFournisseurStatus.DRAFT;
     @Enumerated(EnumType.STRING)
     @NotNull
     private LivraisonStatus livraisonStatus = LivraisonStatus.PENDING;
@@ -47,5 +47,9 @@ public class SimpleFournisseur extends  FactureFournisseur{
     @JoinColumn(name = "fournisseur_id")
     private Fournisseur fournisseur;
 
+    //++
+    @JsonManagedReference("simpleFournisseur_paiement")
+    @OneToMany(mappedBy = "simpleFournisseur", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Paiement>  paiementList ;
 
 }
