@@ -1,14 +1,21 @@
 package com.codingart.mycompta.service.bon;
 
+import com.codingart.mycompta.enums.BLStatus;
 import com.codingart.mycompta.exception.ResourceNotFoundException;
 import com.codingart.mycompta.model.bon.BonLivraison;
 import com.codingart.mycompta.repository.bon.BonCommandeRepository;
 import com.codingart.mycompta.repository.bon.BonLivraisonRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class BonLivraisonServiceImpl implements BonLivraisonService{
@@ -55,5 +62,31 @@ public class BonLivraisonServiceImpl implements BonLivraisonService{
         bonLivraisonRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException(message+id));
         bonLivraisonRepository.deleteById(id);
 
+    }
+
+    @Override
+    public Map<String, Object> getListBonLivraison(String data, BLStatus blStatus, int page, int size) {
+
+        List<BonLivraison> bonLivraisonList ;
+        Pageable paging = PageRequest.of(page, size);
+
+        Page<BonLivraison> pageTuts;
+        if (data == null && blStatus == null) {
+            pageTuts = bonLivraisonRepository.findAll(paging);
+        }
+        else if(data != null && blStatus !=null){
+            pageTuts = bonLivraisonRepository.findByDataContainingWithStatus(data, blStatus, paging);
+        } else if (data != null) {
+            pageTuts = bonLivraisonRepository.findByDataContaining(data, paging);
+        } else {
+            pageTuts = bonLivraisonRepository.findBonLivraisonByBlStatus(blStatus, paging);
+        }
+        bonLivraisonList = pageTuts.getContent();
+        Map<String, Object> response =  new HashMap<>();
+        response.put("bonlivraison", bonLivraisonList);
+        response.put("currentPage", pageTuts.getNumber());
+        response.put("totalItems", pageTuts.getTotalElements());
+        response.put("totalPages", pageTuts.getTotalPages());
+        return response;
     }
 }

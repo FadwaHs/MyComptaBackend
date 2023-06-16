@@ -103,10 +103,12 @@ public class Fournisseur {
 
     // To load List For Different Type Of Facture Fournisseur
     public List<AvoireFournisseur> getAvoirFournisseurList() {
+
         return null;
     }
 
     public List<SimpleFournisseur> getSimpleFournisseurList() {
+
         return null;
     }
 
