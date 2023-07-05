@@ -2,6 +2,7 @@ package com.codingart.mycompta.model.facturefournisseur;
 
 
 import com.codingart.mycompta.model.config.CompteBanc;
+import com.codingart.mycompta.model.devis.ModeReglement;
 import com.codingart.mycompta.model.facture.Facture;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -60,5 +61,11 @@ public class Paiement {
     @ManyToOne
     @JoinColumn(name = "compteCredit_bancaire_id")
     private CompteBanc compteCrediteur;
+
+    //++
+//    Relation between Paiementw and ModeReglement
+    @ManyToOne
+    @JoinColumn(name = "mode_reglement_id")
+    private ModeReglement modeReglement;
 
 }
