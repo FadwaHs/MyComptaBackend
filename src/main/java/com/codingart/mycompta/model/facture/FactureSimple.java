@@ -45,11 +45,14 @@ public class FactureSimple extends Facture{
     @JoinColumn(name = "client_id")
     private Client client;
 
-
     //    Relation between FacturSimple and Article
     @JsonManagedReference("factureSimple_article")
     @OneToMany(mappedBy = "factureSimple",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Article> articleList;
+
+    //    Relation between FacturSimple and MotCle
+    @OneToMany(mappedBy = "factureSimple",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<MotCle> motCleList;
 
 
     //    Relation between FactureSimple and Debours

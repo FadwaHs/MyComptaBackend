@@ -8,6 +8,9 @@ import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.facture.FactureAcompte;
+import com.codingart.mycompta.model.facture.FactureAvoir;
+import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.facturefournisseur.AvoireFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.FactureFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
@@ -64,11 +67,20 @@ public class MotCle {
     private Devis devis;
 
     //    Relation between MotCle and facture
-    @JsonBackReference("facture_motCle")
+    @JsonBackReference("factureac_motCle")
     @ManyToOne
-    @JoinColumn(name = "facture_id")
-    private Facture facture;
+    @JoinColumn(name = "factureac_id")
+    private FactureAcompte factureac;
 
+    @JsonBackReference("factureAvoir_motCle")
+    @ManyToOne
+    @JoinColumn(name = "factureAvoir_id")
+    private FactureAvoir factureAvoir;
+
+    @JsonBackReference("factureSimple_motCle")
+    @ManyToOne
+    @JoinColumn(name = "factureSimple_id")
+    private FactureSimple factureSimple;
 
     //    Relation between MotCle and opportunite
     @JsonBackReference("opp_motCle")

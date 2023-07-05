@@ -8,6 +8,9 @@ import com.codingart.mycompta.model.bon.BonsCommande;
 import com.codingart.mycompta.model.client.Societe;
 import com.codingart.mycompta.model.comptabilite.CompteCharge;
 import com.codingart.mycompta.model.comptabilite.CompteTiers;
+import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.facture.FactureAvoir;
+import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.facturefournisseur.AvoireFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.FactureFournisseur;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
@@ -15,6 +18,7 @@ import com.codingart.mycompta.model.general_infos.Address;
 import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.general_infos.Phone;
 import com.codingart.mycompta.model.general_infos.Social;
+import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -25,7 +29,9 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -101,18 +107,6 @@ public class Fournisseur {
 
 
 
-    // To load List For Different Type Of Facture Fournisseur
-    public List<AvoireFournisseur> getAvoirFournisseurList() {
-
-        return null;
-    }
-
-    public List<SimpleFournisseur> getSimpleFournisseurList() {
-
-        return null;
-    }
-
-
     //  Relation between fournisseur and Bons type
 
     @JsonBackReference("fournisseur_bonslv")
@@ -124,13 +118,48 @@ public class Fournisseur {
     private List<BonsCommande> bonsCommandes = new ArrayList<>();
 
 
-    // To load List For Different Type Of Bons Fournisseur
-    public List<BonsCommande> getBonsCommandeFournisseurList() {
-        return null;
-    }
+    @PostLoad
+    public void initializeCollections() {
 
-    public List<BonLivraison> getBonLivraisonFournisseurList() {
-        return null;
+        if (this.bonLivraisonList == null) {
+            this.bonLivraisonList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<BonLivraison> uniqueBLs = new HashSet<>(this.bonLivraisonList);
+            this.bonLivraisonList.clear();
+            this.bonLivraisonList.addAll(uniqueBLs);
+        }
+
+        if (this.bonsCommandes == null) {
+            this.bonsCommandes = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<BonsCommande> uniqueBn = new HashSet<>(this.bonsCommandes);
+            this.bonsCommandes.clear();
+            this.bonsCommandes.addAll(uniqueBn);
+        }
+
+        //++
+        // Factures Simples:
+        if (this.simpleFournisseurList == null) {
+            this.simpleFournisseurList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<SimpleFournisseur> uniqueSimple = new HashSet<>(this.simpleFournisseurList);
+            this.simpleFournisseurList.clear();
+            this.simpleFournisseurList.addAll(uniqueSimple);
+        }
+
+        // Factures Avoirs:
+        if (this.avoireFournisseurList == null) {
+            this.avoireFournisseurList = new ArrayList<>();
+        } else {
+            // remove duplicates
+            Set<AvoireFournisseur> uniqueAvoir = new HashSet<>(this.avoireFournisseurList);
+            this.avoireFournisseurList.clear();
+            this.avoireFournisseurList.addAll(uniqueAvoir);
+        }
+
     }
 
     @PrePersist

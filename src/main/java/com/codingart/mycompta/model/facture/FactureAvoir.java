@@ -5,6 +5,7 @@ import com.codingart.mycompta.enums.FactureAvoirStatus;
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
+import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -50,6 +51,10 @@ public class FactureAvoir extends Facture{
     @JsonManagedReference("factureAvoir_article")
     @OneToMany(mappedBy = "factureAvoir",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Article> articleList;
+
+    //    Relation between FacturAvoir and MotCle
+    @OneToMany(mappedBy = "factureAvoir",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<MotCle> motCleList;
 
     //    Relation between FactureAvoir and Debours
     @OneToMany(mappedBy = "factureAvoir",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)

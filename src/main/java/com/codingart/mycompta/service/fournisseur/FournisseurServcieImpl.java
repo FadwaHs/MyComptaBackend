@@ -61,6 +61,7 @@ public class FournisseurServcieImpl implements FournisseurService{
         if (fournisseurOptional.isPresent()  ){
 
             Fournisseur fournisseur = fournisseurOptional.get();
+            fournisseur.initializeCollections();
             return fournisseur.getSimpleFournisseurList();
         }
         return Collections.emptyList();
@@ -73,9 +74,12 @@ public class FournisseurServcieImpl implements FournisseurService{
         if (fournisseurOptional.isPresent()  ){
 
             Fournisseur fournisseur = fournisseurOptional.get();
-            return fournisseur.getAvoirFournisseurList();
+            fournisseur.initializeCollections();
+            return fournisseur.getAvoireFournisseurList();
         }
         return Collections.emptyList();
+
+
     }
 
     @Override
@@ -85,21 +89,26 @@ public class FournisseurServcieImpl implements FournisseurService{
         if (fournisseurOptional.isPresent()  ){
 
             Fournisseur fournisseur = fournisseurOptional.get();
-            return fournisseur.getBonsCommandeFournisseurList();
+            fournisseur.initializeCollections();
+            return fournisseur.getBonsCommandes();
         }
         return Collections.emptyList();
+
 
     }
 
     @Override
     public List<BonLivraison> getAllBonLivraison(Long id) {
+
         Optional<Fournisseur> fournisseurOptional = fournisseurRepository.findById(id);
         if (fournisseurOptional.isPresent()  ){
 
             Fournisseur fournisseur = fournisseurOptional.get();
-            return fournisseur.getBonLivraisonFournisseurList();
+            fournisseur.initializeCollections();
+            return fournisseur.getBonLivraisonList();
         }
         return Collections.emptyList();
+
     }
 
     @Override

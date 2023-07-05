@@ -7,6 +7,7 @@ import com.codingart.mycompta.model.config.CompteBanc;
 import com.codingart.mycompta.model.devis.Devis;
 import com.codingart.mycompta.model.environment.Environment;
 import com.codingart.mycompta.model.general_infos.Address;
+import com.codingart.mycompta.model.general_infos.MotCle;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -46,5 +47,10 @@ public class FactureAcompte extends Facture{
     @ManyToOne
     @JoinColumn(name = "devis_id")
     private Devis devis;
+
+
+    //    Relation between Facture and MotCle
+    @OneToMany(mappedBy = "factureac",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<MotCle> motCleList;
 
 }

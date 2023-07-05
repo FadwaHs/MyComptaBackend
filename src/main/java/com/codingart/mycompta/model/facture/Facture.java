@@ -65,11 +65,6 @@ public abstract class Facture {
     @JoinColumn(name = "interet_id")
     private Interet interet;
 
-//    Relation between Facture and MotCle
-    @OneToMany(mappedBy = "facture",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<MotCle> motCleList;
-
-
 //    Self join Relation
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "facture_id")
