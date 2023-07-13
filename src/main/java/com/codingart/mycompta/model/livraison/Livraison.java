@@ -3,6 +3,7 @@ package com.codingart.mycompta.model.livraison;
 import com.codingart.mycompta.model.bon.BonsCommande;
 import com.codingart.mycompta.model.general_infos.Address;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -27,9 +28,13 @@ public class Livraison {
     private String urlSuivi;
 
     // Relation Between Adresse et  livraison
-    @ManyToOne
-    @JoinColumn(name = "address_id")
+    //@ManyToOne
+   // @JoinColumn(name = "address_id")
+    //private Address adresseLivraison;
+    @JsonManagedReference("livraison_address")
+    @OneToOne(mappedBy = "livraison",cascade = CascadeType.REMOVE)
     private Address adresseLivraison;
+
 
     // Relation One-to-One with BonsCommande
 

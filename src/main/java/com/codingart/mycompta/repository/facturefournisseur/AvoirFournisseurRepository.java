@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AvoirFournisseurRepository extends JpaRepository<AvoireFournisseur, Long> {
 
-    @Query(value = "SELECT MAX(numero_interne) FROM  facture_fournisseur WHERE type_facturefournisseur = 'AvoirFournisseur' ",nativeQuery = true)
+    @Query(value = "SELECT MAX(numero_interne) FROM  facture_fournisseur WHERE type_facturefournisseur = 'AvoireFournisseur' ",nativeQuery = true)
     String findLargestCode();
 
     @Query(value = "select f from AvoireFournisseur f  left join f.fournisseur.societe s left join f.fournisseur c left join f.motCleList m " +

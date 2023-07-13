@@ -1,5 +1,7 @@
 package com.codingart.mycompta.controller.bon;
 
+import com.codingart.mycompta.enums.BCStatus;
+import com.codingart.mycompta.enums.BLStatus;
 import com.codingart.mycompta.model.bon.BonsCommande;
 import com.codingart.mycompta.model.facturefournisseur.SimpleFournisseur;
 import com.codingart.mycompta.service.bon.BonCommandeService;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/bonCommande")
@@ -44,6 +47,16 @@ public class BonCommandeController {
     public ResponseEntity<String> deleteBonsCommande(@PathVariable Long id){
         bonCommandeService.deleteBonsCommande(id);
         return new ResponseEntity<>("Deleted",HttpStatus.OK);
+    }
+
+    @GetMapping("pagination")
+    public ResponseEntity<Map<String, Object>> getListBonCommande(
+            @RequestParam(required = false) String data,
+            @RequestParam(required = false) BCStatus bcStatus,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size
+    ) {
+        return new ResponseEntity<>(bonCommandeService.getListBonCommande(data,bcStatus,page,size), HttpStatus.OK);
     }
 
 }

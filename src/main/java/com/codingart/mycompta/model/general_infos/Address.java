@@ -14,6 +14,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import com.codingart.mycompta.model.livraison.Livraison;
 
 import java.util.List;
 
@@ -62,9 +63,14 @@ public class Address {
     private Fournisseur fournisseur;
 
     // Relation Between Address and Livraison
+    //@JsonBackReference("livraison_address")
+   // @OneToMany(mappedBy = "adresseLivraison",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    //private List<Livraison> livraisonList;
+
     @JsonBackReference("livraison_address")
-    @OneToMany(mappedBy = "adresseLivraison",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Livraison> livraisonList;
+    @OneToOne
+    @JoinColumn(name = "livraison_id")
+    private Livraison livraison;
 
 
     //+
