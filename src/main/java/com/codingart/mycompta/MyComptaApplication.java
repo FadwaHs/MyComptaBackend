@@ -145,81 +145,6 @@ public class MyComptaApplication implements CommandLineRunner {
        // this.test();
         //testFacture();
 
-       /* Fournisseur fournisseur = new Fournisseur();
-        fournisseur= fournisseurRepository.findById(2L).orElseThrow();
-
-       List<AvoireFournisseur> avoirFournisseurList = fournisseur.getAvoirFournisseurList();
-        List<SimpleFournisseur> simpleFournisseurList = fournisseur.getSimpleFournisseurList();
-
-        System.out.println("Avoir Fournisseur List:");
-        for (AvoireFournisseur avoirFournisseur : avoirFournisseurList) {
-            System.out.println(avoirFournisseur.getId() + " " + avoirFournisseur.getStatus());
-        }
-
-        System.out.println("Simple Fournisseur List:");
-        for (SimpleFournisseur simpleFournisseur : simpleFournisseurList) {
-            System.out.println(simpleFournisseur.getId() + " " + simpleFournisseur.getStatus());
-        };*/
-
-
-       /* SimpleFournisseur simpleFournisseur = new SimpleFournisseur();
-        simpleFournisseur = simpleFournisseurRepository.findById(1L).orElseThrow();
-
-        AvoireFournisseur avoireFournisseur = new AvoireFournisseur();
-        avoireFournisseur = avoirFournisseurRepository.findById(2L).orElseThrow();
-
-        CompteBanc compteBanc = new CompteBanc();
-        compteBanc = compteBancRepository.findById(1L).orElseThrow();
-
-        Paiement paiement2 = new Paiement();
-        paiement2.setType("Credit");
-        paiement2.setMontant(1000.0);
-        paiement2.setReference("REF126");
-        paiement2.setDateReglement(new Date());
-        paiement2.setDateRemise(new Date());
-        paiement2.setFactureFournisseur(avoireFournisseur);
-        paiement2.setCompteCrediteur(compteBanc);
-
-        paiement2 = paiementRepository.save(paiement2);*/
-
-       /* Address address = new Address();
-        address = addressRepository.findById(6L).orElseThrow();
-
-        Livraison deliveryInfo = new Livraison();
-        deliveryInfo.setAdresseLivraison(address);
-        deliveryInfo.setNombreColis(2);
-        deliveryInfo.setPoidsTotal(5.2);
-        deliveryInfo.setVolume(0.3);
-        deliveryInfo.setNumeroSuivi("1234567890");
-        deliveryInfo.setUrlSuivi("https://example.com/suivi");
-
-        livraisonRepository.save(deliveryInfo);
-
-        Fournisseur fournisseur1 = new Fournisseur();
-        fournisseur1= fournisseurRepository.findById(1L).orElseThrow();
-
-        BonsCommande bonCommande = new BonsCommande();
-        bonCommande.setDevise("EUR");
-        bonCommande.setTotalHT(100.0);
-        bonCommande.setTotalTTC(120.0);
-        bonCommande.setRemise(10.0);
-        bonCommande.setDate_Livraison(new Date());
-        bonCommande.setFournisseur(fournisseur1);
-
-        bonCommande.setLivraison(deliveryInfo);
-
-        bonCommandeRepository.save(bonCommande);
-
-        BonLivraison bonLivraison = new BonLivraison();
-        bonLivraison.setDevise("EUR");
-        bonLivraison.setTotalHT(10.0);
-        bonLivraison.setTotalTTC(190.0);
-        bonLivraison.setRemise(10.0);
-        bonLivraison.setFournisseur(fournisseur1);
-
-        bonLivraisonRepository.save(bonLivraison); */
-
-
     }
 
     public void testFacture(){
@@ -227,22 +152,6 @@ public class MyComptaApplication implements CommandLineRunner {
         Fournisseur fournisseur = new Fournisseur();
         fournisseur= fournisseurRepository.findById(2L).orElseThrow();
 
-       /* fournisseur.setFirstName("John2");
-        fournisseur.setLastName("Doe2");
-        fournisseur.setEmail("john2.doe@example.com");
-        fournisseur.setFunction("Manager");
-        fournisseur.setWebsite("https://example.com");
-        fournisseur.setNote("Some notes about this fournisseur");
-        fournisseur = fournisseurRepository.save(fournisseur);*/
-
-        /*Client c = new Client();
-        c.setFirstName("Marwane");
-        c.setLastName("Bella");
-        c.setLanguage("fr");
-        c = clientRepository.save(c);
-
-        Devis d  = Devis.builder().id(1L).code("D23-0001").status(DevisStatus.FINALIZED).cmp(1L).client(c).build();
-        d = devisRepository.save(d);*/
 
         Article a2 = new Article();
         TypeArticle t = new TypeArticle();
