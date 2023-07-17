@@ -48,8 +48,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.Date;
 import java.util.List;
@@ -76,6 +78,14 @@ public class MyComptaApplication implements CommandLineRunner {
         return new ModelMapper();
     }
 
+    @Bean
+    public ViewResolver pdfViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/");
+        resolver.setSuffix(".html");
+        resolver.setOrder(1);
+        return resolver;
+    }
 
     @Autowired
     ClientRepository clientRepository;
