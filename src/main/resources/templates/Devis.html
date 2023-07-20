@@ -1,14 +1,175 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8"/>
     <title>Devis</title>
+    <link rel="stylesheet" href="style.css"/>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .col {
+            flex: 1;
+            padding: 5px;
+        }
+
+        .label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .data-block h6 {
+            margin-bottom: 5px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        .table thead th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .table-secondary th, .table-secondary td {
+            background-color: #f7f7f7;
+        }
+
+        .small {
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<h1>Devis Details</h1>
-<p>ID: <span th:text="${devis.id}"></span></p>
-<p>Code: <span th:text="${devis.code}"></span></p>
-<p>Validation Duration: <span th:text="${devis.validationDuration}"></span></p>
-<!-- Add more fields as needed -->
+<div class="container">
+    <h5 class="text-center">Devis <span th:text="${devis.code}"></span></h5>
+    <h6 class="text-center" th:text="${#dates.format(devis.date, 'dd-MM-yyyy')}"></h6>
+    <br/><br/>
+
+    <div class="row flex-row-reverse">
+
+        <div class="row">
+            <div class="col">
+                <h5 class="label">Destinataire</h5>
+                <div class="data-block">
+                    <!-- Your content goes here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h5 class="label">Emetteur </h5>
+            <h6> Votre contact : </h6>
+            <h6> Adresse: </h6>
+            <h6> Pays :</h6>
+            <h6> Adresse email: </h6>
+        </div>
+    </div>
+    <br/>
+
+    <div>
+        <p> <span th:text="${devis.textIntro}"></span></p>
+    </div>
+    <br/>
+
+    <table class="table">
+        <thead class="table-secondary">
+        <tr>
+            <th class="table-secondary">Type</th>
+            <th class="table-secondary">Description</th>
+            <th class="table-secondary">Prix Unitaire HT</th>
+            <th class="table-secondary">Quantité</th>
+            <th class="table-secondary">TVA</th>
+            <th class="table-secondary">Réduction</th>
+            <th class="table-secondary">Total HT</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article : ${devis.articleList}">
+            <td th:text="${article.typeArticle.name_fr}"></td>
+            <td th:text="${article.description}"></td>
+            <td><span th:text="${article.prixHT + ' ' + calculeService.devise(devis.devise)}"></span></td>
+            <td th:text="${article.quantity}"></td>
+            <td th:text="${article.tva + ' %'}"></td>
+            <td>
+                <div>
+                    <span th:if="${devis.isRemIsPercentage}" th:text="${article.reduction + ' %'}"></span>
+                    <span th:if="${!devis.isRemIsPercentage}" th:text="${article.reduction + ' ' + calculeService.devise(devis.devise)}"></span>
+                </div>
+            </td>
+            <td th:text="${calculeService.calculht(article)+ ' ' + calculeService.devise(devis.devise)}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="container">
+        <div class="row">
+            <div class="col"></div> <!-- Colonne vide à gauche -->
+            <div class="col-3"> <!-- Colonne pour le contenu principal -->
+                <table class="table float-right"> <!-- Utilisation de la classe "float-right" pour aligner le tableau à droite -->
+                    <tbody>
+                    <tr>
+                        <td>Total HT :</td>
+                        <td><span class="small" th:text="${devis.totalHT} + ' ' + ${calculeService.devise(devis.devise)}"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Remise Générale :</td>
+                        <td><span class="small" th:text="${devis.remise}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <div>
+        <h4 class="label"> Conditions </h4>
+        <br/>
+        <h6>Conditions de règlement : <span class="small" th:text="${devis.conditionReglement.name}"></span></h6>
+        <h6>Mode de règlement : <span class="small" th:text="${devis.modeReglement.name}"></span></h6>
+        <h6>Intérêts de retard : <span class="small" th:text="${devis.interet.name}"></span></h6><br/>
+        <h4> Notes :<p class="small" th:text="${devis.textCond}"></p></h4>
+    </div>
+
+    <footer>
+        <p> <span th:text="${devis.piedPage}"></span></p>
+    </footer>
+    <br/>
+    <h4 class="label">Conditions generales de vente<br/> <span class="small" th:text="${devis.condVente}"></span></h4>
+</div>
+
+<!-- No Bootstrap JavaScript dependencies needed -->
+
 </body>
 </html>
