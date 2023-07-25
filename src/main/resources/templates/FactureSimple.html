@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://wwww.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8"/>
-    <title>Devis</title>
+    <title>Facture Simple</title>
     <link rel="stylesheet" href="style.css"/>
     <style>
         body {
@@ -127,7 +127,7 @@
         }
         .inline-div {
             display: inline-block;
-            width: 46%; /* Vous pouvez ajuster la largeur selon vos besoins */
+            width: 45%; /* Vous pouvez ajuster la largeur selon vos besoins */
         }
 
 
@@ -138,13 +138,13 @@
 </head>
 <body>
 <div class="container">
-    <h5 class="text-center">Devis <span th:text="${devis.code}"></span></h5>
-    <h6 class="text-center" th:text="${#dates.format(devis.date, 'dd-MM-yyyy')}"></h6>
+    <h5 class="text-center">Facture Simple <span th:text="${facture.code}"></span></h5>
+    <h6 class="text-center" th:text="${#dates.format(facture.date, 'dd-MM-yyyy')}"></h6>
     <!--
-   <div class="row flex-row-reverse">
+       <div class="row flex-row-reverse">
 
 
-    Aligne le contenu du destinataire à droite -->
+        Aligne le contenu du destinataire à droite -->
     <div class="container">
 
         <div class="row">
@@ -154,57 +154,59 @@
                 <h6><span>Adresse :</span> <span>Adresse de l'émetteur</span></h6>
                 <h6><span>Pays :</span> <span>Pays de l'émetteur</span></h6>
                 <h6><span>Adresse email :</span> <span>Email de l'émetteur</span></h6>
+
             </div>
             <div class="inline-div destinataire">
                 <h5 class="label">Destinataire</h5>
-                <div th:if="${devis.client != null}">
+                <div th:if="${facture.client != null}">
                     <h6>
-                        <span th:if="${devis.client.societe == null}">Client:</span>
-                        <span th:if="${devis.client.societe != null}">Client/Societe:</span>
-                        <span class="small" th:text="${devis.client.firstName + ' ' + devis.client.lastName}"></span>
+                        <span th:if="${facture.client.societe == null}">Client:</span>
+                        <span th:if="${facture.client.societe != null}">Client/Societe:</span>
+                        <span class="small" th:text="${facture.client.firstName + ' ' + facture.client.lastName}"></span>
                     </h6>
-                    <h6 th:if="${devis.client.societe == null}">
+                    <h6 th:if="${facture.client.societe == null}">
                         <span>Adresse:</span>
-                        <span class="small" th:text="${devis.client?.address?.address != null ? devis.client.address.address : ''}"></span>
+                        <span class="small" th:text="${facture.client?.address?.address != null ? facture.client.address.address : ''}"></span>
                     </h6>
-                    <h6 th:if="${devis.client.societe == null}">
+                    <h6 th:if="${facture.client.societe == null}">
                         <span>Pays:</span>
-                        <span class="small" th:text="${devis.client?.address?.country != null ? devis.client.address.country : ''}"></span>
+                        <span class="small" th:text="${facture.client?.address?.country != null ? facture.client.address.country : ''}"></span>
                     </h6>
                     <h6>
                         <span>Numero de Telephone :</span>
-
-                        <span class="small" th:text="${devis.client.phoneList.size() > 0 ? devis.client.phoneList[0].phoneNumber : ''}"></span>
+                        <span class="small" th:text="${facture.client.phoneList.size() > 0 ? facture.client.phoneList[0].phoneNumber : ''}"></span>
                     </h6>
-                    <h6><span>Adresse email:</span> <span class="small" th:text="${devis.client.email}"></span></h6>
-                    <h6 th:if="${devis.client.societe}">
-                        <span>Societe:</span> <span class="small" th:text="${devis.client.societe.name}"></span>
+                    <h6><span>Adresse email:</span> <span class="small" th:text="${facture.client.email}"></span></h6>
+                    <h6 th:if="${facture.client.societe}">
+                        <span>Societe:</span> <span class="small" th:text="${facture.client.societe.name}"></span>
                     </h6>
-                    <h6 th:if="${devis.client.societe}">
+                    <h6 th:if="${facture.client.societe}">
                         <span>Adresse:</span>
-                        <span class="small" th:text="${devis.client.societe?.address?.address != null ? devis.client.societe.address.address : ''}"></span>
+                        <span class="small" th:text="${facture.client.societe?.address?.address != null ? facture.client.societe.address.address : ''}"></span>
                     </h6>
-                    <h6 th:if="${devis.client.societe}">
+                    <h6 th:if="${facture.client.societe}">
                         <span>Pays:</span>
-                        <span class="small" th:text="${devis.client.societe?.address?.country != null ? devis.client.societe.address.country : ''}"></span>
+                        <span class="small" th:text="${facture.client.societe?.address?.country != null ? facture.client.societe.address.country : ''}"></span>
                     </h6>
-                    <h6 th:if="${devis.client.societe}">
-                        <span>Adresse email:</span> <span class="small" th:text="${devis.client.societe.website}"></span>
+                    <h6 th:if="${facture.client.societe}">
+                        <span>Adresse email:</span> <span class="small" th:text="${facture.client.societe.website}"></span>
                     </h6>
                 </div>
-                <div th:if="${devis.societe}">
-                    <h6><span>Societe:</span> <span class="small" th:text="${devis.societe.name}"></span></h6>
-                    <h6><span>Adresse:</span> <span class="small" th:text="${devis.societe?.address?.address != null ? devis.societe.address.address : ''}"></span></h6>
-                    <h6><span>Pays:</span> <span class="small" th:text="${devis.societe?.address?.country != null ? devis.societe.address.country : ''}"></span></h6>
-                    <h6><span>Adresse email:</span> <span class="small" th:text="${devis.societe.website}"></span></h6>
+                <div th:if="${facture.societe}">
+                    <h6><span>Societe:</span> <span class="small" th:text="${facture.societe.name}"></span></h6>
+                    <h6><span>Adresse:</span> <span class="small" th:text="${facture.societe?.address?.address != null ? facture.societe.address.address : ''}"></span></h6>
+                    <h6><span>Pays:</span> <span class="small" th:text="${facture.societe?.address?.country != null ? facture.societe.address.country : ''}"></span></h6>
+                    <h6><span>Adresse email:</span> <span class="small" th:text="${facture.societe.website}"></span></h6>
                 </div>
             </div>
+
         </div>
     </div>
 
+
     <div>
         <h4 class="label"  >Description</h4>
-        <p> <span th:text="${devis.textIntro}"></span></p>
+        <p> <span th:text="${facture.textIntro}"></span></p>
     </div>
 
 
@@ -221,19 +223,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="article : ${devis.articleList}">
+        <tr th:each="article : ${facture.articleList}">
             <td th:text="${article.typeArticle.name_fr}"></td>
             <td th:text="${article.description}"></td>
-            <td><span th:text="${article.prixHT + ' ' + calculeService.devise(devis.devise)}"></span></td>
+            <td><span th:text="${article.prixHT + ' ' + calculeService.devise(facture.devise)}"></span></td>
             <td th:text="${article.quantity}"></td>
             <td th:text="${article.tva + ' %'}"></td>
             <td>
                 <div>
-                    <span th:if="${devis.isRemIsPercentage}" th:text="${article.reduction + ' %'}"></span>
-                    <span th:if="${!devis.isRemIsPercentage}" th:text="${article.reduction + ' ' + calculeService.devise(devis.devise)}"></span>
+                    <span th:if="${facture.isRemIsPercentage}" th:text="${article.reduction + ' %'}"></span>
+                    <span th:if="${!facture.isRemIsPercentage}" th:text="${article.reduction + ' ' + calculeService.devise(facture.devise)}"></span>
                 </div>
             </td>
-            <td th:text="${calculeService.calculht(article)+ ' ' + calculeService.devise(devis.devise)}"></td>
+            <td th:text="${calculeService.calculht(article)+ ' ' + calculeService.devise(facture.devise)}"></td>
         </tr>
         </tbody>
     </table>
@@ -246,19 +248,19 @@
                     <tbody>
                     <tr>
                         <td>Total HT :</td>
-                        <td><span class="small" th:text="${devis.totalHT} + ' ' + ${calculeService.devise(devis.devise)}"></span></td>
+                        <td><span class="small" th:text="${facture.totalHT} + ' ' + ${calculeService.devise(facture.devise)}"></span></td>
                     </tr>
                     <tr>
                         <td>Remise Générale :</td>
-                        <td><span class="small" th:text="${devis.remise}"></span></td>
+                        <td><span class="small" th:text="${facture.remise}"></span></td>
                     </tr>
-                    <tr th:each="article : ${devis.articleList}">
+                    <tr th:each="article : ${facture.articleList}">
                         <td>TVA (<span class="small" th:text="${article.tva}"></span> %) :</td>
-                        <td><span class="small" th:text="${calculeService.calculetva(article)} + ' ' + ${calculeService.devise(devis.devise)}"></span></td>
+                        <td><span class="small" th:text="${calculeService.calculetva(article)} + ' ' + ${calculeService.devise(facture.devise)}"></span></td>
                     </tr>
                     <tr>
                         <td>Total TTC:</td>
-                        <td><span class="small" th:text="${devis.totalTTC} + ' ' + ${calculeService.devise(devis.devise)}"></span></td>
+                        <td><span class="small" th:text="${facture.totalTTC} + ' ' + ${calculeService.devise(facture.devise)}"></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -270,17 +272,17 @@
     <div>
         <h4 class="label"> Conditions </h4>
 
-        <h6>Conditions de règlement : <span class="small" th:text="${devis.conditionReglement.name}"></span></h6>
-        <h6>Mode de règlement : <span class="small" th:text="${devis.modeReglement.name}"></span></h6>
-        <h6>Intérêts de retard : <span class="small" th:text="${devis.interet.name}"></span></h6>
-        <h4> Notes :<p class="small" th:text="${devis.textCond}"></p></h4>
+        <h6>Conditions de règlement : <span class="small" th:text="${facture.conditionReglement.name}"></span></h6>
+        <h6>Mode de règlement : <span class="small" th:text="${facture.modeReglement.name}"></span></h6>
+        <h6>Intérêts de retard : <span class="small" th:text="${facture.interet.name}"></span></h6>
+        <h4> Notes :<p class="small" th:text="${facture.textCond}"></p></h4>
     </div>
 
     <footer>
-        <p> <span th:text="${devis.piedPage}"></span></p>
+        <p> <span th:text="${facture.piedPage}"></span></p>
     </footer>
 
-    <h4 class="label">Conditions generales de vente<br/> <span class="small" th:text="${devis.condVente}"></span></h4>
+    <h4 class="label">Conditions generales de vente<br/> <span class="small" th:text="${facture.condVente}"></span></h4>
 </div>
 
 <!-- No Bootstrap JavaScript dependencies needed -->

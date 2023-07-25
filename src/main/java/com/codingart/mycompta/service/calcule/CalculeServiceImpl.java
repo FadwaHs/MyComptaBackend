@@ -15,33 +15,33 @@ public class CalculeServiceImpl {
 
     public double calculht(Article article) {
 
-
-        double total = 0;
-        total = article.getPrixHT() * article.getQuantity();
+        double totalArticleHT = article.getPrixHT() * article.getQuantity();
         if (article.getReduction() != 0) {
-
             if (!article.isRedIsPercentage()) {
-                total = (article.getPrixHT() * article.getQuantity()) - article.getReduction();
-            }else total=(article.getPrixHT() * article.getQuantity()) *(1- article.getReduction()/100);
-
+                totalArticleHT -= article.getReduction();
+            } else {
+                totalArticleHT *= (1 - article.getReduction() / 100);
+            }
         }
-        return total;
+        return totalArticleHT;
+
     }
 
 
     public double calculateTotalttc(Article article) {
 
 
-        double totalTTC = 0;
-        totalTTC = article.getPrixHT() * article.getQuantity();
+        double totalArticleTTC = article.getPrixHT() * article.getQuantity();
         if (article.getReduction() != 0) {
             if (!article.isRedIsPercentage()) {
-                totalTTC = (totalTTC -  article.getReduction()) * (1 + (article.getTva()/100));
-            }else totalTTC= totalTTC * (1 - article.getReduction()/100) *(1- (article.getTva()/100));
-        }else totalTTC = totalTTC * (1 +(article.getTva()/100));
-        return totalTTC;
+                totalArticleTTC -= article.getReduction();
+            } else {
+                totalArticleTTC *= (1 - article.getReduction() / 100);
+            }
+        }
+        totalArticleTTC *= (1 + article.getTva() / 100);
+        return totalArticleTTC;
     }
-
 
     public double calculetva ( Article article){
         return   calculateTotalttc(article) - calculht(article);
@@ -60,14 +60,13 @@ public class CalculeServiceImpl {
         }
     }
 
-    public String reduction(Devis devis) {
-        if (devis == null) {
-            return "";
-        }
-        if (devis.isRemIsPercentage()) {
+
+
+    public String reduction(String devise, boolean remIsPercentage) {
+        if (remIsPercentage) {
             return "%";
         }
-        return devise(devis.getDevise());
+        return devise(devise);
     }
 
 

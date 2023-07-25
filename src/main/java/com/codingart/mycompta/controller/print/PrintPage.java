@@ -2,17 +2,19 @@ package com.codingart.mycompta.controller.print;
 
 import com.codingart.mycompta.dto.DevisDto;
 import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.facture.FactureSimple;
 import com.codingart.mycompta.model.opportunite.Opportunite;
 import com.codingart.mycompta.service.bon.BonCommandeService;
 import com.codingart.mycompta.service.calcule.CalculeServiceImpl;
 import com.codingart.mycompta.service.devis.DevisService;
 import com.codingart.mycompta.service.devis.DevisServiceImpl;
+import com.codingart.mycompta.service.facture.FactureSimpleService;
 import com.codingart.mycompta.service.opportunite.OpportuniteService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
@@ -42,13 +44,16 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 @Controller
 @RequiredArgsConstructor
 public class PrintPage {
     private final DevisService devisService;
     private final CalculeServiceImpl calculeService;
-   private final TemplateEngine templateEngine;
+    private final TemplateEngine templateEngine;
+    private final FactureSimpleService factureSimpleService;
    // private final SpringTemplateEngine templateEngine; // Inject the template engine
 
 
@@ -64,40 +69,7 @@ public class PrintPage {
         return modelAndView;
     }
 */
-/*
-    @GetMapping("/api/print/devis/{id}")
-    public String printDevis2(@PathVariable("id") Long id) {
-        DevisDto devisDto = devisService.getDevis(id);
-        Context context = new Context();
-        context.setVariable("devis", devisDto);
-        context.setVariable("calculeService", calculeService);
 
-        return templateEngine.process("Devis", context);
-    }
-
-
-    @GetMapping("/api/pdf/devis/{id}")
-    public void generatePdfDevis(@PathVariable("id") Long id, HttpServletResponse response) throws Exception {
-        String renderedHtml = printDevis2(id);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ITextRenderer renderer = new ITextRenderer();
-        renderer.setDocumentFromString(renderedHtml);
-        renderer.layout();
-        renderer.createPDF(outputStream);
-        renderer.finishPDF();
-
-        // Set the response headers
-        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-        response.setHeader("Content-Disposition", "inline; filename=devis.pdf");
-
-        // Write the PDF content to the response OutputStream
-        OutputStream outStream = response.getOutputStream();
-        outputStream.writeTo(outStream);
-        outStream.flush();
-    }
-
-*/
 
 
     @GetMapping("/api/print/devis/{id}")
@@ -108,8 +80,8 @@ public class PrintPage {
         return "Devis"; // Return the template name without processing it here
     }
 
-    @GetMapping("/api/pdf/devis/{id}")
-    public void generatePdfDevis(@PathVariable("id") Long id, HttpServletResponse response) throws Exception {
+   /* @GetMapping("/api/pdf/devis/{id}")
+    public byte[] generatePdfDevis(@PathVariable("id") Long id, HttpServletResponse response) throws Exception {
         DevisDto devisDto = devisService.getDevis(id);
         Context context = new Context();
         context.setVariable("devis", devisDto);
@@ -129,7 +101,76 @@ public class PrintPage {
 
         // Set the response headers
         response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-        response.setHeader("Content-Disposition", "inline; filename=devis.pdf");
+
+        // Set the filename to ${devis.code}.pdf
+        String filename = devisDto.getCode() + ".pdf";
+        response.setHeader("Content-Disposition", "inline; filename=" + filename);
+
+        // Write the PDF content to the response OutputStream
+        OutputStream outStream = response.getOutputStream();
+        outputStream.writeTo(outStream);
+        outStream.flush();
+        // Return the PDF content as byte array
+        return outputStream.toByteArray();
+    }*/
+
+    @GetMapping("/api/pdf/devis/{id}")
+    public ResponseEntity<byte[]> generatePdfDevis(@PathVariable("id") Long id) throws Exception {
+        DevisDto devisDto = devisService.getDevis(id);
+        Context context = new Context();
+        context.setVariable("devis", devisDto);
+        context.setVariable("calculeService", calculeService);
+        String renderedHtml = templateEngine.process("Devis", context);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ITextRenderer renderer = new ITextRenderer();
+
+        // Set the base URL for resolving relative URLs
+        URL baseUrl = new ClassPathResource("templates/Devis.html").getURL();
+        renderer.setDocumentFromString(renderedHtml, baseUrl.toString());
+
+        renderer.layout();
+        renderer.createPDF(outputStream);
+        renderer.finishPDF();
+
+        // Set the filename to ${devis.code}.pdf
+        String filename = devisDto.getCode() + ".pdf";
+
+        // Convert ByteArrayOutputStream to byte[]
+        byte[] pdfBytes = outputStream.toByteArray();
+
+        // Set the response headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("inline", filename);
+
+        // Return the PDF content as ResponseEntity
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/api/pdf/factureSimple/{id}")
+    public void generatePdfFacture(@PathVariable("id") Long id, HttpServletResponse response) throws Exception {
+        FactureSimple facture = factureSimpleService.getFactureSimple(id);
+
+        Context context = new Context();
+        context.setVariable("facture", facture);
+        context.setVariable("calculeService", calculeService);
+        String renderedHtml = templateEngine.process("FactureSimple", context);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ITextRenderer renderer = new ITextRenderer();
+
+        // Set the base URL for resolving relative URLs
+        URL baseUrl = new ClassPathResource("templates/FactureSimple.html").getURL();
+        renderer.setDocumentFromString(renderedHtml, baseUrl.toString());
+
+        renderer.layout();
+        renderer.createPDF(outputStream);
+        renderer.finishPDF();
+
+        // Set the response headers
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        response.setHeader("Content-Disposition", "inline; filename=facture.pdf");
 
         // Write the PDF content to the response OutputStream
         OutputStream outStream = response.getOutputStream();

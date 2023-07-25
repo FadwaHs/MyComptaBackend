@@ -130,8 +130,7 @@ public class MyComptaApplication implements CommandLineRunner {
     @Autowired
     AddressRepository addressRepository;
 
-    @Autowired
-    private CompteBancRepository compteBancRepository;
+
     @Autowired
     PaiementRepository paiementRepository;
     @Autowired
