@@ -104,11 +104,6 @@ public class Societe {
     @OneToMany(mappedBy = "societe",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<FactureAvoir> factureAvoirList;
 
-    //    Relation between Societe and Environment
-    @ManyToOne
-    @JoinColumn(name = "environment_id")
-    private Environment environment;
-
 
     //    Relation between Societe and OPP
     @JsonBackReference("societe_opp")

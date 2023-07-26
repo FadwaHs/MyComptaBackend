@@ -1,20 +1,12 @@
 package com.codingart.mycompta.model.general_infos;
 
-import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.client.Client;
 import com.codingart.mycompta.model.client.Societe;
-import com.codingart.mycompta.model.config.Profile;
 import com.codingart.mycompta.model.fournisseur.Fournisseur;
 import com.codingart.mycompta.model.livraison.Livraison;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import com.codingart.mycompta.model.livraison.Livraison;
 
 import java.util.List;
 
@@ -37,24 +29,18 @@ public class Address {
     private String country;
 
 
-//    Relation Between Address and Profile
-    @OneToOne
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
-
-//    Relation Between Address and Client
+    // Relation Between Address and Client
     @JsonBackReference("client_address")
     @OneToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
-//    Relation Between Address and Societe
+    // Relation Between Address and Societe
     @JsonBackReference("societe_address")
     @OneToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
 
-    //+
 
     //    Relation Between Address and Client
     @JsonBackReference("fournisseur_address")
@@ -62,18 +48,11 @@ public class Address {
     @JoinColumn(name = "fournisseur_id")
     private Fournisseur fournisseur;
 
-    // Relation Between Address and Livraison
-    //@JsonBackReference("livraison_address")
-   // @OneToMany(mappedBy = "adresseLivraison",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    //private List<Livraison> livraisonList;
 
     @JsonBackReference("livraison_address")
     @OneToOne
     @JoinColumn(name = "livraison_id")
     private Livraison livraison;
-
-
-    //+
 
 
 }
