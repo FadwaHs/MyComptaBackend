@@ -2,6 +2,8 @@ package com.codingart.mycompta.service.calcule;
 
 import com.codingart.mycompta.model.article.Article;
 import com.codingart.mycompta.model.devis.Devis;
+import com.codingart.mycompta.model.facture.Facture;
+import com.codingart.mycompta.model.facture.FactureAcompte;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
@@ -69,5 +71,23 @@ public class CalculeServiceImpl {
         return devise(devise);
     }
 
+    public String calclulTVAPer(Facture facture) {
+        double montantTVA = facture.getTotalTTC() - facture.getTotalHT();
+        double pourcentageTVA = (montantTVA * 100) / facture.getTotalHT();
+        return pourcentageTVA+"%";
+    }
 
+    public String calculMontant(FactureAcompte facture, double montant) {
+        double pourcentage;
+        if (facture.isMonIsPercentage()) {
+            pourcentage = facture.getMontantPayed();
+        } else {
+            pourcentage = (facture.getMontantPayed() * 100) / montant;
+        }
+
+        // Arrondir le pourcentage à deux décimales
+        String pourcentageArrondi = String.format("%.2f", pourcentage);
+
+        return pourcentageArrondi + " %";
+    }
 }

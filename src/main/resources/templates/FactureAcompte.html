@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Facture Acompte</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+
+    .text-center {
+      text-align: center;
+    }
+    /* Styles pour le div du destinataire */
+    .inline-div.destinataire {
+      flex: 1;
+      padding: 10px;
+
+    }
+
+    /* Styles pour le div de l'émetteur */
+    .inline-div.emetteur {
+      flex: 1;
+      padding: 10px;
+    }
+
+    /* Styles pour le label */
+    .label {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Styles pour les h6 */
+    .inline-div h6 {
+      margin: 5px 0;
+    }
+
+    /* Styles pour les spans */
+    .inline-div span {
+      font-weight: normal;
+    }
+
+    /* Réduire la taille de la police pour les petites informations */
+    .small {
+      font-size: 12px;
+      color: #666;
+    }
+
+
+    /* Container principal */
+    .container {
+      display: flex;
+      justify-content: space-between; /* Les div seront placés côte à côte avec un espace entre eux */
+    }
+
+    /* Div du destinataire */
+    .inline-div.destinataire {
+      display: inline-block;
+      flex: 1; /* Div prendra une part égale de l'espace disponible */
+    }
+
+
+
+
+    .label {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .table th, .table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+
+    .table thead th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    .table-secondary th, .table-secondary td {
+      background-color: #f7f7f7;
+    }
+
+    .small {
+      font-size: 14px;
+    }
+
+
+    /* Ajoutez des styles pour le pied de page */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+
+      padding: 5px; /* Réduisez la taille du padding pour réduire l'espace */
+
+      font-size: 8px; /* Réduisez la taille de la police pour réduire l'espace */
+      color: #888;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .col {
+      flex: 1;
+      padding: 10px;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+    .inline-div {
+      display: inline-block;
+      width: 46%; /* Vous pouvez ajuster la largeur selon vos besoins */
+    }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <h5 class="text-center">Facture Acompte <span th:text="${facture.code}"></span></h5>
+  <h6 class="text-center" th:text="${#dates.format(facture.date, 'dd-MM-yyyy')}"></h6>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="inline-div emetteur">
+        <h5 class="label">Emetteur </h5>
+        <h6><span>Votre contact :</span> <span>Nom du contact</span></h6>
+        <h6><span>Adresse :</span> <span>Adresse de l'émetteur</span></h6>
+        <h6><span>Pays :</span> <span>Pays de l'émetteur</span></h6>
+        <h6><span>Adresse email :</span> <span>Email de l'émetteur</span></h6>
+      </div>
+      <div class="inline-div destinataire">
+        <h5 class="label">Destinataire</h5>
+        <div th:if="${facture.devis.client != null}">
+          <h6>
+            <span th:if="${facture.devis.client.societe == null}">Client:</span>
+            <span th:if="${facture.devis.client.societe != null}">Client/Societe:</span>
+            <span class="small" th:text="${facture.devis.client.firstName + ' ' + facture.devis.client.lastName}"></span>
+          </h6>
+          <h6 th:if="${facture.devis.client.societe == null}">
+            <span>Adresse:</span>
+            <span class="small" th:text="${facture.devis.client?.address?.address != null ? facture.devis.client.address.address : ''}"></span>
+          </h6>
+          <h6 th:if="${facture.devis.client.societe == null}">
+            <span>Pays:</span>
+            <span class="small" th:text="${facture.devis.client?.address?.country != null ? facture.devis.client.address.country : ''}"></span>
+          </h6>
+          <h6>
+            <span>Numero de Telephone :</span>
+            <span class="small" th:text="${facture.devis.client.phoneList.size() > 0 ? facture.devis.client.phoneList[0].phoneNumber : ''}"></span>
+          </h6>
+          <h6><span>Adresse email:</span> <span class="small" th:text="${facture.devis.client.email}"></span></h6>
+          <h6 th:if="${facture.devis.client.societe}">
+            <span>Societe:</span> <span class="small" th:text="${facture.devis.client.societe.name}"></span>
+          </h6>
+          <h6 th:if="${facture.devis.client.societe}">
+            <span>Adresse:</span>
+            <span class="small" th:text="${facture.devis.client.societe?.address?.address != null ? facture.devis.client.societe.address.address : ''}"></span>
+          </h6>
+          <h6 th:if="${facture.devis.client.societe}">
+            <span>Pays:</span>
+            <span class="small" th:text="${facture.devis.client.societe?.address?.country != null ? facture.devis.client.societe.address.country : ''}"></span>
+          </h6>
+          <h6 th:if="${facture.devis.client.societe}">
+            <span>Adresse email:</span> <span class="small" th:text="${facture.devis.client.societe.website}"></span>
+          </h6>
+        </div>
+        <div th:if="${facture.devis.societe}">
+          <h6><span>Societe:</span> <span class="small" th:text="${facture.devis.societe.name}"></span></h6>
+          <h6><span>Adresse:</span> <span class="small" th:text="${facture.devis.societe?.address?.address != null ? facture.devis.societe.address.address : ''}"></span></h6>
+          <h6><span>Pays:</span> <span class="small" th:text="${facture.devis.societe?.address?.country != null ? facture.devis.societe.address.country : ''}"></span></h6>
+          <h6><span>Web Site:</span> <span class="small" th:text="${facture.devis.societe.website}"></span></h6>
+          <h6><span>SIREN/ICE:</span><span class="small" th:text="${facture.devis.societe.siren}"></span></h6>
+          <h6><span>Numero TVA:</span><span class="small" th:text="${facture.devis.societe.ntva}"></span></h6>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+      <h4 class="label"  >Description</h4>
+      <p> <span th:text="${facture.textIntro}"></span></p>
+    </div>
+
+
+    <table class="table">
+      <thead class="table-secondary">
+      <tr>
+        <th class="table-secondary">Description</th>
+        <th class="table-secondary">Total HT</th>
+        <th class="table-secondary">TVA</th>
+        <th class="table-secondary">Total TTC</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          Acompte de <span th:text="${calculeService.calculMontant(facture,facture.devis.totalTTC)}"></span>  pour le devis <span th:text="${facture.devis.code}"></span> de <span th:text="${facture.devis.totalHT + ' ' + calculeService.devise(facture.devis.devise)}"></span>
+        </td>
+        <td th:text="${facture.totalHT + ' ' + calculeService.devise(facture.devis.devise)}"></td>
+        <td th:text="${calculeService.calclulTVAPer(facture)}"></td>
+        <td th:text="${facture.totalTTC + ' ' + calculeService.devise(facture.devis.devise)}"></td>
+      </tr></tbody>
+    </table>
+  </div></div>
+</body>
+</html>

@@ -196,7 +196,9 @@
                     <h6><span>Societe:</span> <span class="small" th:text="${devis.societe.name}"></span></h6>
                     <h6><span>Adresse:</span> <span class="small" th:text="${devis.societe?.address?.address != null ? devis.societe.address.address : ''}"></span></h6>
                     <h6><span>Pays:</span> <span class="small" th:text="${devis.societe?.address?.country != null ? devis.societe.address.country : ''}"></span></h6>
-                    <h6><span>Adresse email:</span> <span class="small" th:text="${devis.societe.website}"></span></h6>
+                    <h6><span>Site Web:</span> <span class="small" th:text="${devis.societe.website}"></span></h6>
+                    <h6><span>SIREN/ICE:</span><span class="small" th:text="${devis.societe.siren}"></span></h6>
+                    <h6><span>Numero TVA:</span><span class="small" th:text="${devis.societe.ntva}"></span></h6>
                 </div>
             </div>
         </div>
@@ -250,7 +252,11 @@
                     </tr>
                     <tr>
                         <td>Remise Générale :</td>
-                        <td><span class="small" th:text="${devis.remise}"></span></td>
+                        <td><div>
+                            <span class="small" th:if="${devis.isRemIsPercentage}" th:text="${devis.remise + ' %'}"></span>
+                            <span class="small" th:if="${!devis.isRemIsPercentage}" th:text="${devis.remise + ' ' + calculeService.devise(devis.devise)}"></span>
+                        </div>
+                        </td>
                     </tr>
                     <tr th:each="article : ${devis.articleList}">
                         <td>TVA (<span class="small" th:text="${article.tva}"></span> %) :</td>
