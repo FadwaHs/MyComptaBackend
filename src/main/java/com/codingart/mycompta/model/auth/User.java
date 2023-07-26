@@ -1,10 +1,5 @@
 package com.codingart.mycompta.model.auth;
 
-import com.codingart.mycompta.model.article.Article;
-import com.codingart.mycompta.model.environment.Environment;
-import com.codingart.mycompta.model.config.Profile;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,6 +14,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +26,8 @@ public class User {
     private String email;
     @NotBlank(message = "Password may not be blank")
     private String password;
+    @NotBlank(message = "username may not be blank")
+    private String username;
     @ColumnDefault("false")
     private boolean isNotified;
     @ColumnDefault("false")
@@ -36,20 +35,6 @@ public class User {
     @ColumnDefault("false")
     private boolean isValidated;
 
-
-//     relation between User and profile
-    @OneToOne
-    @JoinColumn(name = "profile_id")
-Profile profile ;
-
-//    Indirect relation between User with Environment
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
-    private List<Environment> environmentList;
-
-
-//    relation between User and membre
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Membre> membreList;
-
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roleList;
 }

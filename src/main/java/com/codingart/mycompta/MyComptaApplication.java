@@ -37,6 +37,7 @@ import com.codingart.mycompta.repository.fournisseur.FournisseurRepository;
 import com.codingart.mycompta.repository.general_infos.AddressRepository;
 import com.codingart.mycompta.repository.general_infos.PhoneRepository;
 import com.codingart.mycompta.repository.livraison.LivraisonRepository;
+import com.codingart.mycompta.service.auth.AccountService;
 import com.codingart.mycompta.service.facture.FactureAcompteService;
 import com.codingart.mycompta.service.facture.FactureSimpleService;
 import com.codingart.mycompta.util.FormatService;
@@ -151,51 +152,22 @@ public class MyComptaApplication implements CommandLineRunner {
     @Transactional
     @Override
     public void run(String... args) throws Exception {
-        // this.formatService.createFormat(new Date(),"D");
-       // this.test();
-        //testFacture();
 
+        /* accountService.AddNewRole("Admin");
+         accountService.AddNewRole("Manager");
+         accountService.AddNewRole("Commercial");
+         accountService.AddNewRole("Collaborateur");
+         accountService.AddNewRole("Expert");
+
+         accountService.AddNewUser("User1", "12345","User@gmail.com","12345");
+         accountService.AddNewUser("admin", "12345","Admin@gmail.com","12345");
+
+         accountService.addRoletoUser("User1","Commercial");
+         accountService.addRoletoUser("admin","Admin"); */
     }
 
-    public void testFacture(){
-
-        Fournisseur fournisseur = new Fournisseur();
-        fournisseur= fournisseurRepository.findById(2L).orElseThrow();
 
 
-        Article a2 = new Article();
-        TypeArticle t = new TypeArticle();
-        a2.setDescription("dell2");
-
-        t = typeArticleRepository.findById(1L).orElseThrow();
-        a2.setTypeArticle(t);
-        a2.setQuantity(8);
-        a2.setPrixHT(19);
-
-       AvoireFournisseur avoireFournisseur = new AvoireFournisseur();
-        avoireFournisseur.setFournisseur(fournisseur);
-        avoireFournisseur.setDevise("EUR");
-        avoireFournisseur.setStatus(AvoireFournisseurStatus.DRAFT);
-
-        a2.setAvoireFournisseur(avoireFournisseur);
-
-        avoirFournisseurRepository.save(avoireFournisseur);
-
-        articleRepository.save(a2);
-    }
-
-    public void test(){
-         //add Article
-        Article a = new Article();
-        TypeArticle t = new TypeArticle();
-        a.setDescription("dell");
-
-        t = typeArticleRepository.findById(1L).orElseThrow();
-        a.setTypeArticle(t);
-        a.setQuantity(3);
-        a.setPrixHT(10);
-        articleRepository.save(a);
-    }
 
 
 

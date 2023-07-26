@@ -113,11 +113,6 @@ public class Client {
     @JoinColumn(name = "societe_id")
     private Societe societe;
 
-     //    Relation between Client and Environment
-    @ManyToOne
-    @JoinColumn(name = "environment_id")
-    private Environment environment;
-
 
     @PostLoad
     public void initializeCollections() {
