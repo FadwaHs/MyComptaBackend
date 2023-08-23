@@ -5,6 +5,7 @@ import com.codingart.mycompta.model.auth.User;
 
 public interface AccountService {
 
+
     User AddNewUser(String username, String password , String email , String confirmPassword);
     Role AddNewRole(String roleName);
     void addRoletoUser(String username, String roleName);
@@ -13,8 +14,5 @@ public interface AccountService {
     User loadUserByUsername(String username);
 
     User loadUserByEmail(String email);
-
-
-
 
 }
